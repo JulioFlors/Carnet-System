@@ -1,0 +1,11 @@
+# Ignorar Modulos npm
+node_modules/
+
+# Ignorar Carpeta dist
+dist/
+
+# Ignorar Carpeta sql
+sql/
+
+# Ignorar Variables de Entorno
+.env 
