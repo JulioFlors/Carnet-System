@@ -15,28 +15,38 @@ const User = sequelize.define('users', {
     },
 
     username: {
-        type: Sequelize.STRING(20), 
+        type: Sequelize.STRING(20),
         allowNull: false,
-        unique: true
+        unique: true,
+        notEmpty: true
     },
 
     password: {
-        type: Sequelize.STRING(255), 
-        allowNull: false
+        type: Sequelize.STRING(255),
+        allowNull: false,
+        notEmpty: true
     },
 
     permission: {
-        type: Sequelize.STRING(5), 
+        type: Sequelize.STRING(5),
         allowNull: false,
-        isLowercase: true,
-        isIn: [['admin', 'edit', 'read']],
-    } 
+        isIn: [
+            ['Admin', 'Edit', 'Read']
+        ],
+        notEmpty: true
+    }
 }, {
     timestamps: true
 });
- 
-User.hasMany(Carnet, { foreignKey: 'id_user', sourceKey: 'id' });
 
-Carnet.belongsTo(User, { foreignKey: 'id_user', sourceKey: 'id' });
+User.hasMany(Carnet, {
+    foreignKey: 'id_user',
+    sourceKey: 'id'
+});
+
+Carnet.belongsTo(User, {
+    foreignKey: 'id_user',
+    sourceKey: 'id'
+});
 
 export default User;

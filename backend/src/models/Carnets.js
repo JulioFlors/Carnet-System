@@ -3,7 +3,7 @@ import {
     sequelize
 } from '../database/databse'
 
-export const Carnet = sequelize.define('carnets', {
+const Carnet = sequelize.define('carnets', {
 
     id: {
         type: Sequelize.INTEGER,
@@ -11,11 +11,13 @@ export const Carnet = sequelize.define('carnets', {
         allowNull: false,
         unique: true
     },
+
     cedula: {
         type: Sequelize.INTEGER,
         allowNull: false,
         unique: true
     },
+
     id_user: {
         type: Sequelize.INTEGER,
         allowNull: false
@@ -23,3 +25,5 @@ export const Carnet = sequelize.define('carnets', {
 }, {
     timestamps: true
 });
+
+export default Carnet;
