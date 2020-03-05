@@ -3,23 +3,23 @@ import {
     sequelize
 } from '../database/databse'
 
-const Carnet = sequelize.define('carnets', {
+const Foreign_Carnet = sequelize.define('foreign_carnets', {
 
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         unique: true,
-        isNumeric: true, // will only allow numbers
-        isInt: true, // checks for valid integers
+        isNumeric: true,
+        isInt: true,
     },
 
     cedula: {
         type: Sequelize.INTEGER,
         allowNull: false,
         unique: true,
-        isNumeric: true, // will only allow numbers
-        isInt: true, // checks for valid integers
+        isNumeric: true,
+        isInt: true,
     },
 
     date_of_issue: {
@@ -37,11 +37,11 @@ const Carnet = sequelize.define('carnets', {
     id_user: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        isNumeric: true, // will only allow numbers
-        isInt: true, // checks for valid integers
+        isNumeric: true,
+        isInt: true,
     }
 }, {
     timestamps: false
 });
 
-export default Carnet;
+export default Foreign_Carnet;
