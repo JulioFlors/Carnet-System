@@ -29,17 +29,13 @@ export async function createUser(req, res) {
 
 export async function getUsers(req, res) {
 
-    console.log(User.associations);
-
-    await User.findAll({
-        include: 'carnets'
-    }).then((result) => {
+    await User.findAll().then((result) => {
         res.json({
             data: result
         })
     }).catch((err) => {
         console.log(err);
-    });
+    })
 };
 
 export async function updateUser(req, res) {

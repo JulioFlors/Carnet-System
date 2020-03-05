@@ -10,16 +10,16 @@ const Carnet = sequelize.define('carnets', {
         primaryKey: true,
         allowNull: false,
         unique: true,
-        isNumeric: true, // will only allow numbers
-        isInt: true, // checks for valid integers
+        isNumeric: true,
+        isInt: true,
     },
 
     cedula: {
         type: Sequelize.INTEGER,
         allowNull: false,
         unique: true,
-        isNumeric: true, // will only allow numbers
-        isInt: true, // checks for valid integers
+        isNumeric: true,
+        isInt: true,
     },
 
     date_of_issue: {
@@ -37,8 +37,8 @@ const Carnet = sequelize.define('carnets', {
     id_user: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        isNumeric: true, // will only allow numbers
-        isInt: true, // checks for valid integers
+        isNumeric: true,
+        isInt: true,
     }
 }, {
     timestamps: false
