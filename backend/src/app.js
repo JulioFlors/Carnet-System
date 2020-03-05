@@ -18,6 +18,6 @@ app.use(json());
 
 // Routes
 app.use('/api/users', userRoutes);
-app.use('/api/users', carnetRoutes); 
+app.use('/api/carnets', carnetRoutes); 
 
 export default app;

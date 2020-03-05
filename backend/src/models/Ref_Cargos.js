@@ -30,12 +30,12 @@ const Ref_Cargos = sequelize.define('ref_cargos', {
 });
 
 Ref_Cargos.hasMany(Rac, {
-    foreignKey: 'cod_cargo',
+    foreignKey: 'cod_car',
     sourceKey: 'cod_cargo'
 });
 
 Rac.belongsTo(Ref_Cargos, {
-    foreignKey: 'cod_cargo',
+    foreignKey: 'cod_car',
     sourceKey: 'cod_cargo'
 });
 

@@ -35,7 +35,7 @@ const Rac = sequelize.define('rac', {
         allowNull: false
     },
 
-    cod_cargo: {
+    cod_car: {
         type: Sequelize.INTEGER,
         allowNull: false
     },

@@ -18,12 +18,24 @@ const Carnet = sequelize.define('carnets', {
         unique: true
     },
 
+    date_of_issue: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        isAfter: "2020-01-01",
+    },
+
+    date_of_expiration: {
+        type: Sequelize.DATEONLY,
+        allowNull: false,
+        isAfter: "2020-11-01",
+    },
+
     id_user: {
         type: Sequelize.INTEGER,
         allowNull: false
     }
 }, {
-    timestamps: true
+    timestamps: false
 });
 
 export default Carnet;

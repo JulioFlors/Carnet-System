@@ -30,13 +30,13 @@ const User = sequelize.define('users', {
     permission: {
         type: Sequelize.STRING(5),
         allowNull: false,
+        notEmpty: true,
         isIn: [
             ['Admin', 'Edit', 'Read']
-        ],
-        notEmpty: true
-    }
+        ]
+    },
 }, {
-    timestamps: true
+    timestamps: false
 });
 
 User.hasMany(Carnet, {

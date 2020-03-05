@@ -6,57 +6,42 @@ import {
 import Carnet from './Carnets'
 import Rac from './Rac'
 
-const Mae_Datos_Person = sequelize.define('mae_datos_person', {
+const Staff = sequelize.define('staff', {
 
-    id_person: {
+    id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         unique: true
-    }, 
+    },
 
     cedula: {
         type: Sequelize.INTEGER,
-        allowNull: false, 
+        allowNull: false,
         unique: true
     },
 
-    p_nombre: {
-        type: Sequelize.STRING(15),
-        allowNull: false, 
+    first_name: {
+        type: Sequelize.STRING(50),
+        allowNull: false,
         notEmpty: true,
         isAlpha: true
     },
 
-    s_nombre: {
-        type: Sequelize.STRING(15),
-        allowNull: false, 
+    last_name: {
+        type: Sequelize.STRING(50),
+        allowNull: false,
         notEmpty: true,
         isAlpha: true
     },
 
-    p_apellido: {
-        type: Sequelize.STRING(15),
-        allowNull: false, 
-        notEmpty: true,
-        isAlpha: true,
-        isAlpha: true
-    },
-
-    s_apellido: {
-        type: Sequelize.STRING(15),
-        allowNull: false, 
-        notEmpty: true,
-        isAlpha: true
-    },
-
-    grupo_sang: {
+    blood_type: {
         type: Sequelize.STRING(10),
         allowNull: false,
         notEmpty: true
     },
 
-    cod_unidad: {
+    code_dep: {
         type: Sequelize.INTEGER,
         allowNull: false
     }
@@ -64,24 +49,24 @@ const Mae_Datos_Person = sequelize.define('mae_datos_person', {
     timestamps: false
 });
 
-Mae_Datos_Person.HasOne(Carnet, {
+Staff.HasOne(Carnet, {
     foreignKey: 'cedula',
     sourceKey: 'cedula'
 });
 
-Carnet.HasOne(Mae_Datos_Person, {
+Carnet.HasOne(Staff, {
     foreignKey: 'cedula',
     sourceKey: 'cedula'
 });
 
-Mae_Datos_Person.HasOne(Rac, {
+Staff.HasOne(Rac, {
     foreignKey: 'cedula',
     sourceKey: 'cedula'
 });
 
-Rac.HasOne(Mae_Datos_Person, {
+Rac.HasOne(Staff, {
     foreignKey: 'cedula',
     sourceKey: 'cedula'
 });
 
-export default Mae_Datos_Person;
+export default Staff;
