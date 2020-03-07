@@ -17,7 +17,9 @@ const Foreign_Person = sequelize.define('foreign_persons', {
     cedula: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        unique: true
+        unique: true,
+        isNumeric: true,
+        isInt: true,
     },
 
     first_name: {
@@ -40,20 +42,27 @@ const Foreign_Person = sequelize.define('foreign_persons', {
         notEmpty: true
     },
 
-    code_dep: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+    department: {
+        type: Sequelize.STRING(255),
+        allowNull: false,
+        notEmpty: true
+    },
+
+    job_title: {
+        type: Sequelize.STRING(255),
+        allowNull: false,
+        notEmpty: true
     }
 }, {
     timestamps: false
 });
 
-Foreign_Person.HasOne(Foreign_Carnet, {
+Foreign_Person.hasOne(Foreign_Carnet, {
     foreignKey: 'cedula',
     sourceKey: 'cedula'
 });
 
-Foreign_Carnet.HasOne(Foreign_Person, {
+Foreign_Carnet.hasOne(Foreign_Person, {
     foreignKey: 'cedula',
     sourceKey: 'cedula'
 });

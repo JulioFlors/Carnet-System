@@ -1,12 +1,12 @@
-import Staff from '../models/Staff'
+import Department from '../models/Departments'
 
-export async function getStaff(req, res) {
+export async function getDepartments(req, res) {
 
-    console.log(Staff.associations);
+    console.log(Department.associations);
 
-    await Staff.findAll({
+    await Department.findAll({
         order: [
-            ['id', 'ASC'],
+            ['code_dep', 'ASC'],
         ]
     }).then((result) => {
         res.json({

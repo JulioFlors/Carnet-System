@@ -3,15 +3,14 @@ import Sequelize from 'sequelize';
 export const sequelize = new Sequelize(
     'CarnetDB',
     'postgres',
-    'admin',
-    {
+    'admin', {
         host: 'localhost',
         port: 5432,
         dialect: 'postgres',
         timezone: '-4:00',
         timestamps: false,
         pool: {
-            max:5,
+            max: 5,
             min: 0,
             require: 30000,
             idle: 10000

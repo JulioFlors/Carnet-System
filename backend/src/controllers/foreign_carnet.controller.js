@@ -1,10 +1,10 @@
-import Staff from '../models/Staff'
+import Foreign_Carnet from '../models/Foreign_Carnets';
 
-export async function getStaff(req, res) {
+export async function getForeign_Carnets(req, res) {
 
-    console.log(Staff.associations);
+    console.log(Foreign_Carnet.associations);
 
-    await Staff.findAll({
+    await Foreign_Carnet.findAll({
         order: [
             ['id', 'ASC'],
         ]
@@ -18,5 +18,5 @@ export async function getStaff(req, res) {
             message: 'Something goes wrong',
             data: {}
         });
-    });
+    })
 };

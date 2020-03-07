@@ -49,22 +49,22 @@ const Staff = sequelize.define('staff', {
     timestamps: false
 });
 
-Staff.HasOne(Carnet, {
+Staff.hasOne(Carnet, {
     foreignKey: 'cedula',
     sourceKey: 'cedula'
 });
 
-Carnet.HasOne(Staff, {
+Carnet.hasOne(Staff, {
     foreignKey: 'cedula',
     sourceKey: 'cedula'
 });
 
-Staff.HasOne(Rac, {
+Staff.hasOne(Rac, {
     foreignKey: 'cedula',
     sourceKey: 'cedula'
 });
 
-Rac.HasOne(Staff, {
+Rac.hasOne(Staff, {
     foreignKey: 'cedula',
     sourceKey: 'cedula'
 });

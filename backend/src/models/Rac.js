@@ -5,44 +5,59 @@ import {
 
 const Rac = sequelize.define('rac', {
 
-    id_rac: {
+    id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         unique: true
     },
 
+    year: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        isNumeric: true,
+        isInt: true
+    },
+
     cedula: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        unique: true
+        unique: true,
+        isNumeric: true,
+        isInt: true
     },
 
-    nombres: {
+    first_name: {
         type: Sequelize.STRING(50),
         allowNull: false,
-        notEmpty: true
+        notEmpty: true,
+        isAlpha: true
     },
 
-    apellidos: {
+    last_name: {
         type: Sequelize.STRING(50),
         allowNull: false,
-        notEmpty: true
+        notEmpty: true,
+        isAlpha: true
     },
 
-    sue_bas: {
+    salary: {
         type: Sequelize.FLOAT(2),
         allowNull: false
     },
 
-    cod_car: {
+    code_pos: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        isNumeric: true,
+        isInt: true
     },
 
-    cod_dep: {
+    code_dep: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        isNumeric: true,
+        isInt: true
     }
 }, {
     timestamps: false

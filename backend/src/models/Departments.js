@@ -6,7 +6,7 @@ import {
 import Staff from './Staff'
 import Rac from './Rac'
 
-const Departments = sequelize.define('departments', {
+const Department = sequelize.define('departments', {
 
     code_dep: {
         type: Sequelize.INTEGER,
@@ -25,31 +25,31 @@ const Departments = sequelize.define('departments', {
     year: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        isNumeric: true, // will only allow numbers
-        isInt: true, // checks for valid integers
+        isNumeric: true,
+        isInt: true
     }
 }, {
     timestamps: false
 });
 
-Departments.hasMany(Staff, {
+Department.hasMany(Staff, {
     foreignKey: 'code_dep',
     sourceKey: 'code_dep'
 });
 
-Staff.belongsTo(Departments, {
+Staff.belongsTo(Department, {
     foreignKey: 'code_dep',
     sourceKey: 'code_dep'
 });
 
-Departments.hasMany(Rac, {
+Department.hasMany(Rac, {
     foreignKey: 'code_dep',
     sourceKey: 'code_dep'
 });
 
-Rac.belongsTo(Departments, {
+Rac.belongsTo(Department, {
     foreignKey: 'code_dep',
     sourceKey: 'code_dep'
 });
 
-export default Departments;
+export default Department;

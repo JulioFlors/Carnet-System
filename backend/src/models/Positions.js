@@ -5,15 +5,15 @@ import {
 
 import Rac from './Rac'
 
-const Positions = sequelize.define('positions', {
+const Position = sequelize.define('positions', {
 
     code_pos: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         unique: true,
-        isNumeric: true, // will only allow numbers
-        isInt: true, // checks for valid integers
+        isNumeric: true,
+        isInt: true
     },
 
     description: {
@@ -21,26 +21,19 @@ const Positions = sequelize.define('positions', {
         allowNull: false,
         unique: true,
         notEmpty: true
-    },
-
-    grade: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        isNumeric: true, // will only allow numbers
-        isInt: true, // checks for valid integers
     }
 }, {
     timestamps: false
 });
 
-Positions.hasMany(Rac, {
+Position.hasMany(Rac, {
     foreignKey: 'code_pos',
     sourceKey: 'code_pos'
 });
 
-Rac.belongsTo(Positions, {
+Rac.belongsTo(Position, {
     foreignKey: 'code_pos',
     sourceKey: 'code_pos'
 });
 
-export default Positions;
+export default Position;
