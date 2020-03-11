@@ -33,8 +33,6 @@ export async function getUsers(req, res) {
 
     await User.findAll({
 
-        include: 'carnets',
-
         order: [
             ['id', 'ASC'],
         ]
@@ -101,7 +99,6 @@ export async function deleteUser(req, res) {
             id
         }
     }).then((result) => {
-        console.log(result);
         res.json({
             message: 'User Deleted Successfuly'
         });
