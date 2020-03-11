@@ -4,8 +4,7 @@ import express, {
 
 import morgan from 'morgan'
 
-// Environment Variables
-require('dotenv').config();
+import exphbs from 'express-handlebars'
 
 // Modules para Multer
 import multer from 'multer'
@@ -14,17 +13,12 @@ import {
     v4 as uuidv4
 } from 'uuid';
 
+// Environment Variables
+require('dotenv').config();
+
 // Importing Routes
-import racRoutes from './routes/rac.routes'
-import formRoutes from './routes/form.routes'
-import userRoutes from './routes/users.routes'
-import staffRoutes from './routes/staff.routes'
-import photoRoutes from './routes/photos.routes'
-import carnetRoutes from './routes/carnets.routes'
-import positionRoutes from './routes/positions.routes'
-import departmenRoutes from './routes/departments.routes'
-import foreign_CarnetRoutes from './routes/foreign_carnets.routes'
-import foreign_personRoutes from './routes/foreign_persons.routes'
+import apiRoutes from './routes/api.routes'
+import apiRoutes from './routes/api.routes'
 
 // Initializations
 const app = express();
@@ -32,6 +26,13 @@ const app = express();
 // Settings
 app.set('port', process.env.PORT || 4000);
 app.set('views', path.join(__dirname, 'views'));
+app.engine('.hbs', exphbs({
+    defaultLayout: 'main',
+    layoutsDir: path.join(app.get('views'), 'layouts'),
+    partialsDir: path.join(app.get('views'), 'partials'),
+    extname: '.hbs'
+}));
+app.set('view engine', '.hbs');
 app.set('json spaces', 4);
 
 // Middlewares
@@ -64,17 +65,9 @@ app.use(multer({
     }
 }).single('image'));
 
-// Routes
-app.use('/api/rac', racRoutes);
-app.use('/api/form', formRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/staff', staffRoutes);
-app.use('/api/photos', photoRoutes);
-app.use('/api/carnets', carnetRoutes);
-app.use('/api/positions', positionRoutes);
-app.use('/api/departmens', departmenRoutes);
-app.use('/api/foreign_carnets', foreign_CarnetRoutes);
-app.use('/api/foreign_persons', foreign_personRoutes);
+
+// Routes -> API Rest -> EndPoint : /api/users -> EndPoint : /api/staff -> EndPoint : /api/form 
+app.use('/', apiRoutes);
 
 // Static Files
 app.use(express.static(path.join(__dirname, 'public')));
