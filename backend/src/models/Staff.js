@@ -5,6 +5,7 @@ import {
 
 import Carnet from './Carnets'
 import Rac from './Rac'
+import Photo from './Photos'
 
 const Staff = sequelize.define('staff', {
 
@@ -65,6 +66,16 @@ Staff.hasOne(Rac, {
 });
 
 Rac.hasOne(Staff, {
+    foreignKey: 'cedula',
+    sourceKey: 'cedula'
+});
+
+Staff.hasOne(Photo, {
+    foreignKey: 'cedula',
+    sourceKey: 'cedula'
+});
+
+Photo.hasOne(Staff, {
     foreignKey: 'cedula',
     sourceKey: 'cedula'
 });

@@ -19,7 +19,7 @@ const Foreign_Person = sequelize.define('foreign_persons', {
         allowNull: false,
         unique: true,
         isNumeric: true,
-        isInt: true,
+        isInt: true
     },
 
     first_name: {

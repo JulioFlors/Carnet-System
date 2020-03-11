@@ -10,7 +10,6 @@ import {
     deleteUser
 } from '../controllers/user.controller'
 
-
 // EndPoint : /api/users
 router.post('/', createUser);
 router.get('/', getUsers);

@@ -5,20 +5,22 @@ import express, {
 import morgan from 'morgan'
 
 // Importing Routes
-import ractRoutes from './routes/rac'
-import formRoutes from './routes/form'
-import userRoutes from './routes/users'
-import staffRoutes from './routes/staff'
-import carnetRoutes from './routes/carnets'
-import positionRoutes from './routes/positions'
-import departmenRoutes from './routes/departments'
-import foreign_CarnetRoutes from './routes/foreign_carnets'
-import foreign_personRoutes from './routes/foreign_persons'
+import ractRoutes from './routes/rac.routes'
+import formRoutes from './routes/form.routes'
+import userRoutes from './routes/users.routes'
+import staffRoutes from './routes/staff.routes'
+// import photoRoutes from './routes/photos.routes'
+import carnetRoutes from './routes/carnets.routes'
+import positionRoutes from './routes/positions.routes'
+import departmenRoutes from './routes/departments.routes'
+import foreign_CarnetRoutes from './routes/foreign_carnets.routes'
+import foreign_personRoutes from './routes/foreign_persons.routes'
 
-// Initialization
+// Initializations
 const app = express();
+// import './config/multer'
 
-// settings
+// Settings
 app.set('port', 4000);
 app.set('json spaces', 4);
 
@@ -31,10 +33,14 @@ app.use('/api/rac', ractRoutes);
 app.use('/api/form', formRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/staff', staffRoutes);
+// app.use('/api/photos', photoRoutes);
 app.use('/api/carnets', carnetRoutes);
 app.use('/api/positions', positionRoutes);
 app.use('/api/departmens', departmenRoutes);
 app.use('/api/foreign_carnets', foreign_CarnetRoutes);
 app.use('/api/foreign_persons', foreign_personRoutes);
+
+// Static Files
+// app.use(express.static(path.join(__dirname, 'backend/public')));
 
 export default app;

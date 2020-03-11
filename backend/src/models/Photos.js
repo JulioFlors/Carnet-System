@@ -3,7 +3,7 @@ import {
     sequelize
 } from '../database/databse'
 
-const Carnet = sequelize.define('carnets', {
+const Photo = sequelize.define('photos', {
 
     id: {
         type: Sequelize.INTEGER,
@@ -11,30 +11,43 @@ const Carnet = sequelize.define('carnets', {
         allowNull: false,
         unique: true,
         isNumeric: true,
-        isInt: true
+        isInt: true,
     },
 
     cedula: {
         type: Sequelize.INTEGER,
+        primaryKey: true,
         allowNull: false,
         unique: true,
         isNumeric: true,
-        isInt: true
+        isInt: true,
     },
 
-    date_of_issue: {
-        type: Sequelize.DATE,
+    filename: {
+        type: Sequelize.STRING(100),
         allowNull: false,
-        isAfter: "2020-01-01"
+        notEmpty: true
     },
 
-    date_of_expiration: {
-        type: Sequelize.DATEONLY,
+    path: {
+        type: Sequelize.STRING(100),
         allowNull: false,
-        isAfter: "2020-11-01"
+        notEmpty: true
     },
 
-    id_user: {
+    originalname: {
+        type: Sequelize.STRING(100),
+        allowNull: false,
+        notEmpty: true
+    },
+
+    mimetype: {
+        type: Sequelize.STRING(100),
+        allowNull: false,
+        notEmpty: true
+    },
+
+    size: {
         type: Sequelize.INTEGER,
         allowNull: false,
         isNumeric: true,
@@ -44,4 +57,4 @@ const Carnet = sequelize.define('carnets', {
     timestamps: false
 });
 
-export default Carnet;
+export default Photo;

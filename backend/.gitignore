@@ -1,11 +1,11 @@
-# Ignorar Modulos npm
-node_modules/
+# Nodejs
+node_modules
 
-# Ignorar Carpeta dist
-dist/
+# npm
+package-lock.json
+ 
+# distributions
+dist
 
-# Ignorar Carpeta sql
-sql/
-
-# Ignorar Variables de Entorno
-.env 
+# environment variables
+.env
