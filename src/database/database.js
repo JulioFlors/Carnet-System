@@ -1,11 +1,14 @@
+// Environment Variables
+require('dotenv').config();
+
 import Sequelize from 'sequelize';
 
 export const sequelize = new Sequelize(
-    'CarnetDB',
-    'postgres',
-    'admin', {
-        host: 'localhost',
-        port: 5432,
+    process.env.DB_NAME,
+    process.env.DB_USER,
+    process.env.DB_PASS, {
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
         dialect: 'postgres',
         timezone: '-4:00',
         timestamps: false,
@@ -18,31 +21,3 @@ export const sequelize = new Sequelize(
         logging: false
     }
 )
-/* ------------------------------------------ */
-
-
-// import Sequelize from 'sequelize';
-
-// export const sequelize = new Sequelize(
-//     'personal',
-//     'supervisor',
-//     'admin', {
-//         host: 'localost',
-//         dialect: 'postgres',
-//         schema: 'admin_per',
-//         pool: {
-//             max: 20,
-//             min: 0,
-//             require: 30000,
-//             idle: 10000
-//         },
-//         logging: false
-//     }
-// )
-
-// // variables de configuracion de la base de datos
-// $host = "128.1.12.11";
-// $port = "5432";
-// $dbuser = "supervisor";
-// $dbpass = "alsobocaroni";
-// $dbname = "personal";

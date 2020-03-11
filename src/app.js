@@ -4,6 +4,9 @@ import express, {
 
 import morgan from 'morgan'
 
+// Environment Variables
+require('dotenv').config();
+
 // Modules para Multer
 import multer from 'multer'
 import path from 'path'
@@ -27,10 +30,14 @@ import foreign_personRoutes from './routes/foreign_persons.routes'
 const app = express();
 
 // Settings
-app.set('port', 4000);
+app.set('port', process.env.PORT || 4000);
+app.set('views', path.join(__dirname, 'views'));
 app.set('json spaces', 4);
 
 // Middlewares
+app.use(express.urlencoded({
+    extended: false
+}));
 app.use(morgan('dev'));
 app.use(json());
 
@@ -70,6 +77,6 @@ app.use('/api/foreign_carnets', foreign_CarnetRoutes);
 app.use('/api/foreign_persons', foreign_personRoutes);
 
 // Static Files
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 export default app;
