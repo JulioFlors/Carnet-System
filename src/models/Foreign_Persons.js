@@ -1,7 +1,7 @@
 import Sequelize from 'Sequelize'
 import {
     sequelize
-} from '../database/databse'
+} from '../database/database'
 
 import Foreign_Carnet from './Foreign_Carnets'
 

@@ -1,7 +1,7 @@
 import Sequelize from 'Sequelize'
 import {
     sequelize
-} from '../database/databse'
+} from '../database/database'
 
 const Photo = sequelize.define('photos', {
 
