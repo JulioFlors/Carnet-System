@@ -1,10 +1,10 @@
-import Foreign_Person from '../models/Foreign_Persons';
+import Staff from '../../models/Staff'
 
-export async function getForeign_Persons(req, res) {
+export async function getStaff(req, res) {
 
-    console.log(Foreign_Person.associations);
+    console.log(Staff.associations);
 
-    await Foreign_Person.findAll({
+    await Staff.findAll({
         order: [
             ['id', 'ASC'],
         ]

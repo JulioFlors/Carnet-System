@@ -1,4 +1,4 @@
-import Position from '../models/Positions'
+import Position from '../../models/Positions'
 
 export async function getPositions(req, res) {
 

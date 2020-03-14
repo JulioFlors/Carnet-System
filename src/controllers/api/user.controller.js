@@ -1,4 +1,4 @@
-import User from '../models/Users';
+import User from '../../models/Users';
 
 export async function createUser(req, res) {
     const {
@@ -14,8 +14,9 @@ export async function createUser(req, res) {
     }, {
         fields: ['username', 'password', 'permission']
     }).then((result) => {
+        req.flash('success_msg', 'User Created Successfuly');
         res.json({
-            message: 'User Create Successfuly',
+            message: 'User Created Successfuly',
             data: result
         });
     }).catch((err) => {
@@ -70,7 +71,7 @@ export async function updateUser(req, res) {
             id
         }
     }).then((result) => {
-        console.log(result);
+        req.flash('success_msg', 'User Updated Successfuly');
         return res.json({
             message: 'User Updated Successfuly',
             data: {
@@ -99,6 +100,7 @@ export async function deleteUser(req, res) {
             id
         }
     }).then((result) => {
+        req.flash('success_msg', 'User Deleted Successfuly');
         res.json({
             message: 'User Deleted Successfuly'
         });

@@ -16,7 +16,7 @@ const User = sequelize.define('users', {
     },
 
     username: {
-        type: Sequelize.STRING(20),
+        type: Sequelize.STRING(30),
         allowNull: false,
         unique: true,
         notEmpty: true
@@ -37,6 +37,17 @@ const User = sequelize.define('users', {
         ]
     }
 }, {
+    hooks: {
+        beforeCreate: async function (user) {
+            let salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(user.password, salt);
+        }
+    },
+    instanceMethods: {
+        matchPassword: async function (password) {
+            return await bcrypt.compare(password, this.password);
+        }
+    },
     timestamps: false
 });
 
@@ -50,16 +61,27 @@ Carnet.belongsTo(User, {
     sourceKey: 'id'
 });
 
-
-// Adding an instance Level Method
-// los métodos de instancia se definen en el modelo .prototype del modelo 
-User.prototype.encryptPassword = async function (password) {
-    let salt = await bcrypt.genSalt(10);
-    return await bcrypt.hash(password, salt);
-};
-
-User.prototype.matchPassword = async function (password) {
-    return await bcrypt.compare(password, this.password, );
-};
+// User.beforeCreate(async (user) => {
+//     let salt = await bcrypt.genSalt(10);
+//     user.password = await bcrypt.hash(user.password, salt);
+// })
 
 export default User;
+
+
+// User.beforeCreate = async function (user) {
+//     const salt = await bcrypt.genSalt(10);
+//     return await bcrypt.hash(user.password, salt);
+// };
+
+
+// // Adding an instance Level Method
+// // los métodos de instancia se definen en el modelo .prototype del modelo 
+// User.prototype.encryptPassword = async function (user) {
+//     let salt = await bcrypt.genSalt(10);
+//     return await bcrypt.hash(user.password, salt);
+// };
+
+// User.prototype.matchPassword = async function (password) {
+//     return await bcrypt.compare(password, this.password)
+// };

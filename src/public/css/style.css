@@ -1,0 +1,41 @@
+/* --------------------------------------------------------------------------------------------------------------------- */
+:root {
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    /* --background-color: rgba(251, 250, 248, 1);
+    --text-primary: #b6b6b6;
+    --text-secondary: #ececec;
+    --bg-primary: rgb(35, 35, 35);
+    --bg-secondary: #141418;
+    --transition-speed: 600ms; */
+}
+
+body {
+    background: #1488CC;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2B32B2, #1488CC);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2B32B2, #1488CC);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.logo {
+    width: 30%;
+    height: 30%;
+    border-radius: 50%;
+}
+
+/* -------------------------- scrollbar -------------------------- */
+body::-webkit-scrollbar {
+    width: 0.30rem;
+}
+
+body::-webkit-scrollbar-track {
+    background: rgb(35, 35, 35);
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #6649b8;
+}
+
+/* -------------------------- scrollbar -------------------------- */

@@ -6,6 +6,12 @@ import morgan from 'morgan'
 
 import exphbs from 'express-handlebars'
 
+import flash from 'connect-flash'
+
+import session from 'express-session'
+
+import passport from 'passport'
+
 // Modules para Multer
 import multer from 'multer'
 import path from 'path'
@@ -18,10 +24,12 @@ require('dotenv').config();
 
 // Importing Routes
 import apiRoutes from './routes/api.routes'
-import apiRoutes from './routes/api.routes'
+import indexRoutes from './routes/index.routes'
+import sessionRoutes from './routes/session.routes'
 
 // Initializations
 const app = express();
+import './config/passport'
 
 // Settings
 app.set('port', process.env.PORT || 4000);
@@ -41,6 +49,16 @@ app.use(express.urlencoded({
 }));
 app.use(morgan('dev'));
 app.use(json());
+app.use(flash());
+
+// Middlewares para Session
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+
 
 // Middlewares para Multer
 const storage = multer.diskStorage({
@@ -65,9 +83,21 @@ app.use(multer({
     }
 }).single('image'));
 
+// Global Variables
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    res.locals.user = req.user || null;
+    next();
+});
 
 // Routes -> API Rest -> EndPoint : /api/users -> EndPoint : /api/staff -> EndPoint : /api/form 
 app.use('/', apiRoutes);
+
+// Routes -> Frontend -> EndPoint : /api/users -> EndPoint : /api/staff -> EndPoint : /api/form 
+app.use('/', indexRoutes);
+app.use('/', sessionRoutes);
 
 // Static Files
 app.use(express.static(path.join(__dirname, 'public')));

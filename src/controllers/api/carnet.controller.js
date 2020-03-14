@@ -1,4 +1,4 @@
-import Carnet from '../models/Carnets';
+import Carnet from '../../models/Carnets';
 
 export async function createCarnet(req, res) {
     const {

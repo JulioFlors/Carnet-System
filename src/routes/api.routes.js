@@ -9,7 +9,7 @@ const router = Router();
 ///////////////////////////////////////////////////// rac.routes.js
 import {
     getRac
-} from '../controllers/rac.controller'
+} from '../controllers/api/rac.controller'
 
 // EndPoint : /api/rac
 router.get('/api/rac/', getRac);
@@ -22,7 +22,7 @@ router.get('/api/rac/', getRac);
 ///////////////////////////////////////////////////// form.routes.js
 import {
     getForm
-} from '../controllers/form.controller'
+} from '../controllers/api/form.controller'
 
 // EndPoint : /api/form/:id 
 router.get('/api/form/:id', getForm);
@@ -36,7 +36,7 @@ import {
     getUsers,
     updateUser,
     deleteUser
-} from '../controllers/user.controller'
+} from '../controllers/api/user.controller'
 
 // EndPoint : /api/users
 router.post('/api/users/', createUser);
@@ -52,7 +52,7 @@ router.delete('/api/users/:id', deleteUser);
 ///////////////////////////////////////////////////// staff.routes.js
 import {
     getStaff
-} from '../controllers/staff.controller'
+} from '../controllers/api/staff.controller'
 
 // EndPoint : /api/staff 
 router.get('/api/staff/', getStaff);
@@ -66,7 +66,7 @@ import {
     uploadPhoto,
     getPhoto,
     deletePhoto
-} from '../controllers/photo.controller'
+} from '../controllers/api/photo.controller'
 
 // EndPoint : /api/photos 
 router.post('/api/photos/upload', uploadPhoto);
@@ -81,7 +81,7 @@ router.delete('/api/photos/:id', deletePhoto);
 ///////////////////////////////////////////////////// carnets.routes.js
 import {
     getCarnets
-} from '../controllers/carnet.controller'
+} from '../controllers/api/carnet.controller'
 
 // EndPoint : /api/carnets 
 router.get('/api/carnets/', getCarnets);
@@ -94,7 +94,7 @@ router.get('/api/carnets/', getCarnets);
 ///////////////////////////////////////////////////// positions.routes.js
 import {
     getPositions
-} from '../controllers/position.controller'
+} from '../controllers/api/position.controller'
 
 // EndPoint : /api/departments 
 router.get('/api/positions/', getPositions);
@@ -105,7 +105,7 @@ router.get('/api/positions/', getPositions);
 ///////////////////////////////////////////////////// departments.routes.js
 import {
     getDepartments
-} from '../controllers/department.controller'
+} from '../controllers/api/department.controller'
 
 // EndPoint : /api/departments 
 router.get('/api/departmens/', getDepartments);
@@ -116,7 +116,7 @@ router.get('/api/departmens/', getDepartments);
 ///////////////////////////////////////////////////// foreign_carnets.routes.js
 import {
     getForeign_Carnets
-} from '../controllers/foreign_carnet.controller'
+} from '../controllers/api/foreign_carnet.controller'
 
 // EndPoint : /api/foreign_carnets 
 router.get('/api/foreign_carnets/', getForeign_Carnets);
@@ -127,7 +127,7 @@ router.get('/api/foreign_carnets/', getForeign_Carnets);
 ///////////////////////////////////////////////////// foreign_persons.routes.js
 import {
     getForeign_Persons
-} from '../controllers/foreign_person.controller'
+} from '../controllers/api/foreign_person.controller'
 
 // EndPoint : /api/foreign_persons 
 router.get('/api/foreign_persons/', getForeign_Persons);

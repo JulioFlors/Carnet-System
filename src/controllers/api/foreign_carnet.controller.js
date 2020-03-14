@@ -1,10 +1,10 @@
-import Rac from '../models/Rac'
+import Foreign_Carnet from '../../models/Foreign_Carnets';
 
-export async function getRac(req, res) {
+export async function getForeign_Carnets(req, res) {
 
-    console.log(Rac.associations);
+    console.log(Foreign_Carnet.associations);
 
-    await Rac.findAll({
+    await Foreign_Carnet.findAll({
         order: [
             ['id', 'ASC'],
         ]
@@ -18,5 +18,5 @@ export async function getRac(req, res) {
             message: 'Something goes wrong',
             data: {}
         });
-    });
+    })
 };

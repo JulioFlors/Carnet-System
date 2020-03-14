@@ -1,7 +1,7 @@
-import Rac from '../models/Rac'
-import Staff from '../models/Staff'
-import Position from '../models/Positions'
-import Department from '../models/Departments'
+import Rac from '../../models/Rac'
+import Staff from '../../models/Staff'
+import Position from '../../models/Positions'
+import Department from '../../models/Departments'
 
 export async function getForm(req, res) {
 

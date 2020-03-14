@@ -1,10 +1,10 @@
-import Staff from '../models/Staff'
+import Rac from '../../models/Rac'
 
-export async function getStaff(req, res) {
+export async function getRac(req, res) {
 
-    console.log(Staff.associations);
+    console.log(Rac.associations);
 
-    await Staff.findAll({
+    await Rac.findAll({
         order: [
             ['id', 'ASC'],
         ]

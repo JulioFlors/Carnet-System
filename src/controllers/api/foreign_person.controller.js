@@ -1,10 +1,10 @@
-import Foreign_Carnet from '../models/Foreign_Carnets';
+import Foreign_Person from '../../models/Foreign_Persons';
 
-export async function getForeign_Carnets(req, res) {
+export async function getForeign_Persons(req, res) {
 
-    console.log(Foreign_Carnet.associations);
+    console.log(Foreign_Person.associations);
 
-    await Foreign_Carnet.findAll({
+    await Foreign_Person.findAll({
         order: [
             ['id', 'ASC'],
         ]
@@ -18,5 +18,5 @@ export async function getForeign_Carnets(req, res) {
             message: 'Something goes wrong',
             data: {}
         });
-    })
+    });
 };

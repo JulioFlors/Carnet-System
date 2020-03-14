@@ -1,4 +1,4 @@
-import Photo from '../models/Photos'
+import Photo from '../../models/Photos'
 import path from 'path'
 import {
     unlink
