@@ -43,11 +43,11 @@ const User = sequelize.define('users', {
             user.password = await bcrypt.hash(user.password, salt);
         }
     },
-    instanceMethods: {
-        matchPassword: async function (password) {
-            return await bcrypt.compare(password, this.password);
-        }
-    },
+    // instanceMethods: {
+    //     matchPassword: async function (password) {
+    //         return await bcrypt.compare(password, this.password);
+    //     }
+    // },
     timestamps: false
 });
 
@@ -66,6 +66,11 @@ Carnet.belongsTo(User, {
 //     user.password = await bcrypt.hash(user.password, salt);
 // })
 
+// Adding an instance level methods.
+User.prototype.matchPassword = async function (password) {
+    return await bcrypt.compare(password, this.password)
+};
+
 export default User;
 
 
@@ -80,8 +85,4 @@ export default User;
 // User.prototype.encryptPassword = async function (user) {
 //     let salt = await bcrypt.genSalt(10);
 //     return await bcrypt.hash(user.password, salt);
-// };
-
-// User.prototype.matchPassword = async function (password) {
-//     return await bcrypt.compare(password, this.password)
 // };

@@ -12,6 +12,8 @@ import session from 'express-session'
 
 import passport from 'passport'
 
+import methodOverride from 'method-override'
+
 // Modules para Multer
 import multer from 'multer'
 import path from 'path'
@@ -47,6 +49,7 @@ app.set('json spaces', 4);
 app.use(express.urlencoded({
     extended: false
 }));
+app.use(methodOverride('_method'));
 app.use(morgan('dev'));
 app.use(json());
 app.use(flash());
@@ -58,6 +61,7 @@ app.use(session({
     saveUninitialized: true
 }));
 app.use(passport.initialize());
+app.use(passport.session());
 
 
 // Middlewares para Multer

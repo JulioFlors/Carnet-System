@@ -4,6 +4,10 @@ import {
 
 const router = Router();
 
+import {
+    isAuthenticated
+} from '../helpers/auth'
+
 // Routes -> API Rest -> Data Base 
 
 ///////////////////////////////////////////////////// rac.routes.js
@@ -12,7 +16,7 @@ import {
 } from '../controllers/api/rac.controller'
 
 // EndPoint : /api/rac
-router.get('/api/rac/', getRac);
+router.get('/api/rac/', isAuthenticated, getRac);
 
 // EndPoint : /api/rac/:id 
 ///////////////////////////////////////////////////// rac.routes.js
@@ -25,7 +29,7 @@ import {
 } from '../controllers/api/form.controller'
 
 // EndPoint : /api/form/:id 
-router.get('/api/form/:id', getForm);
+router.get('/api/form/:id', isAuthenticated, getForm);
 ///////////////////////////////////////////////////// form.routes.js
 
 
@@ -39,12 +43,12 @@ import {
 } from '../controllers/api/user.controller'
 
 // EndPoint : /api/users
-router.post('/api/users/', createUser);
-router.get('/api/users/', getUsers);
+router.post('/api/users/', isAuthenticated, createUser);
+router.get('/api/users/', isAuthenticated, getUsers);
 
 // EndPoint : /api/users/:id
-router.put('/api/users/:id', updateUser);
-router.delete('/api/users/:id', deleteUser);
+router.put('/api/users/:id', isAuthenticated, updateUser);
+router.delete('/api/users/:id', isAuthenticated, deleteUser);
 ///////////////////////////////////////////////////// users.routes.js
 
 
@@ -55,7 +59,7 @@ import {
 } from '../controllers/api/staff.controller'
 
 // EndPoint : /api/staff 
-router.get('/api/staff/', getStaff);
+router.get('/api/staff/', isAuthenticated, getStaff);
 
 // EndPoint : /api/staff/:id 
 ///////////////////////////////////////////////////// staff.routes.js
@@ -69,11 +73,11 @@ import {
 } from '../controllers/api/photo.controller'
 
 // EndPoint : /api/photos 
-router.post('/api/photos/upload', uploadPhoto);
+router.post('/api/photos/upload', isAuthenticated, uploadPhoto);
 
 // EndPoint : /api/photos/:id 
-router.get('/api/photos/:id', getPhoto);
-router.delete('/api/photos/:id', deletePhoto);
+router.get('/api/photos/:id', isAuthenticated, getPhoto);
+router.delete('/api/photos/:id', isAuthenticated, deletePhoto);
 ///////////////////////////////////////////////////// photos.routes.js
 
 
@@ -84,7 +88,7 @@ import {
 } from '../controllers/api/carnet.controller'
 
 // EndPoint : /api/carnets 
-router.get('/api/carnets/', getCarnets);
+router.get('/api/carnets/', isAuthenticated, getCarnets);
 
 // // EndPoint : /api/carnets/:id 
 ///////////////////////////////////////////////////// carnets.routes.js
@@ -97,7 +101,7 @@ import {
 } from '../controllers/api/position.controller'
 
 // EndPoint : /api/departments 
-router.get('/api/positions/', getPositions);
+router.get('/api/positions/', isAuthenticated, getPositions);
 ///////////////////////////////////////////////////// positions.routes.js
 
 
@@ -108,7 +112,7 @@ import {
 } from '../controllers/api/department.controller'
 
 // EndPoint : /api/departments 
-router.get('/api/departmens/', getDepartments);
+router.get('/api/departmens/', isAuthenticated, getDepartments);
 ///////////////////////////////////////////////////// departments.routes.js
 
 
@@ -119,7 +123,7 @@ import {
 } from '../controllers/api/foreign_carnet.controller'
 
 // EndPoint : /api/foreign_carnets 
-router.get('/api/foreign_carnets/', getForeign_Carnets);
+router.get('/api/foreign_carnets/', isAuthenticated, getForeign_Carnets);
 ///////////////////////////////////////////////////// foreign_carnets.routes.js
 
 
@@ -130,7 +134,7 @@ import {
 } from '../controllers/api/foreign_person.controller'
 
 // EndPoint : /api/foreign_persons 
-router.get('/api/foreign_persons/', getForeign_Persons);
+router.get('/api/foreign_persons/', isAuthenticated, getForeign_Persons);
 
 // EndPoint : /api/foreign_persons/:id 
 ///////////////////////////////////////////////////// foreign_persons.routes.js 

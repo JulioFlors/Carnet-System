@@ -1,6 +1,28 @@
+// Models
 import User from '../models/Users';
 
+// Modules
 import passport from 'passport'
+
+export async function renderSignUpForm(req, res) {
+    res.render('session/signup')
+};
+
+export async function renderSignInForm(req, res) {
+    res.render('session/signin')
+};
+
+export const signIn = passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/signin",
+    failureFlash: true
+});
+
+export async function logout(req, res) {
+    req.logout();
+    req.flash("success_msg", "You are logged out now.");
+    res.redirect('/signin');
+};
 
 export async function signUp(req, res) {
 
@@ -49,7 +71,7 @@ export async function signUp(req, res) {
             req.flash('error_msg', 'The Username is already in use.');
             res.redirect('/signup');
         } else {
-
+            // Saving a New User
             await User.create({
                 username,
                 password,
@@ -69,22 +91,4 @@ export async function signUp(req, res) {
             });
         }
     }
-};
-
-export async function renderSignUpForm(req, res) {
-    res.render('session/signup')
-};
-
-export async function renderSignInForm(req, res) {
-    res.render('session/signin')
-};
-
-export const signIn = passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/signin",
-    failureFlash: true
-});
-
-export async function logout(req, res) {
-    res.send('logout')
 };
