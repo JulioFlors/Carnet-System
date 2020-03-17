@@ -5,6 +5,10 @@ import {
 const router = Router();
 
 import {
+    isAuthenticated
+} from '../helpers/auth'
+
+import {
     renderIndex,
     renderStaff,
     renderCarnet,
@@ -12,10 +16,10 @@ import {
 } from '../controllers/index.controller'
 
 // EndPoint : /
-router.get('/', renderIndex);
-router.get('/staff', renderStaff);
-router.get('/carnet', renderCarnet);
-router.get('/template', renderTemplate);
+router.get('/', isAuthenticated, renderIndex);
+router.get('/staff', isAuthenticated, renderStaff);
+router.get('/carnet', isAuthenticated, renderCarnet);
+router.get('/template', isAuthenticated, renderTemplate);
 
 // EndPoint : /api/rac/:id 
 

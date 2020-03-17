@@ -9,7 +9,13 @@ export async function renderSignUpForm(req, res) {
 };
 
 export async function renderSignInForm(req, res) {
-    res.render('session/signin')
+
+    if (req.user) {
+        res.redirect('/')
+    } else {
+
+        res.render('session/signin')
+    }
 };
 
 export const signIn = passport.authenticate("local", {
