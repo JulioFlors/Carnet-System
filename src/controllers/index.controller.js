@@ -7,7 +7,7 @@ export function renderCarnet(req, res) {
 }
 
 export function renderStaff(req, res) {
-    res.render('staff');
+    res.render('staff/all-staff');
 }
 
 export function renderTemplate(req, res) {

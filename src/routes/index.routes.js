@@ -17,9 +17,9 @@ import {
 
 // EndPoint : /
 router.get('/', isAuthenticated, renderIndex);
-router.get('/staff', isAuthenticated, renderStaff);
-router.get('/carnet', isAuthenticated, renderCarnet);
-router.get('/template', isAuthenticated, renderTemplate);
+router.get('/Staff', isAuthenticated, renderStaff);
+router.get('/Carnet', isAuthenticated, renderCarnet);
+router.get('/Template', isAuthenticated, renderTemplate);
 
 // EndPoint : /api/rac/:id 
 
