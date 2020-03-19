@@ -7,6 +7,9 @@ export async function createUser(req, res) {
         permission
     } = req.body;
 
+    // Convert username to Uppercase
+    username = username.toUpperCase();
+
     await User.create({
         username,
         password,
@@ -61,6 +64,9 @@ export async function updateUser(req, res) {
         password,
         permission
     } = req.body;
+
+    // Convert username to Uppercase
+    username.uppercase();
 
     await User.update({
         username,

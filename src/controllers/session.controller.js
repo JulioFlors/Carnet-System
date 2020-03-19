@@ -35,11 +35,18 @@ export async function signUp(req, res) {
     const errors = [];
 
     const {
-        username,
+        usuario,
         password,
         confirm,
         permission
     } = req.body;
+
+    console.log(usuario);
+
+    // Convert username to Uppercase 
+    const username = usuario.toUpperCase();
+
+    console.log(username);
 
     if ((permission != 'Admin') && (permission != 'Edit') && (permission != 'Read')) {
         errors.push({
@@ -77,6 +84,7 @@ export async function signUp(req, res) {
             req.flash('error_msg', 'The Username is already in use.');
             res.redirect('/signup');
         } else {
+
             // Saving a New User
             await User.create({
                 username,

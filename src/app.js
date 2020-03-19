@@ -26,8 +26,10 @@ require('dotenv').config();
 
 // Importing Routes
 import apiRoutes from './routes/api.routes'
+import staffRoutes from './routes/staff.routes'
 import indexRoutes from './routes/index.routes'
 import sessionRoutes from './routes/session.routes'
+
 
 // Initializations
 const app = express();
@@ -36,12 +38,25 @@ import './config/passport'
 // Settings
 app.set('port', process.env.PORT || 4000);
 app.set('views', path.join(__dirname, 'views'));
+
+// Settings Handlebars
 app.engine('.hbs', exphbs({
     defaultLayout: 'main',
     layoutsDir: path.join(app.get('views'), 'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),
-    extname: '.hbs'
+    extname: '.hbs',
+
+    helpers: {
+        Capitalize: function (string) {
+            return string
+                .split(' ')
+                .map(word => word.substr(0, 1).toUpperCase() + word.substr(1, word.length).toLowerCase())
+                .join(' ');
+        }
+    }
 }));
+
+// Settings
 app.set('view engine', '.hbs');
 app.set('json spaces', 4);
 
@@ -100,6 +115,7 @@ app.use((req, res, next) => {
 app.use('/', apiRoutes);
 
 // Routes -> Frontend -> EndPoint : /api/users -> EndPoint : /api/staff -> EndPoint : /api/form 
+app.use('/', staffRoutes);
 app.use('/', indexRoutes);
 app.use('/', sessionRoutes);
 

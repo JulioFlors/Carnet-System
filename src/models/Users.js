@@ -37,17 +37,14 @@ const User = sequelize.define('users', {
         ]
     }
 }, {
+
     hooks: {
         beforeCreate: async function (user) {
             let salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(user.password, salt);
         }
     },
-    // instanceMethods: {
-    //     matchPassword: async function (password) {
-    //         return await bcrypt.compare(password, this.password);
-    //     }
-    // },
+
     timestamps: false
 });
 
@@ -61,28 +58,15 @@ Carnet.belongsTo(User, {
     sourceKey: 'id'
 });
 
+// Hooks otra forma de implementarlo
 // User.beforeCreate(async (user) => {
 //     let salt = await bcrypt.genSalt(10);
 //     user.password = await bcrypt.hash(user.password, salt);
 // })
 
-// Adding an instance level methods.
+// // instanceMethods
 User.prototype.matchPassword = async function (password) {
     return await bcrypt.compare(password, this.password)
 };
 
 export default User;
-
-
-// User.beforeCreate = async function (user) {
-//     const salt = await bcrypt.genSalt(10);
-//     return await bcrypt.hash(user.password, salt);
-// };
-
-
-// // Adding an instance Level Method
-// // los métodos de instancia se definen en el modelo .prototype del modelo 
-// User.prototype.encryptPassword = async function (user) {
-//     let salt = await bcrypt.genSalt(10);
-//     return await bcrypt.hash(user.password, salt);
-// };

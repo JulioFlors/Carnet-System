@@ -8,6 +8,9 @@ passport.use(new LocalStrategy({
   passwordField: 'password'
 }, async (username, password, done) => {
 
+  // Convert username to Uppercase 
+  username = username.toUpperCase();
+
   // Match username's User
   await User.findOne({
     where: {
@@ -26,6 +29,7 @@ passport.use(new LocalStrategy({
     }
 
   }).catch((err) => {
+    console.log(err);
     return done(null, false, {
       message: 'Not User found.'
     });
@@ -41,6 +45,7 @@ passport.deserializeUser((id, done) => {
   User.findByPk(id).then((user) => {
     return done(null, user);
   }).catch((err) => {
+    console.log(err);
     return done(null, false, {
       message: 'Not User found from deserializeUser'
     });
