@@ -5,7 +5,7 @@ import {
 
 const Foreign_Carnet = sequelize.define('foreign_carnets', {
 
-    id: {
+    cedula: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
@@ -14,24 +14,15 @@ const Foreign_Carnet = sequelize.define('foreign_carnets', {
         isInt: true
     },
 
-    cedula: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        unique: true,
-        isNumeric: true,
-        isInt: true
-    },
-
     date_of_issue: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false,
-        isAfter: "2020-01-01"
+        defaultValue: Sequelize.NOW
     },
 
     date_of_expiration: {
-        type: Sequelize.DATEONLY,
-        allowNull: false,
-        isAfter: "2020-11-01"
+        type: Sequelize.STRING(20),
+        allowNull: false
     },
 
     id_user: {

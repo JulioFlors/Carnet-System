@@ -5,15 +5,6 @@ import {
 
 const Photo = sequelize.define('photos', {
 
-    id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        allowNull: false,
-        unique: true,
-        isNumeric: true,
-        isInt: true,
-    },
-
     cedula: {
         type: Sequelize.INTEGER,
         primaryKey: true,

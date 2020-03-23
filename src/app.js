@@ -28,6 +28,7 @@ require('dotenv').config();
 import apiRoutes from './routes/api.routes'
 import staffRoutes from './routes/staff.routes'
 import indexRoutes from './routes/index.routes'
+import carnetRoutes from './routes/carnet.routes'
 import sessionRoutes from './routes/session.routes'
 
 
@@ -47,11 +48,18 @@ app.engine('.hbs', exphbs({
     extname: '.hbs',
 
     helpers: {
-        Capitalize: function (string) {
+        capitalize: function (string) {
             return string
                 .split(' ')
                 .map(word => word.substr(0, 1).toUpperCase() + word.substr(1, word.length).toLowerCase())
                 .join(' ');
+        },
+
+        // hace referencia a que un empleado posee o no carnet
+        haveCarnet: function (cedula) {
+            if (cedula) return 'Yes';
+
+            if (!cedula) return 'No';
         }
     }
 }));
@@ -117,6 +125,7 @@ app.use('/', apiRoutes);
 // Routes -> Frontend -> EndPoint : /api/users -> EndPoint : /api/staff -> EndPoint : /api/form 
 app.use('/', staffRoutes);
 app.use('/', indexRoutes);
+app.use('/', carnetRoutes);
 app.use('/', sessionRoutes);
 
 // Static Files

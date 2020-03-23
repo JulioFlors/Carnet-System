@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS staffs (
   first_name varchar(50) NOT NULL CHECK (first_name <> ''),
   last_name varchar(50) NOT NULL CHECK (last_name <> ''),
   blood_type varchar(10) NOT NULL CHECK (blood_type <> ''),
-  code_dep integer NOT NULL REFERENCES departments(code_dep)
+  code_dep integer NOT NULL REFERENCES departments(code_dep) on update cascade on delete restrict
 );
 --------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS users (
@@ -32,33 +32,30 @@ CREATE TABLE IF NOT EXISTS users (
 );
 --------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS carnets (
-  id serial NOT NULL PRIMARY KEY UNIQUE,
-  cedula integer NOT NULL UNIQUE REFERENCES staff(cedula),
+  cedula integer NOT NULL PRIMARY KEY UNIQUE REFERENCES staff(cedula) on update cascade on delete cascade,
   date_of_issue date NOT NULL,
-  date_of_expiration date NOT NULL,
-  id_user integer NOT NULL REFERENCES users(id)
+  date_of_expiration varchar (20) NOT NULL,
+  id_user integer NOT NULL REFERENCES users(id) on update cascade on delete restrict
 );
 --------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS photos (
-  id serial NOT NULL UNIQUE,
-  cedula integer NOT NULL UNIQUE REFERENCES staffs(cedula) on update cascade on delete cascade,
+  cedula integer NOT NULL PRIMARY KEY UNIQUE REFERENCES staffs(cedula) on update cascade on delete cascade,
   filename varchar (100) NOT NULL CHECK (filename <> ''),
   path varchar (100) NOT NULL CHECK (path <> ''),
   originalname varchar (100) NOT NULL CHECK (originalname <> ''),
   mimetype varchar (100) NOT NULL CHECK (mimetype <> ''),
-  size integer NOT NULL,
-  Primary Key(id, cedula)
+  size integer NOT NULL
 );
 --------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS racs (
   id serial NOT NULL PRIMARY KEY UNIQUE,
   year integer NOT NULL,
-  cedula integer NOT NULL UNIQUE REFERENCES staff(cedula),
+  cedula integer NOT NULL UNIQUE REFERENCES staff(cedula) on update cascade on delete cascade,
   first_name varchar(50) NOT NULL CHECK (first_name <> ''),
   last_name varchar(50) NOT NULL CHECK (last_name <> ''),
   salary real NOT NULL,
-  code_pos integer NOT NULL REFERENCES positions(code_pos),
-  code_dep integer NOT NULL REFERENCES departments(code_dep)
+  code_pos integer NOT NULL REFERENCES positions(code_pos) on update cascade on delete restrict,
+  code_dep integer NOT NULL REFERENCES departments(code_dep) on update cascade on delete restrict
 );
 --------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS foreign_persons (
@@ -72,10 +69,17 @@ CREATE TABLE IF NOT EXISTS foreign_persons (
 );
 --------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS foreign_carnets (
-  id serial NOT NULL PRIMARY KEY UNIQUE,
-  cedula integer NOT NULL REFERENCES staff(cedula),
+  cedula integer NOT NULL PRIMARY KEY UNIQUE REFERENCES foreign_persons(cedula) on update cascade on delete cascade,
   date_of_issue date NOT NULL,
-  date_of_expiration date NOT NULL,
-  id_user integer NOT NULL REFERENCES users(id)
+  date_of_expiration varchar (20) NOT NULL,
+  id_user integer NOT NULL REFERENCES users(id) on update cascade on delete restrict
 );
 --------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS foreign_photos (
+  cedula integer NOT NULL PRIMARY KEY UNIQUE REFERENCES foreign_persons(cedula) on update cascade on delete cascade,
+  filename varchar (100) NOT NULL CHECK (filename <> ''),
+  path varchar (100) NOT NULL CHECK (path <> ''),
+  originalname varchar (100) NOT NULL CHECK (originalname <> ''),
+  mimetype varchar (100) NOT NULL CHECK (mimetype <> ''),
+  size integer NOT NULL
+);

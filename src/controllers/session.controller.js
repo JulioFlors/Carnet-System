@@ -41,12 +41,8 @@ export async function signUp(req, res) {
         permission
     } = req.body;
 
-    console.log(usuario);
-
     // Convert username to Uppercase 
     const username = usuario.toUpperCase();
-
-    console.log(username);
 
     if ((permission != 'Admin') && (permission != 'Edit') && (permission != 'Read')) {
         errors.push({

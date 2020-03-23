@@ -1,22 +1,38 @@
 import Rac from '../models/Rac'
 import Staff from '../models/Staff'
+import Carnet from '../models/Carnets'
 import Position from '../models/Positions'
 import Department from '../models/Departments'
 
-export async function getAllStaff(req, res) {
+export async function getStaff(req, res) {
 
-    await Rac.findAll({
+    const {
+        cedula
+    } = req.body;
+
+    await Rac.findOne({
 
         include: [{
-            model: Staff,
-            attributes: ['blood_type'],
-        }, {
-            model: Department,
-            attributes: ['description']
-        }, {
-            model: Position,
-            attributes: ['description']
-        }],
+                model: Staff,
+                attributes: ['blood_type'],
+                include: [{
+                    model: Carnet,
+                    attributes: ['cedula']
+                }]
+            },
+            {
+                model: Department,
+                attributes: ['description']
+            },
+            {
+                model: Position,
+                attributes: ['description']
+            }
+        ],
+
+        where: {
+            cedula
+        },
 
         order: [
             ['id', 'ASC'],
@@ -24,10 +40,48 @@ export async function getAllStaff(req, res) {
 
         attributes: ['cedula', 'first_name', 'last_name']
 
-    }).then((result) => {
-
+    }).then((data) => {
         res.render('staff/all-staff', {
-            data: result
+            data
+        });
+    }).catch((err) => {
+        console.log(err);
+        req.flash('error_msg', 'could not get staff');
+        res.render('staff/all-staff');
+    });
+}
+
+export async function getAllStaff(req, res) {
+
+    await Rac.findAll({
+
+        include: [{
+                model: Staff,
+                attributes: ['blood_type'],
+                include: [{
+                    model: Carnet,
+                    attributes: ['cedula']
+                }]
+            },
+            {
+                model: Department,
+                attributes: ['description']
+            },
+            {
+                model: Position,
+                attributes: ['description']
+            }
+        ],
+
+        order: [
+            ['id', 'ASC'],
+        ],
+
+        attributes: ['cedula', 'first_name', 'last_name']
+
+    }).then((data) => {
+        res.render('staff/all-staff', {
+            data
         });
     }).catch((err) => {
         console.log(err);

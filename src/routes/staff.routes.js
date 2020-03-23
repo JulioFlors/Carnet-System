@@ -12,9 +12,21 @@ import {
     getAllStaff
 } from '../controllers/staff.controller'
 
-// EndPoint : / 
-router.get('/Staff', isAuthenticated, getAllStaff);
+// Get All Staff
+router.get('/staff', isAuthenticated, getAllStaff);
 
-// EndPoint : /api/rac/:id 
+// // New Staff
+// router.get('/staff/add', isAuthenticated, renderNewStaff);
+
+// router.post('/staff/new-staff', isAuthenticated, createStaff);
+
+// // Edit Staff
+// router.get("/staff/edit/:id", isAuthenticated, renderEditForm);
+
+// // Update Staff
+// router.put("/staff/edit/:id", isAuthenticated, updateStaff);
+
+// // Delete staff
+// router.delete("/staff/delete/:id", isAuthenticated, deletStaff);
 
 export default router

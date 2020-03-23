@@ -1,6 +1,4 @@
-<div class="container">
-
-    <div class="row">
+{{!-- <div class="row">
         <div class="col-6">
             <form action="/signin" method="POST" class="has-search">
                 <span class="fa fa-search form-control-feedback"></span>
@@ -11,85 +9,46 @@
             <button type="button" class="btn btn-success">Agregar Persona</button>
         </div>
     </div>
-
-    <div class="row justify-content-md-center">
-        <div class="table-responsive">
-            <table class="table table-hover table-dark">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">cedula</th>
-                        <th scope="col">fullname</th>
-                        <th scope="col">blood_type</th>
-                        <th scope="col">department</th>
-                        <th scope="col">position</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    {{#each data}}
-
-                    <tr>
-                        <td>{{dataValues.cedula}}</td>
-                        <td>{{Capitalize dataValues.first_name}} {{Capitalize dataValues.last_name}}</td>
-                        <td>{{dataValues.staff.dataValues.blood_type}}</td>
-                        <td>{{Capitalize dataValues.department.dataValues.description}}</td>
-                        <td>{{Capitalize dataValues.position.dataValues.description}}</td>
-                    </tr>
-
-                    {{else}}
-                    <tr>
-                        <td>usted no cuenta con personal.</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-
-
-{{!-- 
-
-<div class="row">
-    <div class="col-md-12 mx-auto">
-        <button type="button" class="btn btn-success">Agregar Persona</button>
-    </div>
 </div> --}}
 
 
 
-{{!-- <div class="table-responsive">
+<div class="table-responsive">
     <table class="table table-hover table-dark">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre</th>
                 <th scope="col">Cedula</th>
-                <th scope="col">Email</th>
-                <th scope="col">Telefono</th>
-                <th scope="col">Departamento</th>
-                <th scope="col">Cargo</th>
+                <th scope="col">Fullname</th>
+                <th scope="col">Blood Type</th>
+                <th scope="col">Department</th>
+                <th scope="col">Position</th>
+                <th scope="col">Carnet</th>
             </tr>
         </thead>
         <tbody>
+
+            {{#each data}}
+
             <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>{{dataValues.cedula}}</td>
+                <td>{{capitalize dataValues.first_name}} {{capitalize dataValues.last_name}}</td>
+                <td>{{dataValues.staff.dataValues.blood_type}}</td>
+                <td>{{capitalize dataValues.department.dataValues.description}}</td>
+                <td>{{capitalize dataValues.position.dataValues.description}}</td>
+                <td>{{haveCarnet dataValues.staff.dataValues.cedula}}</td>
+                {{!-- <td>
+                    <form action="/users/delete/{{id}}?_method=DELETE" method="POST">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn btn-danger btn-block btn-sm">Delete</button>
+                    </form>
+                </td> --}}
             </tr>
+
+            {{else}}
             <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
+                <td>usted no cuenta con personal.</td>
             </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-            </tr>
+            {{/each}}
         </tbody>
     </table>
-</div> --}}
+</div>

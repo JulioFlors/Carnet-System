@@ -16,17 +16,17 @@ import {
     renderSignUpForm
 } from '../controllers/session.controller'
 
-// EndPoint : localhost:4000/signup 
+// Signup 
 router.post('/signup', isAuthenticated, signUp);
 
 router.get('/signup', isAuthenticated, renderSignUpForm);
 
-// EndPoint : localhost:4000/signin 
+// Signin 
 router.post('/signin', signIn);
 
 router.get('/signin', renderSignInForm);
 
-// EndPoint : localhost:4000/logout 
+// logout 
 router.get('/logout', isAuthenticated, logout);
 
 export default router;
