@@ -12,14 +12,13 @@
 </div> --}}
 
 
-
 <div class="table-responsive">
     <table class="table table-hover table-dark">
         <thead class="thead-dark">
             <tr>
                 <th scope="col">Cedula</th>
                 <th scope="col">Fullname</th>
-                <th scope="col">Blood Type</th>
+                <th scope="col">Blood_Type</th>
                 <th scope="col">Department</th>
                 <th scope="col">Position</th>
                 <th scope="col">Carnet</th>
@@ -32,10 +31,10 @@
             <tr>
                 <td>{{dataValues.cedula}}</td>
                 <td>{{capitalize dataValues.first_name}} {{capitalize dataValues.last_name}}</td>
-                <td>{{dataValues.staff.dataValues.blood_type}}</td>
-                <td>{{capitalize dataValues.department.dataValues.description}}</td>
-                <td>{{capitalize dataValues.position.dataValues.description}}</td>
-                <td>{{haveCarnet dataValues.staff.dataValues.cedula}}</td>
+                <td>{{staff.dataValues.blood_type}}</td>
+                <td>{{capitalize department.dataValues.description}}</td>
+                <td>{{capitalize position.dataValues.description}}</td>
+                <td>{{haveCarnet staff.dataValues.carnet.dataValues.cedula}}</td>
                 {{!-- <td>
                     <form action="/users/delete/{{id}}?_method=DELETE" method="POST">
                         <input type="hidden" name="_method" value="DELETE">

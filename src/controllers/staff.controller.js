@@ -61,7 +61,10 @@ export async function getAllStaff(req, res) {
                 include: [{
                     model: Carnet,
                     attributes: ['cedula']
-                }]
+                }],
+                order: [
+                    [Carnet, 'id', 'asc'],
+                ],
             },
             {
                 model: Department,
@@ -71,10 +74,6 @@ export async function getAllStaff(req, res) {
                 model: Position,
                 attributes: ['description']
             }
-        ],
-
-        order: [
-            ['id', 'ASC'],
         ],
 
         attributes: ['cedula', 'first_name', 'last_name']

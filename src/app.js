@@ -56,10 +56,10 @@ app.engine('.hbs', exphbs({
         },
 
         // hace referencia a que un empleado posee o no carnet
-        haveCarnet: function (cedula) {
-            if (cedula) return 'Yes';
+        haveCarnet: function (variable) {
+            if (variable) return 'Yes';
 
-            if (!cedula) return 'No';
+            if (!variable) return 'No';
         }
     }
 }));
@@ -86,7 +86,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 // Middlewares para Multer
 const storage = multer.diskStorage({
     destination: path.join(__dirname, 'public/img/uploads'),
@@ -98,8 +97,11 @@ const storage = multer.diskStorage({
 // Middlewares para Multer
 app.use(multer({
     storage,
+    limits: {
+        fileSize: 10000000
+    },
     fileFilter: (req, file, cb) => {
-        const filetypes = /jpeg|jpg|png|gif/;
+        const filetypes = /jpeg|JPEG|jpg|JPG|png|PNG|gif|GIF/;
         const mimetype = filetypes.test(file.mimetype);
         const extname = filetypes.test(path.extname(file.originalname));
         if (mimetype && extname) {
@@ -108,7 +110,7 @@ app.use(multer({
             cb('Error: Archivo de imagen no valido');
         }
     }
-}).single('image'));
+}).single('photo'));
 
 // Global Variables
 app.use((req, res, next) => {

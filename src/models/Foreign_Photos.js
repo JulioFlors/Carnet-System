@@ -3,7 +3,7 @@ import {
     sequelize
 } from '../database/database'
 
-const Photo = sequelize.define('photos', {
+const Foreign_Photo = sequelize.define('foreign_photos', {
 
     id: {
         type: Sequelize.INTEGER,
@@ -56,4 +56,4 @@ const Photo = sequelize.define('photos', {
     timestamps: false
 });
 
-export default Photo;
+export default Foreign_Photo;

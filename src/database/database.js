@@ -13,7 +13,7 @@ export const sequelize = new Sequelize(
         timezone: '-4:00',
         timestamps: false,
         pool: {
-            max: 5,
+            max: 10,
             min: 0,
             require: 30000,
             idle: 10000

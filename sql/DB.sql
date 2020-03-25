@@ -32,14 +32,17 @@ CREATE TABLE IF NOT EXISTS users (
 );
 --------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS carnets (
-  cedula integer NOT NULL PRIMARY KEY UNIQUE REFERENCES staff(cedula) on update cascade on delete cascade,
+  id serial NOT NULL PRIMARY KEY UNIQUE,
+  cedula integer NOT NULL UNIQUE REFERENCES staffs(cedula) on update cascade on delete cascade,
   date_of_issue date NOT NULL,
   date_of_expiration varchar (20) NOT NULL,
-  id_user integer NOT NULL REFERENCES users(id) on update cascade on delete restrict
+  id_user integer NOT NULL REFERENCES users(id) on update cascade on delete restrict,
+  updatedAt date NOT NULL
 );
 --------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS photos (
-  cedula integer NOT NULL PRIMARY KEY UNIQUE REFERENCES staffs(cedula) on update cascade on delete cascade,
+  id serial NOT NULL PRIMARY KEY UNIQUE,
+  cedula integer NOT NULL UNIQUE REFERENCES staffs(cedula) on update cascade on delete cascade,
   filename varchar (100) NOT NULL CHECK (filename <> ''),
   path varchar (100) NOT NULL CHECK (path <> ''),
   originalname varchar (100) NOT NULL CHECK (originalname <> ''),
@@ -50,7 +53,7 @@ CREATE TABLE IF NOT EXISTS photos (
 CREATE TABLE IF NOT EXISTS racs (
   id serial NOT NULL PRIMARY KEY UNIQUE,
   year integer NOT NULL,
-  cedula integer NOT NULL UNIQUE REFERENCES staff(cedula) on update cascade on delete cascade,
+  cedula integer NOT NULL UNIQUE REFERENCES staffs(cedula) on update cascade on delete cascade,
   first_name varchar(50) NOT NULL CHECK (first_name <> ''),
   last_name varchar(50) NOT NULL CHECK (last_name <> ''),
   salary real NOT NULL,
@@ -60,7 +63,7 @@ CREATE TABLE IF NOT EXISTS racs (
 --------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS foreign_persons (
   id serial NOT NULL PRIMARY KEY UNIQUE,
-  cedula integer NOT NULL,
+  cedula integer NOT NULL UNIQUE,
   first_name varchar(50) NOT NULL CHECK (first_name <> ''),
   last_name varchar(50) NOT NULL CHECK (last_name <> ''),
   blood_type varchar(10) NOT NULL,
@@ -69,14 +72,16 @@ CREATE TABLE IF NOT EXISTS foreign_persons (
 );
 --------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS foreign_carnets (
-  cedula integer NOT NULL PRIMARY KEY UNIQUE REFERENCES foreign_persons(cedula) on update cascade on delete cascade,
+  id serial NOT NULL PRIMARY KEY UNIQUE,
+  cedula integer NOT NULL UNIQUE REFERENCES foreign_persons(cedula) on update cascade on delete cascade,
   date_of_issue date NOT NULL,
   date_of_expiration varchar (20) NOT NULL,
   id_user integer NOT NULL REFERENCES users(id) on update cascade on delete restrict
 );
 --------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS foreign_photos (
-  cedula integer NOT NULL PRIMARY KEY UNIQUE REFERENCES foreign_persons(cedula) on update cascade on delete cascade,
+  id serial NOT NULL PRIMARY KEY UNIQUE,
+  cedula integer NOT NULL UNIQUE REFERENCES foreign_persons(cedula) on update cascade on delete cascade,
   filename varchar (100) NOT NULL CHECK (filename <> ''),
   path varchar (100) NOT NULL CHECK (path <> ''),
   originalname varchar (100) NOT NULL CHECK (originalname <> ''),

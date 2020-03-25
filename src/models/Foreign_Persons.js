@@ -4,6 +4,7 @@ import {
 } from '../database/database'
 
 import Foreign_Carnet from './Foreign_Carnets'
+import Foreign_Photo from './Foreign_Photos'
 
 const Foreign_Person = sequelize.define('foreign_persons', {
 
@@ -63,6 +64,16 @@ Foreign_Person.hasOne(Foreign_Carnet, {
 });
 
 Foreign_Carnet.hasOne(Foreign_Person, {
+    foreignKey: 'cedula',
+    sourceKey: 'cedula'
+});
+
+Foreign_Person.hasOne(Foreign_Photo, {
+    foreignKey: 'cedula',
+    sourceKey: 'cedula'
+});
+
+Foreign_Photo.hasOne(Foreign_Person, {
     foreignKey: 'cedula',
     sourceKey: 'cedula'
 });

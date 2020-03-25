@@ -5,9 +5,17 @@ import {
 
 const Foreign_Carnet = sequelize.define('foreign_carnets', {
 
-    cedula: {
+    id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
+        allowNull: false,
+        isNumeric: true,
+        unique: true,
+        isInt: true
+    },
+
+    cedula: {
+        type: Sequelize.INTEGER,
         allowNull: false,
         unique: true,
         isNumeric: true,

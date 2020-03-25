@@ -9,7 +9,7 @@ import {
 } from '../helpers/auth'
 
 import {
-    getStaff,
+    getData,
     createCarnet,
     renderFormCarnet
 } from '../controllers/carnet.controller'
@@ -18,13 +18,13 @@ import {
 // // Vista para buscar el STAFF
 // router.get("/carnet/staff/search", isAuthenticated, renderFormCarnet);
 
-// Obtine y Envia los datos del STAFF al Form de carnet-staff
-router.post('/carnet/staff/search', isAuthenticated, getStaff);
+// Obtine desde view la cedula (consulta la DB) y Envia los datos del STAFF de vuelta a view
+router.post('/carnet/staff/view', isAuthenticated, getData);
 
 // Vista del Form y del Carnet
 router.get("/carnet/staff/view", isAuthenticated, renderFormCarnet);
 
-// Enviar datos del Form de carnet-staff a esta URL
+// Enviar datos del Form de carnet-staff para crear el carnet, guardar foto, imprimir
 router.post("/carnet/staff/new-carnet", isAuthenticated, createCarnet);
 
 

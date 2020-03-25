@@ -7,11 +7,10 @@
                 <div class="card">
 
                     <div class="card-header">
-                        <form action="/carnet/staff/search" method="POST" class="has-search" id="form">
+                        <form action="/carnet/staff/view" method="POST" class="has-search" id="formSearch">
                             <span class="fa fa-search form-control-feedback"></span>
-                            <input autofocus type="text" class="form-control" name="cedula" id="cedula"
-                                placeholder="Search staff by cedula" maxlength="8" autocomplete="off"
-                                value="{{cedula}}">
+                            <input autofocus type="text" class="form-control" name="cedula" id="searchCedula"
+                                placeholder="Search by Cedula" maxlength="8" autocomplete="off">
                         </form>
                     </div>
 
@@ -21,51 +20,63 @@
 
                             <div class="form-group">
                                 <label for="cedula">Cedula</label>
-                                <input required type="text" class="form-control" name="cedula" id="cedula" maxlength="8"
-                                    autocomplete="off" value="{{cedula}}">
+                                <input required value="{{data.dataValues.cedula}}" type="text" class="form-control"
+                                    name="cedula" id="cedula" maxlength="8" autocomplete="off">
                             </div>
 
                             <div class="form-group">
                                 <label for="firstname">Firstname</label>
-                                <input required type="text" class="form-control" name="firstname" id="firstname"
-                                    maxlength="50" autocomplete="off" value="{{firstname}}">
+                                <input required {{#if data.dataValues.first_name}}
+                                    value="{{capitalize data.dataValues.first_name}}" {{/if}} type="text"
+                                    class="form-control" name="firstname" id="firstname" maxlength="50"
+                                    autocomplete="off">
                             </div>
 
                             <div class="form-group">
                                 <label for="lastname">Lastname</label>
-                                <input required type="text" class="form-control" name="lastname" id="lastname"
-                                    maxlength="50" autocomplete="off" value="{{lastname}}">
+                                <input required {{#if data.dataValues.last_name}}
+                                    value="{{capitalize data.dataValues.last_name}}" {{/if}} type="text"
+                                    class="form-control" name="lastname" id="lastname" maxlength="50"
+                                    autocomplete="off">
                             </div>
 
                             <div class="form-group">
                                 <label for="department">Department</label>
-                                <input required type="text" class="form-control" name="department" id="department"
-                                    maxlength="50" autocomplete="off" value="{{department}}">
+                                <input required {{#if data.department.dataValues.description}}
+                                    value="{{capitalize data.department.dataValues.description}}" {{/if}} type="text"
+                                    class="form-control" name="department" id="department" maxlength="50"
+                                    autocomplete="off">
                             </div>
 
                             <div class="form-group">
                                 <label for="position">Position</label>
-                                <input required type="text" class="form-control" name="position" id="position"
-                                    maxlength="50" autocomplete="off" value="{{position}}">
+
+                                <input required {{#if data.position.dataValues.description}}
+                                    value="{{capitalize data.position.dataValues.description}}" {{/if}} type="text"
+                                    class="form-control" name="position" id="position" maxlength="50"
+                                    autocomplete="off">
+
                             </div>
 
                             <div class="form-group">
-                                <label for="expiration">Date of Expiration</label>
-                                <input required type="month" class="form-control" name="expiration" id="expiration"
-                                    maxlength="10" autocomplete="off" value="{{date_of_expiration}}">
+                                <label for="date_of_expiration">Date of Expiration</label>
+                                <input required type="month" class="form-control" name="date_of_expiration"
+                                    id="date_of_expiration" maxlength="10" autocomplete="off"
+                                    value="{{date_of_expiration}}">
                             </div>
 
                             <div class="form-group">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="photo">
+                                    <input type="file" class="custom-file-input" name="photo" id="photo">
                                     <label class="custom-file-label" for="photo">Upload photo</label>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <select class="custom-select" name="blood_type" id="blood_type">
-                                    {{#if bloodtype}}
-                                    <option disabled selected value="{{bloodtype}}">{{bloodtype}}</option>
+                                    {{#if data.staff.dataValues.blood_type}}
+                                    <option selected value="{{data.staff.dataValues.first_name}}">
+                                        {{data.staff.dataValues.blood_type}}</option>
                                     {{else}}
                                     <option disabled selected>Blood Type</option>
                                     <option value="O RH+">O RH+</option>

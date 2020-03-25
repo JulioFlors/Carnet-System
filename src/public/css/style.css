@@ -14,8 +14,8 @@ body {
 }
 
 .logo {
-    width: 30%;
-    border-radius: 50%;
+    width: 50%;
+    /* border-radius: 50%; */
 }
 
 /* -------------------------- scrollbar -------------------------- */

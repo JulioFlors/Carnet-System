@@ -5,18 +5,27 @@ import {
 
 const Carnet = sequelize.define('carnets', {
 
-    cedula: {
+    id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
+        allowNull: false,
+        isNumeric: true,
+        unique: true,
+        isInt: true
+    },
+
+    cedula: {
+        type: Sequelize.INTEGER,
         allowNull: false,
         unique: true,
         isNumeric: true,
         isInt: true
     },
 
-    date_of_issue: {
-        type: Sequelize.DATEONLY,
+    createdAt: {
+        field: 'date_of_issue',
         allowNull: false,
+        type: Sequelize.DATE,
         defaultValue: Sequelize.NOW
     },
 
@@ -30,9 +39,16 @@ const Carnet = sequelize.define('carnets', {
         allowNull: false,
         isNumeric: true,
         isInt: true
+    },
+
+    updatedAt: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
+        allowNull: false
     }
+
 }, {
-    timestamps: false
+    timestamps: true
 });
 
 export default Carnet;
