@@ -10,6 +10,7 @@ import {
 
 import {
     getData,
+    uploadPhoto,
     createCarnet,
     renderFormCarnet
 } from '../controllers/carnet.controller'
@@ -25,7 +26,7 @@ router.post('/carnet/staff/view', isAuthenticated, getData);
 router.get("/carnet/staff/view", isAuthenticated, renderFormCarnet);
 
 // Enviar datos del Form de carnet-staff para crear el carnet, guardar foto, imprimir
-router.post("/carnet/staff/new-carnet", isAuthenticated, createCarnet);
+router.post("/carnet/staff/uploadPhoto", isAuthenticated, uploadPhoto);
 
 
 

@@ -1,7 +1,3 @@
-export function renderIndex(req, res) {
-    res.render('index');
-}
-
 export function renderCarnet(req, res) {
     res.render('carnet');
 }

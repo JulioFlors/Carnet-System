@@ -19,7 +19,7 @@ export async function getData(req, res) {
  
             const data = await Rac.findOne({
 
-                include: [  { model: Staff, include: [{ model: Photo }]}, 
+                include: [  { model: Staff }, 
                             { model: Department }, 
                             { model: Position }],
     
@@ -27,27 +27,31 @@ export async function getData(req, res) {
     
                 attributes: ['cedula', 'first_name', 'last_name'] 
             });
-  
-            return res.render('carnet/carnet-staff', { data });
+            
+            // Search matches by cedula
+            const photo = await Photo.findOne({ where: { cedula } });
+            
+            if (photo) return res.render('carnet/carnet-staff', { data, photo }); 
+
+            return res.render('carnet/carnet-staff', { data }); 
             
         } else {
             req.flash('error_msg', 'No staff found.'); 
-            return res.render('carnet/carnet-staff');  
+            return res.redirect('/carnet/staff/view');  
         } 
 
     } catch (error) {
         console.log(error); 
         req.flash('error_msg', 'No staff found.');
-        return res.render('carnet/carnet-staff');
+        return res.redirect('/carnet/staff/view');
     } 
 };
 
 export function renderFormCarnet(req, res) {
     res.render('carnet/carnet-staff')
 };
-
-async function uploadPhoto(cedula, filename, path, originalname, mimetype, size) {
-
+ 
+export async function uploadPhoto(req, res) {
     try {
 
         // Search matches by cedula
@@ -67,10 +71,11 @@ async function uploadPhoto(cedula, filename, path, originalname, mimetype, size)
                 size
             }, {
                 where: { cedula }
-            });
+            }); 
 
-            req.flash('success_msg', 'Photo Udated Successfully');
-
+            req.flash('success_msg', 'Photo Updated Successfully');
+            return res.redirect('/carnet/staff/view');
+            
         } else {
             await Photo.create({
                 cedula,
@@ -79,17 +84,14 @@ async function uploadPhoto(cedula, filename, path, originalname, mimetype, size)
                 originalname,
                 mimetype,
                 size
-            }, {
-                fields: ['cedula', 'filename', 'path', 'originalname', 'mimetype', 'size']
-            });
-            req.flash('success_msg', 'Photo Created Successfully');
-        }
+            }); 
 
-        return res.redirect('/carnet/staff/view');
-
+            req.flash('success_msg', 'Photo Saved Successfully');
+            return res.redirect('/carnet/staff/view'); 
+        }  
     } catch (error) {
-        console.log(error);
-        req.flash('error_msg', 'Could Not Save Photo');
+        console.log(error); 
+        req.flash('error_msg', 'Something went wrong when saving the photo');
         return res.redirect('/carnet/staff/view');
     }
 };
@@ -111,7 +113,7 @@ export async function createCarnet(req, res) {
             size
         } = req.file;
 
-        const path = 'img/uploads/' + req.file.filename;
+        const path = '/img/uploads/' + req.file.filename;
 
         // Search matches by cedula
         const carnet = await Carnet.findOne({
@@ -131,7 +133,8 @@ export async function createCarnet(req, res) {
             });
 
             // Validations to save the photo 
-            uploadPhoto(cedula, filename, path, originalname, mimetype, size);
+            return uploadPhoto(); 
+
         } else {
  
             await Carnet.create({
@@ -143,7 +146,8 @@ export async function createCarnet(req, res) {
             });
             
             // Validations to save the photo 
-            uploadPhoto(cedula, filename, path, originalname, mimetype, size);
+            return uploadPhoto(); 
+
         } 
     } catch (error) {
         console.log(error);

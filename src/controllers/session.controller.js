@@ -11,7 +11,7 @@ export async function renderSignUpForm(req, res) {
 export async function renderSignInForm(req, res) {
 
     if (req.user) {
-        res.redirect('/')
+        res.redirect('/Staff')
     } else {
 
         res.render('session/signin')
@@ -19,7 +19,7 @@ export async function renderSignInForm(req, res) {
 };
 
 export const signIn = passport.authenticate("local", {
-    successRedirect: "/",
+    successRedirect: "/Staff",
     failureRedirect: "/signin",
     failureFlash: true
 });

@@ -8,14 +8,12 @@ import {
     isAuthenticated
 } from '../helpers/auth'
 
-import {
-    renderIndex,
+import { 
     renderCarnet,
     renderTemplate
 } from '../controllers/index.controller'
 
-// EndPoint : /
-router.get('/', isAuthenticated, renderIndex);
+// EndPoint : / 
 router.get('/Carnet', isAuthenticated, renderCarnet);
 router.get('/Template', isAuthenticated, renderTemplate);
 
