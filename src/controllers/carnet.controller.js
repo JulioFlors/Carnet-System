@@ -19,9 +19,53 @@ export async function getData(req, res) {
  
             const data = await Rac.findOne({
 
-                include: [  { model: Staff }, 
+                include: [  { model: Staff, 
+                              include: [ { model: Carnet } ]
+                            }, 
                             { model: Department }, 
-                            { model: Position }],
+                            { model: Position }
+                         ],
+    
+                where: { cedula },
+    
+                attributes: ['cedula', 'first_name', 'last_name'] 
+            });
+            
+            // Search matches by cedula
+            const photo = await Photo.findOne({ where: { cedula } });
+            
+            if (photo) return res.render('carnet/carnet-staff', { data, photo }); 
+
+            return res.render('carnet/carnet-staff', { data }); 
+            
+        } else {
+            req.flash('error_msg', 'No staff found.'); 
+            return res.redirect('/carnet/staff/view');  
+        } 
+
+    } catch (error) {
+        console.log(error); 
+        req.flash('error_msg', 'No staff found.');
+        return res.redirect('/carnet/staff/view');
+    } 
+};
+
+export async function getDataAGAIN(req, res, cedula) {
+
+    try {   
+        // Search matches by cedula
+        const staff = await Staff.findOne({ where: {cedula} });
+
+        if (staff) {
+ 
+            const data = await Rac.findOne({
+
+                include: [  { model: Staff, 
+                              include: [ { model: Carnet } ]
+                            }, 
+                            { model: Department }, 
+                            { model: Position }
+                         ],
     
                 where: { cedula },
     
@@ -52,16 +96,25 @@ export function renderFormCarnet(req, res) {
 };
  
 export async function uploadPhoto(req, res) {
-    try {
+    
+    const { cedula } = req.body;
 
+    const {
+        filename,
+        originalname,
+        mimetype,
+        size
+    } = req.file;
+
+    const path = '/img/uploads/' + req.file.filename;
+
+    try { 
         // Search matches by cedula
         const photo = await Photo.findOne({ where: { cedula } });
 
         // if the Photo exist
         if (photo) {
-            // we delete from system
-            await unlink(Path.resolve('./src/public/' + photo.path));
-
+ 
             // we update photo from data base 
             await Photo.update({
                 filename,
@@ -73,8 +126,13 @@ export async function uploadPhoto(req, res) {
                 where: { cedula }
             }); 
 
+            // we delete from system
+            await unlink(Path.resolve('./src/public/' + photo.path));
+
             req.flash('success_msg', 'Photo Updated Successfully');
-            return res.redirect('/carnet/staff/view');
+            
+            // Get and Validation of the data
+            return getDataAGAIN(req, res, cedula); 
             
         } else {
             await Photo.create({
@@ -87,12 +145,19 @@ export async function uploadPhoto(req, res) {
             }); 
 
             req.flash('success_msg', 'Photo Saved Successfully');
-            return res.redirect('/carnet/staff/view'); 
+            
+            // Get and Validation of the data
+            return getDataAGAIN(req, res, cedula); 
         }  
-    } catch (error) {
+    } catch (error) {  
+        // we delete from system
+        await unlink(Path.resolve('./src/public/' + path));
+
         console.log(error); 
         req.flash('error_msg', 'Something went wrong when saving the photo');
-        return res.redirect('/carnet/staff/view');
+
+        // Get and Validation of the data
+        return getData(); 
     }
 };
 

@@ -65,8 +65,7 @@ app.engine('.hbs', exphbs({
         isAdmin: function (user) {
             if (user === 'Admin') return true;
             return false;
-        } 
-          
+        }
     }
 }));
 
@@ -123,7 +122,8 @@ app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
-    res.locals.user = req.user || null;  
+    res.locals.user = req.user || null;
+    res.locals.filename = req.filename || null;
     next();
 });
 

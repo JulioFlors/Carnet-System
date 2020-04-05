@@ -8,14 +8,16 @@ import {
     isAuthenticated
 } from '../helpers/auth'
 
-import { 
+import {
+    renderIndex,
     renderCarnet,
     renderTemplate
 } from '../controllers/index.controller'
 
 // EndPoint : / 
-router.get('/Carnet', isAuthenticated, renderCarnet);
-router.get('/Template', isAuthenticated, renderTemplate);
+router.get('/', isAuthenticated, renderIndex);
+router.get('/carnet', isAuthenticated, renderCarnet);
+router.get('/template', isAuthenticated, renderTemplate);
 
 // EndPoint : /api/rac/:id 
 

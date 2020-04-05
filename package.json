@@ -1,7 +1,7 @@
 {
   "name": "Carnet-System",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Sistema de Carnetizacion para la alcaldia bolivariana del Caroni",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js --exec babel-node",
@@ -23,6 +23,7 @@
     "method-override": "^3.0.0",
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
+    "node-html-to-image": "^1.2.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "pg": "^7.18.2",

@@ -1,3 +1,7 @@
+export function renderIndex(req, res) {
+    res.redirect('/staff');
+}
+
 export function renderCarnet(req, res) {
     res.render('carnet');
 }

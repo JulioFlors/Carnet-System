@@ -1,16 +1,14 @@
 <!-- Main content -->
-<div class="content">
+<div class="container">
+
     <div class="row justify-content-around">
- 
 
-
- 
-        <div class="col-lg-5">
+        <div class="col-lg-5 col-md-7 col-sm-9 oculto-impresion justify-content-center align-self-center">
             <div class="card">
 
                 <div class="card-header">
                     <form action="/carnet/staff/view" method="POST" class="has-search" id="formSearch">
-                        <span class="fa fa-search form-control-feedback"></span>
+                        <span class="fa fa-search form-control-feedback fa-w-16"></span>
                         <input autofocus type="text" class="form-control" name="cedula" id="searchCedula"
                             placeholder="Search by Cedula" maxlength="8" autocomplete="off">
                     </form>
@@ -21,52 +19,49 @@
                     <form action="/carnet/staff/uploadPhoto" method="POST" id="form" enctype="multipart/form-data">
 
                         <div class="form-group">
-                            <label for="cedula">Cedula</label>
                             <input required value="{{data.dataValues.cedula}}" type="text" class="form-control"
-                                name="cedula" id="cedula" maxlength="8" autocomplete="off">
+                                name="cedula" id="cedula" maxlength="8" autocomplete="off" placeholder="Cedula">
                         </div>
 
                         <div class="form-group">
-                            <label for="firstname">Firstname</label>
                             <input required {{#if data.dataValues.first_name}}
                                 value="{{capitalize data.dataValues.first_name}}" {{/if}} type="text"
-                                class="form-control" name="firstname" id="firstname" maxlength="50" autocomplete="off">
+                                class="form-control" name="firstname" id="firstname" maxlength="50" autocomplete="off"
+                                placeholder="Firstname">
                         </div>
 
                         <div class="form-group">
-                            <label for="lastname">Lastname</label>
                             <input required {{#if data.dataValues.last_name}}
                                 value="{{capitalize data.dataValues.last_name}}" {{/if}} type="text"
-                                class="form-control" name="lastname" id="lastname" maxlength="50" autocomplete="off">
+                                class="form-control" name="lastname" id="lastname" maxlength="50" autocomplete="off"
+                                placeholder="Lastname">
                         </div>
 
                         <div class="form-group">
-                            <label for="department">Department</label>
                             <input required {{#if data.department.dataValues.description}}
                                 value="{{capitalize data.department.dataValues.description}}" {{/if}} type="text"
-                                class="form-control" name="department" id="department" maxlength="50"
-                                autocomplete="off">
+                                class="form-control" name="department" id="department" maxlength="50" autocomplete="off"
+                                placeholder="Department">
                         </div>
 
                         <div class="form-group">
-                            <label for="position">Position</label>
-
                             <input required {{#if data.position.dataValues.description}}
                                 value="{{capitalize data.position.dataValues.description}}" {{/if}} type="text"
-                                class="form-control" name="position" id="position" maxlength="50" autocomplete="off">
-
+                                class="form-control" name="position" id="position" maxlength="50" autocomplete="off"
+                                placeholder="Position">
                         </div>
 
                         <div class="form-group">
                             <label for="date_of_expiration">Date of Expiration</label>
-                            <input required type="month" class="form-control" name="date_of_expiration"
-                                id="date_of_expiration" maxlength="10" autocomplete="off"
-                                value="{{date_of_expiration}}">
+                            <input required {{#if data.staff.dataValues.carnet.dataValues.date_of_expiration}}
+                                value="{{data.staff.dataValues.carnet.dataValues.date_of_expiration}}" {{/if}} type="month"
+                                class="form-control" name="date_of_expiration" id="date_of_expiration" maxlength="10"
+                                autocomplete="off">
                         </div>
 
                         <div class="form-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="photo" id="photo">
+                                <input required type="file" class="custom-file-input" name="photo" id="photo">
                                 <label class="custom-file-label" for="photo">Upload photo</label>
                             </div>
                         </div>
@@ -105,16 +100,17 @@
         <!-- /.col-md-6 -->
 
         {{#if photo.dataValues.path}}
-        <div class="col-lg-4">
+        <div class="col-xl-3 pt-5 card-carnet justify-content-center align-self-center">
 
-            {{!-- <img src="{{photo.dataValues.path}}" class="card-img-top photo" alt=""> --}}
-            <!-- Tarjeta -->
-            <div class="tarjeta" id="tarjeta">
+            <!-- Carnet -->
+            <div class="carnet" id="carnet">
                 <div class="delantera">
-                    <div class="logo-marca" id="logo-marca">
-                        <!-- <img src="img/logos/visa.png" alt=""> -->
+
+                    <div class="photo">
+                        <img src="{{photo.dataValues.path}}" class="img-fluid" alt="Photo">
                     </div>
-                    <img src="{{photo.dataValues.path}}" class="chip" alt="">
+
+
                     <div class="datos">
                         <div class="grupo" id="numero">
                             <p class="label">Número Tarjeta</p>
@@ -135,30 +131,20 @@
                     </div>
                 </div>
 
-                <div class="trasera">
-                    <div class="barra-magnetica"></div>
-                    <div class="datos">
-                        <div class="grupo" id="firma">
-                            <p class="label">Firma</p>
-                            <div class="firma">
-                                <p></p>
-                            </div>
-                        </div>
-                        <div class="grupo" id="ccv">
-                            <p class="label">CCV</p>
-                            <p class="ccv"></p>
-                        </div>
-                    </div>
-                    <p class="leyenda">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-                        exercitationem,
-                        voluptates illo.</p>
-                    <a href="#" class="link-banco">www.tubanco.com</a>
-                </div>
 
 
 
             </div>
-            <!-- /.tarjet -->
+            <!-- /.Carnet -->
+
+            <!-- container Boton -->
+            <div class="container-btn">
+                <button class="btn-print oculto-impresion" onclick="imprimir()">
+                    <i class="fas fa-print"></i>
+                </button>
+            </div>
+
+
             {{/if}}
 
         </div>
