@@ -28,6 +28,9 @@ router.get("/carnet/staff/view", isAuthenticated, renderFormCarnet);
 // Enviar datos del Form de carnet-staff para crear el carnet, guardar foto, imprimir
 router.post("/carnet/staff/uploadPhoto", isAuthenticated, uploadPhoto);
 
+// crea o actualiza el carnet
+router.post("/carnet/staff/createCarnet", isAuthenticated, createCarnet);
+
 
 
 // // Get All Staff

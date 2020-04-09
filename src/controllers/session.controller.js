@@ -5,17 +5,14 @@ import User from '../models/Users';
 import passport from 'passport'
 
 export async function renderSignUpForm(req, res) {
-    res.render('session/signup')
+    return res.render('session/signup')
 };
 
 export async function renderSignInForm(req, res) {
 
-    if (req.user) {
-        res.redirect('/Staff')
-    } else {
-
-        res.render('session/signin')
-    }
+    if (req.user) return res.redirect('/Staff')
+    
+    return res.render('session/signin') 
 };
 
 export const signIn = passport.authenticate("local", {

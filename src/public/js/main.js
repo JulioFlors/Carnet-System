@@ -1,12 +1,13 @@
 const formSearch = document.querySelector('#formSearch');
+const formModal = document.querySelector('#formModal');
 const form = document.querySelector('#form');
 
 if (formSearch) {
     // Input search by cedula
-    formSearch.searchCedula.addEventListener('keyup', (e) => {
-        let valorInput = e.target.value;
+    formSearch.cedula.addEventListener('keyup', (e) => {
+        let inputValue = e.target.value;
 
-        formSearch.searchCedula.value = valorInput
+        formSearch.cedula.value = inputValue
             // Eliminamos espacios en blanco
             .replace(/\s/g, '')
             // Eliminar las letras
@@ -17,45 +18,63 @@ if (formSearch) {
 }
 
 if (form) {
-    // Input numero de cedula
+    // Input cedula number
     form.cedula.addEventListener('keyup', (e) => {
-        let valorInput = e.target.value;
-
-        form.cedula.value = valorInput
-            // Eliminamos espacios en blanco
-            .replace(/\s/g, '')
-            // Eliminar las letras
-            .replace(/\D/g, '')
-            // Elimina el ultimo espaciado
-            .trim();
+        let inputValue = e.target.value; 
+        form.cedula.value = inputValue 
+            .replace(/\s/g, '') 
+            .replace(/\D/g, '') 
+            .trim(); 
     });
 
-    // Input numero de firtname
+    // Input firtname
     form.firstname.addEventListener('keyup', (e) => {
-        let valorInput = e.target.value;
-
-        form.firstname.value = valorInput
-            // Eliminar los numeros
-            .replace(/[0-9]/g, '');
+        let inputValue = e.target.value; 
+        form.firstname.value = inputValue.replace(/[0-9]/g, ''); // Eliminar los numeros
     });
 
-    // Input numero de lastname
+    // Input lastname
     form.lastname.addEventListener('keyup', (e) => {
-        let valorInput = e.target.value;
+        let inputValue = e.target.value; 
+        form.lastname.value = inputValue.replace(/[0-9]/g, '');
+    });
 
-        form.lastname.value = valorInput
-            // Eliminar los numeros
-            .replace(/[0-9]/g, '');
+    // Input department
+    form.department.addEventListener('keyup', (e) => {
+        let inputValue = e.target.value; 
+        form.department.value = inputValue;
+    });
+
+    // Input position
+    form.position.addEventListener('keyup', (e) => {
+        let inputValue = e.target.value; 
+        form.position.value = inputValue;
+    }); 
+
+    // Input date_of_expiration
+    form.date_of_expiration.addEventListener('click', (e) => { 
+        if (formModal) formModal.date_of_expiration.value = form.date_of_expiration.value;
     });
 }
 
-// mostrar el nombre del archivo cargado
+// validations to create the card
+if (formModal) {
+    // get the current values of the inputs 
+    formModal.printYes.addEventListener('click', (e) => { 
+        formModal.cedula.value = form.cedula.value;
+        formModal.date_of_expiration.value = form.date_of_expiration.value;
+        formModal.department.value = form.department.value.toUpperCase();
+        formModal.position.value = form.position.value.toUpperCase(); 
+    });
+}
+
+// show name of loaded file
 $(document).on('change', '.custom-file-input', function () {
     let fileName = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
     $(this).parent('.custom-file').find('.custom-file-label').text(fileName);
 });
 
-// imprimirElemento 
+// show the print window 
 function imprimir() {
     window.print();
 }

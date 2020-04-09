@@ -53,23 +53,16 @@ export async function getData(req, res) {
 export async function getDataAGAIN(req, res, cedula) {
 
     try {   
-        // Search matches by cedula
-        const staff = await Staff.findOne({ where: {cedula} });
-
-        if (staff) {
- 
             const data = await Rac.findOne({
 
-                include: [  { model: Staff, 
-                              include: [ { model: Carnet } ]
-                            }, 
-                            { model: Department }, 
-                            { model: Position }
-                         ],
-    
-                where: { cedula },
-    
-                attributes: ['cedula', 'first_name', 'last_name'] 
+            include: [  { model: Staff, 
+                          include: [ { model: Carnet } ]
+                        }, 
+                        { model: Department }, 
+                        { model: Position }
+                     ],
+              where: { cedula },
+              attributes: ['cedula', 'first_name', 'last_name'] 
             });
             
             // Search matches by cedula
@@ -77,13 +70,7 @@ export async function getDataAGAIN(req, res, cedula) {
             
             if (photo) return res.render('carnet/carnet-staff', { data, photo }); 
 
-            return res.render('carnet/carnet-staff', { data }); 
-            
-        } else {
-            req.flash('error_msg', 'No staff found.'); 
-            return res.redirect('/carnet/staff/view');  
-        } 
-
+            return res.render('carnet/carnet-staff', { data });        
     } catch (error) {
         console.log(error); 
         req.flash('error_msg', 'No staff found.');
@@ -109,115 +96,181 @@ export async function uploadPhoto(req, res) {
     const path = '/img/uploads/' + req.file.filename;
 
     try { 
-        // Search matches by cedula
-        const photo = await Photo.findOne({ where: { cedula } });
 
-        // if the Photo exist
-        if (photo) {
- 
-            // we update photo from data base 
-            await Photo.update({
-                filename,
-                path,
-                originalname,
-                mimetype,
-                size
-            }, {
-                where: { cedula }
-            }); 
+         // Search matches by cedula
+         const staff = await Staff.findOne({ where: {cedula} });
 
+         if (staff) {
+
+            // Search matches by cedula
+            const photo = await Photo.findOne({ where: { cedula } });
+
+            // if the Photo exist
+            if (photo) {
+    
+                // we update photo from data base 
+                const photoUpdate = await Photo.update({
+                    filename,
+                    path,
+                    originalname,
+                    mimetype,
+                    size
+                }, {
+                    where: { cedula }
+                }); 
+
+                // if the photo was updated
+                if (photoUpdate) {
+                    // we delete from system
+                    await unlink(Path.resolve('./src/public/' + photo.path));
+
+                    req.flash('success_msg', 'Photo Updated Successfully');
+                } else {
+                    req.flash('success_msg', 'Photo Could Not Be Updated');
+                } 
+    
+                // Get and Validation of the data
+                return getDataAGAIN(req, res, cedula); 
+                
+            } else {
+                await Photo.create({
+                    cedula,
+                    filename,
+                    path,
+                    originalname,
+                    mimetype,
+                    size
+                }); 
+
+                req.flash('success_msg', 'Photo Saved Successfully');
+                
+                // Get and Validation of the data
+                return getDataAGAIN(req, res, cedula); 
+            }  
+         } else {
             // we delete from system
-            await unlink(Path.resolve('./src/public/' + photo.path));
+            await unlink(Path.resolve('./src/public/' + path)); 
+            
+            req.flash('error_msg', 'No staff found.');
+            return res.redirect('/carnet/staff/view');
+         }
 
-            req.flash('success_msg', 'Photo Updated Successfully');
-            
-            // Get and Validation of the data
-            return getDataAGAIN(req, res, cedula); 
-            
-        } else {
-            await Photo.create({
-                cedula,
-                filename,
-                path,
-                originalname,
-                mimetype,
-                size
-            }); 
-
-            req.flash('success_msg', 'Photo Saved Successfully');
-            
-            // Get and Validation of the data
-            return getDataAGAIN(req, res, cedula); 
-        }  
     } catch (error) {  
         // we delete from system
         await unlink(Path.resolve('./src/public/' + path));
 
         console.log(error); 
-        req.flash('error_msg', 'Something went wrong when saving the photo');
+        req.flash('error_msg', 'Something went wrong when saving the photo ');
 
         // Get and Validation of the data
-        return getData(); 
+        return getData(req, res); 
     }
 };
 
 export async function createCarnet(req, res) {
 
-    try {
-        const {
-            cedula,
-            date_of_expiration
-        } = req.body;
+    const {
+        cedula,
+        date_of_expiration,
+        department,
+        position
+    } = req.body;
+  
+    const id_user = req.user.dataValues.id;    
+    const errors = [];
 
-        const id_user = req.user.dataValues.id;
+    console.log(id_user);
+    console.log(cedula);
+    console.log(date_of_expiration);
+    console.log(department);
+    console.log(position);
 
-        const {
-            filename,
-            originalname,
-            mimetype,
-            size
-        } = req.file;
+    try {  
+  
+         // Search matches by Department
+         const Dpto = await Department.findOne({ where: {description: department} });
 
-        const path = '/img/uploads/' + req.file.filename;
+         if (!Dpto){ 
+            errors.push({ text: 'Invalid Department.' }); 
+            return res.redirect('/carnet/staff/view');
+         }
 
-        // Search matches by cedula
-        const carnet = await Carnet.findOne({
-            where: {
-                cedula
-            }
-        });  
-        
-        // if the Carnet exist
-        if (carnet) {
- 
-            await Carnet.update({
-                date_of_expiration,
-                id_user
-            }, {
-                where: { cedula }
-            });
+         // Search matches by Position
+         const Cargo = await Position.findOne({ where: {description: position} });
 
-            // Validations to save the photo 
-            return uploadPhoto(); 
+         if (!Cargo){ 
+            errors.push({ text: 'Invalid Position.' }); 
+            return res.redirect('/carnet/staff/view');
+         } 
 
+         if (errors.length > 0) {
+            res.render('session/signup', {
+                errors,
+                username,
+                password
+            })
         } else {
- 
-            await Carnet.create({
-                cedula,
-                date_of_expiration,
-                id_user
-            }, {
-                fields: ['cedula', 'date_of_expiration', 'id_user']
-            });
-            
-            // Validations to save the photo 
-            return uploadPhoto(); 
 
-        } 
+            
+        }
+        
+         // Search matches by cedula
+         const staff = await Staff.findOne({ where: {cedula} });
+
+         if (staff) {
+            // Search matches by cedula
+            const carnet = await Carnet.findOne({ where: { cedula } });  
+            
+            // if the Carnet exist
+            if (carnet) {
+    
+                const carnetUpdate = await Carnet.update({
+                    date_of_expiration,
+                    id_user
+                }, {
+                    where: { cedula }
+                });
+    
+                if (carnetUpdate){
+                    // Get and Validation of the data
+                    req.flash('success_msg', 'Carnet Update Successfuly');
+                    console.log('Carnet Update Successfuly');
+                    return getDataAGAIN(req, res, cedula);
+                } else {  
+                    req.flash('error_msg', 'Could Not Update Carnet');
+                    console.log('Could Not Update Carnet');
+                    return res.redirect('/carnet/staff/view');
+                } 
+            } else {
+    
+                const carnetCreate = await Carnet.create({
+                    cedula,
+                    date_of_expiration,
+                    id_user
+                }, {
+                    fields: ['cedula', 'date_of_expiration', 'id_user']
+                });
+                
+                if (carnetCreate){
+                    // Get and Validation of the data
+                    req.flash('success_msg', 'Carnet Create Successfuly');
+                    console.log('Carnet Create Successfuly');
+                    return getDataAGAIN(req, res, cedula); 
+                } else {  
+                    req.flash('error_msg', 'Could Not Create Carnet');
+                    console.log('Could Not Create Carnet');
+                    return res.redirect('/carnet/staff/view');
+                }  
+            } 
+         } else {
+            req.flash('error_msg', 'Enter a valid cedula');
+            console.log('Enter a valid cedula');
+            return res.redirect('/carnet/staff/view');
+         }  
     } catch (error) {
         console.log(error);
         req.flash('error_msg', 'Could Not Create Carnet');
-        res.redirect('/carnet/staff/view');
+        console.log('Could Not Create Carnet');
+        return res.redirect('/carnet/staff/view');
     }
 }
- 
