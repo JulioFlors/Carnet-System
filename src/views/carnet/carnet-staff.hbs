@@ -1,9 +1,9 @@
-<!-- Main content -->
-<div class="container">
+<div class="container" style="background: whitesmoke;">
 
-    <div class="row justify-content-around">
+    <div class="row justify-content-around" style="background: purple;">
 
-        <div class="col-lg-5 col-md-7 col-sm-9 oculto-impresion justify-content-center align-self-center">
+        <div class="col-lg-4 col-md-6 col-sm-8 px-0 justify-content-center align-self-center hide-print"
+            style="background: lime;">
             <div class="card">
 
                 <div class="card-header">
@@ -103,11 +103,12 @@
 
 
         {{#if photo.dataValues.path}}
-        <div class="col-xl-3 pt-5 card-carnet justify-content-center align-self-center">
+        <div class="col-xl-3 col-lg-4 col-md-5 col-sm-7 py-5 px-0 justify-content-center align-self-center col-carnet"
+            style="background: pink;">
 
             <!-- Carnet -->
-            <div class="carnet" id="carnet">
-                <div class="delantera">
+            <div class="carnet" id="carnet" style="background: brown;">
+                <div class="front">
 
                     <div class="photo">
                         <img src="{{photo.dataValues.path}}" class="img-fluid" alt="Photo">
@@ -132,18 +133,17 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- /.Carnet -->
+                </div> <!-- /.Front -->
 
-            <!-- Container Print-Button -->
-            <div class="btn-print">
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-secondary oculto-impresion" data-toggle="modal"
-                    data-target="#confirmPrint" onclick="imprimir()"><i class="fas fa-print"></i>
-                </button>
-            </div>
-            <!-- /.Container Print-Button -->
+                <!-- Container Print-Button -->
+                <div class="btn-print">
+                    <button type="button" class="btn btn-secondary hide-print" data-toggle="modal"
+                        data-target="#confirmPrint" onclick="imprimir()"><i class="fas fa-print"></i>
+                    </button>
+                </div>
+                <!-- /.Container Print-Button -->
+
+            </div> <!-- /.Carnet -->
 
             <!-- Modal -->
             <div class="modal fade" id="confirmPrint" data-backdrop="static" tabindex="-1" role="dialog"
@@ -181,4 +181,4 @@
 
     </div> <!-- /.row -->
 
-</div> <!-- /.content -->
+</div> <!-- /.container -->

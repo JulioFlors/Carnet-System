@@ -12,17 +12,17 @@
 body {
 	/* fallback for old browsers */
 	background: #1488CC;
-	
+
 	/* Chrome 10-25, Safari 5.1-6 */
 	background: -webkit-linear-gradient(to right, #2B32B2, #1488CC);
-	
+
 	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 	background: linear-gradient(to right, #2B32B2, #1488CC);
-	
+
 	/* below the navbar */
 	margin-top: 3rem;
 }
-  
+
 /* ------------ scrollbar ------------ */
 body::-webkit-scrollbar {
 	width: 0.3rem;
@@ -34,7 +34,8 @@ body::-webkit-scrollbar-track {
 
 body::-webkit-scrollbar-thumb {
 	background: #6649b8;
-} 
+}
+
 /* ------------ scrollbar ------------ */
 
 /* ------------------------ Navbar ------------------------ */
@@ -46,15 +47,14 @@ body::-webkit-scrollbar-thumb {
 .navbar .nav-item .nav-link {
 	color: white;
 }
-/* ------------ dropdown Navbar ------------ */
+
 .dropdown-item {
 	font-size: 14px;
 	color: white;
-} 
-/* ------------ dropdown Navbar ------------ */
+}
+
 /* ------------------------ Navbar ------------------------ */
 
- 
 /* ------------------------ search box ------------------------ */
 .has-search .form-control {
 	position: relative;
@@ -73,9 +73,10 @@ body::-webkit-scrollbar-thumb {
 	color: #aaa;
 	left: 1.7rem;
 	top: 1.2rem;
-} 
+}
+
 /* ------------------------ search box ------------------------ */
- 
+
 /* ------------------------------------ print window ------------------------------------ */
 * {
 	-webkit-print-color-adjust: exact !important;
@@ -87,199 +88,161 @@ body::-webkit-scrollbar-thumb {
 @media print {
 	@page {
 		size: 54mm 86mm;
-		margin-left: 0px;
-		margin-right: 0px;
-		margin-top: 200px;
-		margin-bottom: 0px;
-		margin: 0;
+		margin: 0rem 0rem !important;
+		padding: 0rem 0rem !important;
 		-webkit-print-color-adjust: exact;
 	}
 }
 
-@media print { 
-	.oculto-impresion,
-	.oculto-impresion * {
+@media print {
+
+	.hide-print,
+	.hide-print * {
 		display: none !important;
 	}
-} 
-/* ------------------------------------ print window ------------------------------------ */
 
+	.carnet,
+	.col-carnet,
+	.row,
+	.container,
+	main,
+	body {
+		background: none !important;
+		margin: 0rem 0rem !important;
+		padding: 0rem 0rem !important;
+		box-sizing: border-box !important;
+	}
 
-
-/* ------------------------------------ print window ------------------------------------ */
-.card-carnet {
-	background: rgb(226, 40, 142);
+	.carnet {
+		margin: 0rem 0rem !important;
+		padding: 0rem 0rem !important;
+		box-sizing: border-box !important;
+	}
 }
 
-.carnet .delantera {
-	/* The image used */
-	background-image: url(../img/templates/template.png) !important;
-	/* Full height */
-	height: 100%;
-
-	/* Center and scale the image nicely */
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-}
 /* ------------------------------------ print window ------------------------------------ */
 
-
-
-
-
-
-
-/* ---------------------------------------------------- View Carnet ---------------------------------------------------- */
- 
-.contenedor {
-	width: 100%;
-	max-width: 1000px;
-	padding: 40px 20px;
-	margin: auto;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-/* ---------- Estilos Generales de las Carnets ----------*/
+/* ------------------------------------ General Carnet Styles ------------------------------------ */
 .carnet {
-	width: 100%;
-	max-width: 550px;
+	width: 18rem;
+	height: 29rem;
+	padding: 0;
+
+
 	position: relative;
-	color: #fff;
+	color: black;
 	transition: .3s ease all;
 	transform: rotateY(0deg);
 	transform-style: preserve-3d;
 	cursor: pointer;
-	z-index: 2;
+	z-index: 1;
+	align-items: center;
+	justify-content: center;
 }
 
 .carnet.active {
 	transform: rotateY(180deg);
 }
 
-.carnet>div {
-	padding: 30px;
+.carnet .front,
+.carnet .back {
+
+	width: 18rem;
+	height: 29rem;
+
+	align-items: center;
+
+	padding: 0;
 	border-radius: 15px;
-	min-height: 315px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	/* box-shadow: 0 10px 10px 0 rgba(90, 116, 148, 0.3); */
+	box-shadow: 0 10px 10px 0 rgba(90, 116, 148, 0.3);
 }
 
-/* ---------- Carnet Delantera ----------*/
+/* ------------------------------------ General Carnet Styles ------------------------------------ */
 
-/* .carnet .delantera {
-	width: 100%;
-	background: url(../img/bg-carnet/bg-carnet-02.jpg);
+/* ------------------------------------ Front of the Carnet ------------------------------------ */
+/* The image used */
+/* Center and scale the image nicely */
+.carnet .front {
+	background-image: url(../img/templates/template.png) !important;
+	background-position: center;
+	background-repeat: no-repeat;
 	background-size: cover;
-} */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.delantera .grupo .label {
-	font-size: 16px;
-	color: #7d8994;
-	margin-bottom: 5px;
 }
 
-.delantera .grupo .numero,
-.delantera .grupo .nombre,
-.delantera .grupo .expiracion {
-	color: #fff;
-	font-size: 22px;
-	text-transform: uppercase;
+/* ------------------------------------ Front of the Carnet ------------------------------------ */
+/* ------------ Carnet Photo ------------ */
+.front .photo {
+	/* width: 100%;  */
+
+	position: absolute;
+	z-index: 3;
+	display: block;
+	max-width: 5rem;
+	max-height: 5rem;
+	text-align: center;
+	pointer-events: none;
+	left: 1.7rem;
+	top: 1.2rem;
 }
 
-.delantera .flexbox {
-	display: flex;
-	justify-content: space-between;
-	margin-top: 20px;
-}
-
-
-.photo {
-	width: 100%;
-	max-width: 8rem;
-}
-
-.delantera .photo {
-	text-align: right;
-	min-height: 50px;
-}
-
-.delantera .photo img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	max-width: 80px;
-	margin-bottom: 20px;
-}
-
+/* ------------ Carnet Photo ------------ */
 
 /* ------------------------ Container Print-Button ------------------------ */
-.container-btn .btn-print {
+.btn-print .btn-secondary {
 	width: 50px;
 	height: 50px;
-	font-size: 20px;
-	line-height: 20px;
-	background: rgba(78, 78, 78, 1);
-	color: #fff;
-	position: relative;
+	position: absolute;
 	top: -25px;
-	z-index: 3;
-	border-radius: 100%;
-	box-shadow: -5px 4px 8px rgba(40, 40, 40, 0.5);
+
+
+	color: #fff;
+
 	padding: 5px;
-	transition: all .2s ease;
-	border: none;
 	cursor: pointer;
+
+	border: 0px;
+	border-radius: 50%;
+	font-size: 1.5rem;
+	font-weight: 200;
+	line-height: 0;
+
+	text-shadow: 0 0 0;
+	box-shadow: 0 0 0 0rem;
+
+
+	width: 3rem 3rem;
+	padding: .3rem .3rem;
+
+	font-size: .875rem;
+	line-height: 1.5;
+
+	z-index: 3;
 }
 
-.container-btn .btn-print:hover {
-	background: rgba(93, 93, 93, 1);
-}
 /* ------------------------ Container Print-Button ------------------------ */
 
 /* ------------------------------------------------ Modal - Confirm Print ------------------------------------------------ */
-/* ------------ Modal btn ------------ */ 
+/* ------------ Modal btn ------------ */
 .modal-content {
 	background: rgba(63, 63, 63, 1);
-} 
+}
 
 .modal-content .btn-secondary,
 .modal-content .btn-success {
-	border-radius: 3%;
+	border-radius: 1%;
 	border: 0px;
 	padding: .25rem 2rem;
 	font-size: .875rem;
 	line-height: 1.5;
 	box-shadow: 0 0 0 0rem;
 }
-/* ------------ Modal btn ------------ */ 
 
-/* ------------------------ Custom Buttons ------------------------ */ 
+/* ------------ Modal btn ------------ */
+
+/* ------------------------ Custom Buttons ------------------------ */
 .btn-secondary {
 	background: rgba(78, 78, 78, 1);
 	border-color: rgba(78, 78, 78, 1);
@@ -295,7 +258,13 @@ body::-webkit-scrollbar-thumb {
 	background: rgba(93, 93, 93, 1);
 }
 
-.btn-secondary:focus,
+.btn-secondary:focus {
+	background: rgba(78, 78, 78, 1);
+	border-color: rgba(78, 78, 78, 1);
+	box-shadow: 0 0 0 0rem;
+	border: 0px;
+}
+
 .btn-success:focus {
 	box-shadow: 0 0 0 0rem;
 	border: 0px;
@@ -312,7 +281,7 @@ body::-webkit-scrollbar-thumb {
 
 .btn-success:not(:disabled):not(.disabled).active,
 .btn-success:not(:disabled):not(.disabled):active,
-.show>.btn-success { 
+.show>.btn-success {
 	border: 0px;
 }
 
@@ -326,52 +295,55 @@ body::-webkit-scrollbar-thumb {
 .btn-success:not(:disabled):not(.disabled):active:focus,
 .show>.btn-success.dropdown-toggle:focus {
 	box-shadow: 0 0 0 0rem;
-} 
-/* ------------------------ Custom Buttons ------------------------ */ 
+}
+
+/* ------------------------ Custom Buttons ------------------------ */
 
 /* ------------------------ Modal Structure ------------------------ */
- 
+
 /* ------------ Close ------------ */
 .modal-content .close {
-    float: right;
-    font-size: 1.5rem;
-    font-weight: 200;
-    line-height: 0;
-    color: #fff;
+	float: right;
+	font-size: 1.5rem;
+	font-weight: 200;
+	line-height: 0;
+	color: #fff;
 	text-shadow: 0 0 0 #fff;
 	opacity: .5;
 }
 
-.modal-content .close:active { 
-	font-size: 1.55rem; 
+.modal-content .close:active {
+	font-size: 1.55rem;
 	opacity: 1;
 }
-  
-.modal-content .close:focus { 
-	outline:none;
+
+.modal-content .close:focus {
+	outline: none;
 }
+
 /* ------------ Close ------------ */
- 
-.modal-header { 
-    padding-top: 1rem;
-    padding-right: 1rem;
-    padding-bottom: .1rem;
-	padding-left: 1rem;  
-	border-bottom: 0px; 
+
+.modal-header {
+	padding-top: 1rem;
+	padding-right: 1rem;
+	padding-bottom: .1rem;
+	padding-left: 1rem;
+	border-bottom: 0px;
 	font-weight: 400;
 }
 
 .modal-body {
-    padding: .3rem 1rem;
+	padding: .3rem 1rem;
 	font-weight: 300;
 }
 
-.modal-footer { 
+.modal-footer {
 	padding-top: .2rem;
-    padding-right: .75rem;
-    padding-bottom: .75rem;
-	padding-left: .75rem; 
-    border-top: 0px; 
+	padding-right: .75rem;
+	padding-bottom: .75rem;
+	padding-left: .75rem;
+	border-top: 0px;
 }
+
 /* ------------------------ Modal Structure ------------------------ */
 /* ------------------------------------------------ Modal - Confirm Print ------------------------------------------------ */
