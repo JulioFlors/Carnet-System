@@ -1,25 +1,31 @@
-<div class="row">
-  <div class="col-md-4 mx-auto">
-    <div class="card mt-4 text-center">
-      <div class="card-header">
-        <h1 class="h4">
-          Account Login
-        </h1>
+<div class="container container-signin">
+  <div class="row">
+    <div class="col-xl-4 col-lg-5 col-md-6 col-sm-8 p-auto m-auto justify-content-center align-self-center">
+
+      <div class="card text-center">
+
+        <div class="card-header">
+          <img class="icon" src="/img/logos/icon.png" alt="Logo">
+          <h3 class="tittle text-center"> Carnet System </h3>
+        </div>
+        <div class="card-body">
+          <h6 class="subtittle text-center"> Alcaldia Bolivariana del Caroní</h6>
+          <form action="/signin" method="POST">
+            <div class="form-group">
+              <input required type="text" class="form-control" name="username" placeholder="UserName" autofocus>
+            </div>
+            <div class="form-group">
+              <input required type="password" class="form-control" name="password" placeholder="Password">
+            </div>
+            <div class="button">
+              <button class="btn btn-success btn-block">
+                Signin
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-      <img class="rounded-circle mx-auto d-block m-4" src="/img/logos/logo.png" alt="Logo" style="width: 50%;">
-      <div class="card-body">
-        <form action="/signin" method="POST">
-          <div class="form-group">
-            <input required type="text" class="form-control" name="username" placeholder="UserName" autofocus>
-          </div>
-          <div class="form-group">
-            <input required type="password" class="form-control" name="password" placeholder="Password">
-          </div>
-          <button class="btn btn-success btn-block">
-            Signin
-          </button>
-        </form>
-      </div>
+
     </div>
   </div>
 </div>

@@ -1,0 +1,426 @@
+:root {
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin-top: 3rem;
+    background: rgba(250, 249, 247, 1);
+
+    /* fallback for old browsers */
+    /* background: #1488CC; */
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    /* background: -webkit-linear-gradient(to right, #2B32B2, #1488CC); */
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    /* background: linear-gradient(to right, #2B32B2, #1488CC); */
+
+    /* fallback for old browsers */
+    /* below the navbar */
+}
+
+/* ------------ scrollbar ------------ */
+body::-webkit-scrollbar {
+    width: 0.3rem;
+}
+
+/* ------------ scrollbar ------------ */
+body::-webkit-scrollbar-track {
+    background: rgba(59, 59, 59, 1);
+}
+
+/* ------------ scrollbar ------------ */
+body::-webkit-scrollbar-thumb {
+    background: #6649b8;
+}
+
+
+
+/* ------------------------ Navbar ------------------------ */
+.navbar,
+.dropdown-menu,
+.dropdown-item,
+.navbar .nav-item .nav-link {
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgba(59, 59, 59, 1) !important;
+    color: white;
+}
+
+/* ------------------------ Navbar ------------------------ */
+.dropdown-item:hover {
+    color: hsl(0, 0%, 75%);
+}
+
+/* ------------------------ Table ------------------------ */
+.table,
+.table .thead-dark th {
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgba(59, 59, 59, 1) !important;
+    color: white;
+}
+
+/* ------------------------ Table ------------------------ */
+.table-dark td,
+.table-dark th,
+.table .thead-dark th {
+    border-color: rgba(78, 78, 78, 1);
+    border-top-color: rgba(78, 78, 78, 1);
+    border-right-color: rgba(78, 78, 78, 1);
+    border-bottom-color: rgba(78, 78, 78, 1);
+    border-left-color: rgba(78, 78, 78, 1);
+}
+
+/* ------------------------------------ Form-Carnet ------------------------------------ */
+/* ------------------------ search box ------------------------ */
+.has-search .form-control {
+    position: relative;
+    padding-left: 2.375rem;
+}
+
+/* ------------------------ search box ------------------------ */
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 1.375rem;
+    height: 1.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: rgba(93, 93, 93, 1);
+    left: 1.7rem;
+    top: 1.2rem;
+}
+
+/* ------------------------ card ------------------------ */
+.container-carnet .card-header {
+    background: white;
+}
+
+/* ------------------------------------ Form-Carnet ------------------------------------ */
+
+/* ------------------------------------ print window ------------------------------------ */
+* {
+    -webkit-print-color-adjust: exact !important;
+    /* Chrome, Safari */
+    color-adjust: exact !important;
+    /*Firefox*/
+}
+
+@media print {
+    @page {
+        size: 54mm 86mm;
+        margin: 0rem 0rem !important;
+        padding: 0rem 0rem !important;
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+@media print {
+
+    .hide-print,
+    .hide-print * {
+        display: none !important;
+    }
+
+    .carnet,
+    .col-carnet,
+    .row,
+    .container,
+    main,
+    body {
+        background: none !important;
+        margin: 0rem 0rem !important;
+        padding: 0rem 0rem !important;
+        box-sizing: border-box !important;
+    }
+
+    .carnet {
+        width: 54mm !important;
+        height: 86mm !important;
+    }
+
+    .carnet .front,
+    .carnet .back {
+        width: 54mm !important;
+        height: 86mm !important;
+        margin: 0rem 0rem !important;
+        padding: 0rem 0rem !important;
+    }
+}
+
+/* ------------------------------------ print window ------------------------------------ */
+
+/* ------------------------------------ General Carnet Styles ------------------------------------ */
+.col-carnet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.carnet {
+    width: 18rem;
+    height: 29rem;
+    padding: 0rem;
+
+    position: relative;
+    color: black;
+    transition: .3s ease all;
+    transform: rotateY(0deg);
+    transform-style: preserve-3d;
+    cursor: pointer;
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carnet.active {
+    transform: rotateY(180deg);
+}
+
+.carnet .front,
+.carnet .back {
+    width: 18rem;
+    height: 29rem;
+    padding: 0rem;
+
+    border-radius: 15px;
+    box-shadow: 0 10px 10px 0 rgba(90, 116, 148, 0.3);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* ------------------------------------ General Carnet Styles ------------------------------------ */
+
+/* ------------------------------------ Front of the Carnet ------------------------------------ */
+/* The image used */
+/* Center and scale the image nicely */
+.carnet .front {
+    width: 100%;
+    background-image: url(../img/templates/template.png) !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* ------------ Carnet Photo ------------ */
+.front .photo {
+    min-width: 7.5rem;
+    position: absolute;
+    left: 9.6em;
+    top: 7.4rem;
+    pointer-events: none;
+
+    /* 	z-index: 3;
+	display: block;
+	max-width: 5rem;
+	max-height: 5rem;
+	text-align: center;  */
+}
+
+/* ------------ Carnet Photo ------------ */
+.front .photo img {
+    width: 100%;
+    height: 100%;
+    max-width: 7.5rem;
+    object-fit: cover;
+}
+
+/* ------------ Carnet Barra ------------ */
+.front .barra {
+    width: 100%;
+    height: 2.5rem;
+    position: absolute;
+    top: 26.5rem;
+    left: 0;
+    background: rgba(179, 91, 91, 1);
+    border-radius: 0 0 1rem 1rem;
+}
+
+/* ------------------------------------ Front of the Carnet ------------------------------------ */
+
+
+
+/* ------------------------ Container Print-Button ------------------------ */
+.btn-print .btn-secondary {
+    position: absolute;
+    top: 27.5rem;
+    left: 42.5%;
+
+    width: 3.1rem;
+    height: 3.1rem;
+    font-size: 1.1rem;
+    line-height: 1.1rem;
+    padding: .3rem;
+
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    color: #fff;
+}
+
+/* ------------------------ Container Print-Button ------------------------ */
+
+/* ------------------------------------------------ Modal - Confirm Print ------------------------------------------------ */
+/* ------------ Modal btn ------------ */
+.modal-content {
+    background: rgba(63, 63, 63, 1);
+}
+
+.modal-content .btn-secondary,
+.modal-content .btn-success {
+    border-radius: 1%;
+    border: 0px;
+    padding: .25rem 2rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    box-shadow: 0 0 0 0rem;
+}
+
+/* ------------ Modal btn ------------ */
+
+/* ------------------------ Custom Buttons ------------------------ */
+.btn-secondary {
+    background: rgba(78, 78, 78, 1);
+    border-color: rgba(78, 78, 78, 1);
+}
+
+.btn-secondary:active {
+    background: rgba(98, 98, 98);
+    box-shadow: 0 0 0 0rem;
+    border: 0px;
+}
+
+.btn-secondary:hover {
+    background: rgba(93, 93, 93, 1);
+}
+
+.btn-secondary:focus {
+    background: rgba(78, 78, 78, 1);
+    border-color: rgba(78, 78, 78, 1);
+    box-shadow: 0 0 0 0rem;
+    border: 0px;
+}
+
+.btn-success:focus {
+    box-shadow: 0 0 0 0rem;
+    border: 0px;
+}
+
+.btn-secondary:not(:disabled):not(.disabled).active,
+.btn-secondary:not(:disabled):not(.disabled):active,
+.show>.btn-secondary {
+    color: #fff;
+    background-color: rgba(98, 98, 98);
+    border-color: rgba(98, 98, 98);
+    border: 0px;
+}
+
+.btn-success:not(:disabled):not(.disabled).active,
+.btn-success:not(:disabled):not(.disabled):active,
+.show>.btn-success {
+    border: 0px;
+}
+
+.btn-secondary:not(:disabled):not(.disabled).active:focus,
+.btn-secondary:not(:disabled):not(.disabled):active:focus,
+.show>.btn-secondary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0rem rgba(130, 138, 145, .5);
+}
+
+.btn-success:not(:disabled):not(.disabled).active:focus,
+.btn-success:not(:disabled):not(.disabled):active:focus,
+.show>.btn-success.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0rem;
+}
+
+/* ------------------------ Custom Buttons ------------------------ */
+
+/* ------------------------ Modal Structure ------------------------ */
+
+/* ------------ Close ------------ */
+.modal-content .close {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 200;
+    line-height: 0;
+    color: #fff;
+    text-shadow: 0 0 0 #fff;
+    opacity: .5;
+}
+
+/* ------------ Close ------------ */
+.modal-content .close:active {
+    font-size: 1.55rem;
+    opacity: 1;
+}
+
+/* ------------ Close ------------ */
+.modal-content .close:focus {
+    outline: none;
+}
+
+.modal-header {
+    padding-top: 1rem;
+    padding-right: 1rem;
+    padding-bottom: .1rem;
+    padding-left: 1rem;
+    border-bottom: 0px;
+    font-weight: 400;
+}
+
+.modal-body {
+    padding: .3rem 1rem;
+    font-weight: 300;
+}
+
+.modal-footer {
+    padding-top: .2rem;
+    padding-right: .75rem;
+    padding-bottom: .75rem;
+    padding-left: .75rem;
+    border-top: 0px;
+}
+
+/* ------------------------ Modal Structure ------------------------ */
+/* ------------------------------------------------ Modal - Confirm Print ------------------------------------------------ */
+
+
+/* ------------------------------------------------ signin ------------------------------------------------ */
+
+.container-signin {
+    background: linear-gradient(to right, #2B32B2, #1488CC);
+}
+
+.container-signin .card {
+    border: 0;
+    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2);
+}
+
+.container-signin .card-body h3 {
+    font-weight: 300;
+}
+
+.container-signin .card-body .logo {
+    max-width: 50%;
+    position: absolute;
+    left: 42.76%;
+    right: 54.32%;
+    top: 25.37%;
+    bottom: 69.44%;
+}
+
+/* ------------------------------------------------ signin ------------------------------------------------ */

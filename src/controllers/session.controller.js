@@ -11,8 +11,8 @@ export async function renderSignUpForm(req, res) {
 export async function renderSignInForm(req, res) {
 
     if (req.user) return res.redirect('/Staff')
-    
-    return res.render('session/signin') 
+
+    return res.render('session/signin')
 };
 
 export const signIn = passport.authenticate("local", {

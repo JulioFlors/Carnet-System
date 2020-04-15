@@ -1,9 +1,8 @@
-<div class="container" style="background: whitesmoke;">
+<div class="container container-carnet">
 
-    <div class="row justify-content-around" style="background: purple;">
+    <div class="row justify-content-around">
 
-        <div class="col-lg-4 col-md-6 col-sm-8 px-0 justify-content-center align-self-center hide-print"
-            style="background: lime;">
+        <div class="col-xl-4 col-lg-5 col-md-6 col-sm-8 px-0 justify-content-center align-self-center hide-print">
             <div class="card">
 
                 <div class="card-header">
@@ -101,39 +100,64 @@
 
         </div> <!-- /.col-md-6 -->
 
-
         {{#if photo.dataValues.path}}
-        <div class="col-xl-3 col-lg-4 col-md-5 col-sm-7 py-5 px-0 justify-content-center align-self-center col-carnet"
-            style="background: pink;">
+        <div class="col-xl-3 col-lg-4 col-md-5 col-sm-7 py-5 px-0 justify-content-center align-self-center col-carnet">
 
             <!-- Carnet -->
-            <div class="carnet" id="carnet" style="background: brown;">
+            <div class="carnet" id="carnet">
                 <div class="front">
 
                     <div class="photo">
                         <img src="{{photo.dataValues.path}}" class="img-fluid" alt="Photo">
-                    </div>
+                    </div> <!-- /.Photo -->
 
-
-                    <div class="datos">
-                        <div class="grupo" id="numero">
-                            <p class="label">Número Tarjeta</p>
-                            <p class="numero">#### #### #### ####</p>
+                    <div class="data">
+                        <div class="group" id="cedula">
+                            <p class="label">CI.</p>
+                            <p class="cedula">cedula</p>
                         </div>
-                        <div class="flexbox">
-                            <div class="grupo" id="nombre">
-                                <p class="label">Nombre Tarjeta</p>
-                                <p class="nombre">Jhon Doe</p>
-                            </div>
-
-                            <div class="grupo" id="expiracion">
-                                <p class="label">Expiracion</p>
-                                <p class="expiracion"><span class="mes">MM</span> / <span class="year">AA</span>
-                                </p>
-                            </div>
+                        <div class="group" id="first_name">
+                            <p class="first_name">first_name</p>
                         </div>
-                    </div>
+                        <div class="group" id="last_name">
+                            <p class="last_name">last_name</p>
+                        </div>
+                        <div class="group" id="department">
+                            <p class="department">department</p>
+                        </div>
+                        <div class="group" id="position">
+                            <p class="position">position</p>
+                        </div>
+                    </div> <!-- /.Data -->
+
+                    <div class="barra"></div>
+
                 </div> <!-- /.Front -->
+
+                <div class="back">
+
+                    <div class="photo">
+                        <img src="{{photo.dataValues.path}}" class="img-fluid" alt="Photo">
+                    </div> <!-- /.Photo -->
+
+                    <div class="data">
+                        <div class="group" id="legend">
+                            <p class="legend">SE AGRADECE A LAS A LAS AUTORIDADES CIVILES, MERCANTILES Y MILITARES,
+                                PRESTAR LA MAYOR COLABORACION POSIBLE AL PORTADOR DE ESTE CARNET, DENTRO DEL MARCO DE
+                                LAS LEYES Y LA CONSTITUCION PARA EL DESEMPEÑO DE SUS FUNCIONES
+                            </p>
+                        </div>
+                        <div class="group" id="date_of_expiration">
+                            <p class="label">expiration</p>
+                            <p class="date_of_expiration"></p>
+                        </div>
+                        <div class="group" id="blood_type">
+                            <p class="label">blood type</p>
+                            <p class="blood_type"></p>
+                        </div>
+                    </div> <!-- /.Data -->
+
+                </div> <!-- /.Back -->
 
                 <!-- Container Print-Button -->
                 <div class="btn-print">
