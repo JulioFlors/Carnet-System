@@ -1,8 +1,9 @@
-<div class="container container-carnet">
+<div class="container" {{!-- style="background: RoyalBlue;" --}}>
 
-    <div class="row justify-content-around">
+    <div class="row justify-content-around row-carnet" {{!-- style="background: IndianRed;" --}}>
 
-        <div class="col-xl-4 col-lg-5 col-md-6 col-sm-8 px-0 justify-content-center align-self-center hide-print">
+        <div class="col-xl-4 col-lg-5 col-md-6 col-sm-8 px-0 justify-content-center align-self-center hide-print col-form"
+            {{!-- style="background: violet;" --}}>
             <div class="card">
 
                 <div class="card-header">
@@ -11,23 +12,22 @@
                         <input autofocus type="text" class="form-control" name="cedula" id="cedula"
                             placeholder="Search by Cedula" maxlength="8" autocomplete="off">
                     </form>
-                </div>
+                </div><!-- /.card-header -->
 
                 <div class="card-body">
-
                     <form action="/carnet/staff/uploadPhoto" method="POST" id="form" enctype="multipart/form-data">
 
                         <div class="form-group">
                             <input required {{#if data.dataValues.cedula}} value="{{data.dataValues.cedula}}" {{/if}}
                                 {{#if cedula}} value="{{cedula}}" {{/if}} type="text" class="form-control" name="cedula"
-                                id="cedula" maxlength="8" autocomplete="off" placeholder="Cedula">
+                                id="form__cedula" maxlength="8" autocomplete="off" placeholder="Cedula">
                         </div>
 
                         <div class="form-group">
                             <input required {{#if data.dataValues.first_name}}
                                 value="{{capitalize data.dataValues.first_name}}" {{/if}} {{#if first_name}}
                                 value="{{capitalize first_name}}" {{/if}} type="text" class="form-control"
-                                name="firstname" id="firstname" maxlength="50" autocomplete="off"
+                                name="firstname" id="form__firstname" maxlength="17" autocomplete="off"
                                 placeholder="Firstname">
                         </div>
 
@@ -35,14 +35,15 @@
                             <input required {{#if data.dataValues.last_name}}
                                 value="{{capitalize data.dataValues.last_name}}" {{/if}} {{#if last_name}}
                                 value="{{capitalize last_name}}" {{/if}} type="text" class="form-control"
-                                name="lastname" id="lastname" maxlength="50" autocomplete="off" placeholder="Lastname">
+                                name="lastname" id="form__lastname" maxlength="17" autocomplete="off"
+                                placeholder="Lastname">
                         </div>
 
                         <div class="form-group">
                             <input required {{#if data.department.dataValues.description}}
                                 value="{{capitalize data.department.dataValues.description}}" {{/if}} {{#if department}}
                                 value="{{capitalize department}}" {{/if}} type="text" class="form-control"
-                                name="department" id="department" maxlength="50" autocomplete="off"
+                                name="department" id="form__department" maxlength="50" autocomplete="off"
                                 placeholder="Department">
                         </div>
 
@@ -50,7 +51,7 @@
                             <input required {{#if data.position.dataValues.description}}
                                 value="{{capitalize data.position.dataValues.description}}" {{/if}} {{#if position}}
                                 value="{{capitalize position}}" {{/if}} type="text" class="form-control" name="position"
-                                id="position" maxlength="50" autocomplete="off" placeholder="Position">
+                                id="form__position" maxlength="50" autocomplete="off" placeholder="Position">
                         </div>
 
                         <div class="form-group">
@@ -58,7 +59,7 @@
                             <input required {{#if data.staff.dataValues.carnet.dataValues.date_of_expiration}}
                                 value="{{data.staff.dataValues.carnet.dataValues.date_of_expiration}}" {{/if}}
                                 {{#if date_of_expiration}} value="{{date_of_expiration}}" {{/if}} type="month"
-                                class="form-control" name="date_of_expiration" id="date_of_expiration" maxlength="10"
+                                class="form-control" name="date_of_expiration" id="form__expiration" maxlength="10"
                                 autocomplete="off">
                         </div>
 
@@ -70,7 +71,7 @@
                         </div>
 
                         <div class="form-group">
-                            <select class="custom-select" name="blood_type" id="blood_type">
+                            <select class="custom-select" name="blood_type" id="form__blood">
                                 {{#if data.staff.dataValues.blood_type}}
                                 <option selected value="{{data.staff.dataValues.first_name}}">
                                     {{data.staff.dataValues.blood_type}}</option>
@@ -93,7 +94,6 @@
                         </button>
 
                     </form> <!-- /.form -->
-
                 </div> <!-- /.card-body -->
 
             </div> <!-- /.card -->
@@ -101,40 +101,39 @@
         </div> <!-- /.col-md-6 -->
 
         {{#if photo.dataValues.path}}
-        <div class="col-xl-3 col-lg-4 col-md-5 col-sm-7 py-5 px-0 justify-content-center align-self-center col-carnet">
+        <div class="col-xl-3 col-lg-4 col-md-5 col-sm-7 py-5 px-0 justify-content-center align-self-center col-carnet"
+            {{!-- style="background: MediumPurple;" --}}>
 
             <!-- Carnet -->
-            <div class="carnet" id="carnet">
+            <div class="carnet" id="carnet" {{!-- style="background: green;" --}}>
                 <div class="front">
 
+                    <div class="logo-carnet">
+                        <img src="/img/logos/logo.png">
+                    </div> <!-- /.logo-carnet -->
+
                     <div class="photo">
-                        <img src="{{photo.dataValues.path}}" class="img-fluid" alt="Photo">
+                        <img src="{{photo.dataValues.path}}">
                     </div> <!-- /.Photo -->
 
                     <div class="data">
-                        <div class="group" id="cedula">
-                            <p class="label">CI.</p>
-                            <p class="cedula">cedula</p>
+                        <div class="data__group">
+                            <p class="data__fullname" id="data__fullname"></p>
                         </div>
-                        <div class="group" id="first_name">
-                            <p class="first_name">first_name</p>
+                        <div class="data__group">
+                            <p class="data__cedula" id="data__cedula"></p>
                         </div>
-                        <div class="group" id="last_name">
-                            <p class="last_name">last_name</p>
+                        <div class="data__group">
+                            <p class="data__department" id="data__department"></p>
                         </div>
-                        <div class="group" id="department">
-                            <p class="department">department</p>
-                        </div>
-                        <div class="group" id="position">
-                            <p class="position">position</p>
+                        <div class="data__group">
+                            <p class="data__position" id="data__position"></p>
                         </div>
                     </div> <!-- /.Data -->
 
-                    <div class="barra"></div>
-
                 </div> <!-- /.Front -->
 
-                <div class="back">
+                {{!-- <div class="back">
 
                     <div class="photo">
                         <img src="{{photo.dataValues.path}}" class="img-fluid" alt="Photo">
@@ -157,7 +156,7 @@
                         </div>
                     </div> <!-- /.Data -->
 
-                </div> <!-- /.Back -->
+                </div> <!-- /.Back --> --}}
 
                 <!-- Container Print-Button -->
                 <div class="btn-print">
@@ -187,10 +186,10 @@
                         <div class="modal-footer">
                             <!-- Carnet Request -->
                             <form action="/carnet/staff/createCarnet" method="Post" id="formModal">
-                                <input type="hidden" name="cedula" id="cedula">
-                                <input type="hidden" name="date_of_expiration" id="date_of_expiration">
-                                <input type="hidden" name="department" id="department">
-                                <input type="hidden" name="position" id="position">
+                                <input type="hidden" name="cedula" id="modal__cedula">
+                                <input type="hidden" name="date_of_expiration" id="modal__expiration">
+                                <input type="hidden" name="department" id="modal__department">
+                                <input type="hidden" name="position" id="modal__position">
 
                                 <button type="submit" class="btn btn-success btn-sm" id="printYes">Yes</button>
                                 <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
