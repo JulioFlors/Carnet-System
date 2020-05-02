@@ -11,7 +11,7 @@
 
 body {
 	/* below the navbar */
-	margin-top: 3rem;
+	/* margin-top: 3rem; */
 
 	/* fallback for old browsers */
 	background: rgba(250, 249, 247, 1);
@@ -41,7 +41,8 @@ body::-webkit-scrollbar-thumb {
 	background: #6649b8;
 }
 
-/* ------------ Navbar ------------ */
+/* ################################################ Navbar ################################################ */
+
 .navbar,
 .dropdown-menu,
 .dropdown-item,
@@ -52,16 +53,40 @@ body::-webkit-scrollbar-thumb {
 	color: white;
 }
 
-/* ------------ Navbar ------------ */
 .dropdown-item:hover {
 	color: hsl(0, 0%, 75%);
 }
+
+.navbar-toggler {
+	margin: 0;
+	padding: 0;
+	width: 2rem;
+	height: 2rem;
+}
+
+.navbar-toggler-icon {
+	height: 1.3rem;
+}
+
+.navbar_icon {
+	width: 2rem;
+	height: 2rem;
+}
+
+.navbar_tittle {
+	font-weight: 500;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+
+/* ################################################ Navbar ################################################ */
 
 /* ################################################ /Staff ################################################ */
 /* ------------ Table ------------ */
 .table,
 .table .thead-dark th {
-	font-size: 14px;
+	font-size: 12px;
 	font-family: 'Roboto', sans-serif;
 	background-color: rgba(59, 59, 59, 1) !important;
 	color: white;
@@ -80,8 +105,7 @@ body::-webkit-scrollbar-thumb {
 
 /* ################################################ /Staff ################################################ */
 
-/* ################################################ /carnet/staff/view ################################################ */
-/* ------------------------------------ print window ------------------------------------ */
+/* ################################################ print window ################################################ */
 * {
 	/* Chrome, Safari */
 	-webkit-print-color-adjust: exact !important;
@@ -121,10 +145,20 @@ body::-webkit-scrollbar-thumb {
 		border-radius: 0;
 		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 	}
+
+	.carnet .front {
+		transform: rotateY(180deg) !important;
+	}
+
+	.carnet .back {
+		position: relative !important;
+		transform: rotateY(180deg) !important;
+	}
 }
 
-/* ------------------------------------ print window ------------------------------------ */
-/* ------------------------------------ Form-Carnet ------------------------------------ */
+/* ################################################ print window ################################################ */
+
+/* ################################################ Form-Carnet ################################################ */
 /* ------------ search box ------------ */
 .has-search .form-control {
 	position: relative;
@@ -159,13 +193,9 @@ body::-webkit-scrollbar-thumb {
 	box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* ------------------------------------ Form-Carnet ------------------------------------ */
-/* ################################################ /carnet/staff/view ################################################ */
+/* ################################################ Form-Carnet ################################################ */
 
-
-
-
-/* ------------------------------------ General Carnet Styles ------------------------------------ */
+/* ################################################ General Carnet Styles ################################################ */
 .col-carnet {
 	display: flex;
 	flex-direction: column;
@@ -205,42 +235,39 @@ body::-webkit-scrollbar-thumb {
 	justify-content: space-between;
 }
 
-/* ------------------------------------ General Carnet Styles ------------------------------------ */
+/* ################################################ General Carnet Styles ################################################ */
 
-/* ------------------------------------ Front of the Carnet ------------------------------------ */
+/* ################################################ Front of the Carnet ################################################ */
 /* The image used */
 /* Center and scale the image nicely */
-/* .carnet .front {
+.carnet .front {
 	width: 100%;
-	background-image: url(../img/templates/template.png) !important;
+	background-image: url(../img/templates/Red.png) !important;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	padding: 15.5rem 1rem .7rem 1rem;
-} */
-.carnet .front {
-	padding: 15.5rem 1rem .7rem 1rem;
+	padding: 17rem 1rem .7rem 1rem;
 }
 
 /* ------------ div Photo ------------ */
 .photo {
-	max-width: 7.6rem;
-	position: absolute;
-	left: 5.2em;
-	top: 7.5rem;
+	min-width: 8rem;
+	max-width: 8rem;
+	min-height: 9rem;
+	max-height: 9rem;
+
 	pointer-events: none;
+	position: absolute;
+	overflow: hidden;
+	top: 7.5rem;
+	left: 5.2em;
 	z-index: 2;
-	/* 	z-index: 3;
-	display: block;
-	max-width: 5rem;
-	max-height: 5rem;
-	text-align: center;  */
 }
 
 /* ------------ Photo img ------------ */
 .photo img {
-	width: 100%;
-	height: 100%;
+	width: 8rem;
+	height: 9rem;
 	object-fit: cover;
 }
 
@@ -274,7 +301,7 @@ body::-webkit-scrollbar-thumb {
 	pointer-events: none;
 	justify-content: center;
 
-	background-color: coral;
+	/* background-color: coral; */
 }
 
 .data__group>p {
@@ -285,7 +312,7 @@ body::-webkit-scrollbar-thumb {
 	padding: 0;
 
 	font-size: 1rem;
-	font-weight: 400;
+	font-weight: 500;
 	line-height: 1.2rem;
 
 	display: flex;
@@ -294,33 +321,204 @@ body::-webkit-scrollbar-thumb {
 	justify-content: center;
 	color: rgba(30, 30, 30, 1);
 
-	background-color: lightskyblue;
+	/* background-color: lightskyblue; */
 }
 
 /* ------------ Positioning of the Carnet Texts ------------ */
-.data__group .data__position {
+.data__group .data__fullname {
+	min-height: 2.3rem;
+	max-height: 2.3rem;
 
+	margin: 0;
+	padding: 0;
+	/* background-color: springgreen; */
+}
+
+.data__group .data__cedula {
+	min-height: 1.15rem;
+	max-height: 1.15rem;
+
+	margin: .7rem 0 0 0;
+	padding: 0;
+	/* background-color: darkorchid; */
+}
+
+.data__group .data__department {
+	min-height: 2.3rem;
+	max-height: 2.3rem;
+
+	margin: 1rem 0 0 0;
+	padding: 0;
+	/* background-color: lightseagreen; */
+}
+
+.data__group .data__position {
 	min-height: 2.3rem;
 	max-height: 2.3rem;
 	font-size: .88rem;
 
+	margin: 2.2rem 0 0 0;
+	padding: 0;
+
 	font-weight: bold;
 	text-transform: uppercase;
-	/* margin: 2.8rem 0 0 0;  
-	  padding: .25rem 2rem;  
-	 padding: 0; */
-	background-color: lightcoral;
+	/* background-color: lightcoral; */
 }
 
 /* ------------ Positioning of the Carnet Texts ------------ */
-/* ------------------------------------ Front of the Carnet ------------------------------------ */
+/* ################################################ FRONT of the Carnet ################################################ */
 
+/* ################################################ BACK of the Carnet ################################################ */
+/* The image used */
+/* Center and scale the image nicely */
+.carnet .back {
+	width: 100%;
+	top: 0;
+	position: absolute;
+	padding: 1rem 1rem;
+	transform: rotateY(180deg);
+	backface-visibility: hidden;
+
+	background-image: url(../img/templates/back.png) !important;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+
+	/* background-color: white; */
+}
+
+.overlay {
+	position: fixed;
+	display: block;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-radius: 4px;
+	background-color: rgba(255, 255, 255, 0.7);
+	z-index: -1;
+	cursor: pointer;
+}
+
+/* ------------ div Sello ------------ */
+.sello-carnet {
+	min-width: 14rem;
+	max-width: 14rem;
+	position: absolute;
+	left: 2.6em;
+	top: 8rem;
+	pointer-events: none;
+	z-index: 2;
+}
+
+/* ------------ Sello img------------ */
+.sello-carnet img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* ------------ div Government ------------ */
+.government-logo {
+	max-width: 7rem;
+	position: absolute;
+	left: 1em;
+	top: 26.25rem;
+	pointer-events: none;
+	z-index: 2;
+}
+
+/* ------------ Government img------------ */
+.government-logo img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* ------------ div alcalde ------------ */
+.alcalde-logo {
+	max-width: 4.5rem;
+	position: absolute;
+	left: 8.75em;
+	top: 25.7rem;
+	pointer-events: none;
+	z-index: 2;
+}
+
+/* ------------ alcalde img------------ */
+.alcalde-logo img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* ------------ div ciudadGuayana ------------ */
+.ciudadGuayana-logo {
+	max-width: 3rem;
+	position: absolute;
+	right: 1em;
+	top: 26.2rem;
+	pointer-events: none;
+	z-index: 2;
+}
+
+/* ------------ ciudadGuayana img------------ */
+.ciudadGuayana-logo img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+
+/* ------------ Carnet Texts ------------ */
+.back-data__group {
+	width: 100%;
+	height: auto;
+}
+
+.back-data__group>p {
+	width: 100%;
+	min-height: 1rem;
+
+	font-size: .7rem;
+	font-weight: 500;
+	line-height: 1rem;
+
+	display: flex;
+	justify-content: left;
+	color: rgba(30, 30, 30, 1);
+}
+
+/* ------------ Positioning of the Carnet Texts ------------ */
+.back-data__group .data__legend {
+	margin: 2rem 0 0 0;
+	padding: 0;
+
+	font-size: .7rem;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.back-data__group .data__expiration {
+	margin: 14rem 0 0 0;
+	padding: 0;
+}
+
+.back-data__group .data__blood {
+	margin: .2rem 0;
+	padding: 0;
+}
+
+/* ------------ Positioning of the Carnet Texts ------------ */
+/* ################################################ Front of the Carnet ################################################ */
 
 
 /* ------------------------ Container Print-Button ------------------------ */
 .btn-print .btn-secondary {
 	position: absolute;
-	top: 29.5rem;
+	top: 31.5rem;
 	left: 42.5%;
 	z-index: 3;
 
@@ -368,6 +566,10 @@ body::-webkit-scrollbar-thumb {
 
 /* ------------------------------------------------ Modal - Confirm Print ------------------------------------------------ */
 /* ------------ Modal btn ------------ */
+.modal-dialog {
+	min-width: 20rem;
+}
+
 .modal-content {
 	background: rgba(63, 63, 63, 1);
 	color: white;
@@ -496,7 +698,7 @@ body::-webkit-scrollbar-thumb {
 /* ------------------------------------------------ Modal - Confirm Print ------------------------------------------------ */
 
 
-/* ------------------------------------------------ signin ------------------------------------------------ */
+/* ################################################ /SignIn/SignUp ################################################ */
 .container-signin .card {
 	min-width: 18rem;
 	border: 0;
@@ -544,4 +746,4 @@ body::-webkit-scrollbar-thumb {
 	padding-top: 1.3rem;
 }
 
-/* ------------------------------------------------ signin ------------------------------------------------ */
+/* ################################################ /signin ################################################ */

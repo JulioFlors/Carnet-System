@@ -1,38 +1,48 @@
-<div class="row">
-  <div class="col-md-4 mx-auto">
-    <div class="card">
-      <div class="card-header">
-        Account Register
-      </div>
-      <div class="card-body">
-        <form action="/signup" method="POST">
-          <div class="form-group">
-            <input required autofocus type="text" class="form-control" name="usuario" placeholder="Username"
-              value="{{usuario}}">
-          </div>
-          <div class="form-group">
-            <input required type="password" class="form-control" name="password" placeholder="Password"
-              value="{{password}}">
-          </div>
-          <div class="form-group">
-            <input required type="password" class="form-control" name="confirm" placeholder="Confirm Password"
-              value="{{confirm}}">
-          </div>
+<div class="container container-signin">
+  <div class="row">
+    <div class="col-xl-4 col-lg-5 col-md-6 col-sm-8 p-auto m-auto justify-content-center align-self-center">
 
-          <div class="form-group">
-            <select class="custom-select" name="permission">
-              <option disabled selected>User Permissions</option>
-              <option value="Admin">Admin</option>
-              <option value="Edit">Edit</option>
-              <option value="Read">Read</option>
-            </select>
-          </div>
+      <div class="card text-center">
 
-          <button class="btn btn-primary btn-block">
-            Signup
-          </button>
-        </form>
+        <div class="card-header">
+          <img class="icon" src="/img/logos/icon.png" alt="Logo">
+          <h3 class="tittle text-center">Account Register</h3>
+        </div>
+
+        <div class="card-body">
+          <form action="/signup" method="POST">
+            <div class="form-group">
+              <input required autofocus type="text" class="form-control" name="usuario" placeholder="Username"
+                value="{{usuario}}">
+            </div>
+            <div class="form-group">
+              <input required type="password" class="form-control" name="password" placeholder="Password"
+                value="{{password}}">
+            </div>
+            <div class="form-group">
+              <input required type="password" class="form-control" name="confirm" placeholder="Confirm Password"
+                value="{{confirm}}">
+            </div>
+
+            <div class="form-group">
+              <select class="custom-select" name="permission">
+                <option disabled selected>User Permissions</option>
+                <option value="Admin">Admin</option>
+                <option value="Edit">Edit</option>
+                <option value="Read">Read</option>
+              </select>
+            </div>
+
+            <div class="button">
+              <button class="btn btn-success btn-block">
+                Signup
+              </button>
+            </div>
+          </form>
+        </div>
+
       </div>
+
     </div>
   </div>
 </div>

@@ -9,6 +9,14 @@ const data__position = document.querySelector('#carnet .data__position');
 const data__expiration = document.querySelector('#carnet .data__expiration');
 const data__blood = document.querySelector('#carnet .data__blood');
 
+const carnet = document.querySelector('#carnet');
+
+// Rotacion del carnet
+carnet.addEventListener('click', () => {
+    carnet.classList.toggle('active');
+});
+
+// validations input Search from of form
 if (formSearch) {
     // Input search by cedula
     formSearch.cedula.addEventListener('keyup', (e) => {
@@ -36,12 +44,17 @@ if (form) {
 
     let space = ' ';
     let ci = 'CI.';
-    data__cedula.textContent = ci.concat(space, cedula);
-    data__fullname.textContent = firstname.concat(space, lastname);
-    data__department.textContent = department;
-    data__position.textContent = position;
-    // data__expiration.textContent = expiration;
-    // data__blood.textContent = blood;
+    let vence = 'Vence:';
+    let blood_type = 'Grupo sanguíneo:';
+
+    if (cedula) {
+        data__cedula.textContent = ci.concat(space, cedula);
+        data__fullname.textContent = firstname.concat(space, lastname);
+        data__department.textContent = department;
+        data__position.textContent = position;
+        data__expiration.textContent = vence.concat(space, expiration);
+        data__blood.textContent = blood_type.concat(space, blood);
+    }
 
     // Input cedula number
     form.form__cedula.addEventListener('keyup', (e) => {
@@ -51,7 +64,7 @@ if (form) {
             .replace(/\D/g, '')
             .trim();
 
-        data__cedula.textContent = inputValue;
+        data__cedula.textContent = ci.concat(space, inputValue);
     });
 
     // Input firstname
@@ -87,16 +100,15 @@ if (form) {
         data__position.textContent = inputValue;
     });
 
-    // Input date_of_expiration
-    form.form__expiration.addEventListener('click', (e) => {
+    // Evento disparado cuando se cambie la fecha
+    form.form__expiration.addEventListener('change', function () {
         if (formModal) formModal.modal__expiration.value = form.form__expiration.value;
-
-        data__expiration.textContent = form.form__expiration.value;
+        data__expiration.textContent = vence.concat(space, form.form__expiration.value);
     });
 
-    // Input blood_type
-    form.form__blood.addEventListener('click', (e) => {
-        data__blood.textContent = form.form__blood.value;
+    // Evento disparado cuando se cambie el tipo desangre
+    form.form__blood.addEventListener('change', function () {
+        data__blood.textContent = blood_type.concat(space, form.form__blood.value);
     });
 }
 
@@ -105,7 +117,7 @@ if (formModal) {
     // get the current values of the inputs 
     formModal.printYes.addEventListener('click', (e) => {
         formModal.modal__cedula.value = form.form__cedula.value;
-        formModal.modal__date_of_expiration.value = form.form__expiration.value;
+        formModal.modal__expiration.value = form.form__expiration.value;
         formModal.modal__department.value = form.form__department.value.toUpperCase();
         formModal.modal__position.value = form.form__position.value.toUpperCase();
     });
@@ -119,5 +131,14 @@ $(document).on('change', '.custom-file-input', function () {
 
 // show the print window 
 function imprimir() {
-    window.print();
+
+    //la impresion solo sale bien si la clase active esta activada,
+    //por eso estas validaciones
+    if (carnet.classList.contains("active")) window.print();
+
+    else {
+        carnet.classList.add("active");
+        window.print();
+        carnet.classList.remove("active");
+    }
 }

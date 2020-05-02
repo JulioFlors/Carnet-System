@@ -3,10 +3,10 @@
         <thead class="thead-dark">
             <tr>
                 <th scope="col">Cedula</th>
-                <th scope="col">Fullname</th>
-                <th scope="col">Blood_Type</th>
-                <th scope="col">Department</th>
-                <th scope="col">Position</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Departamento</th>
+                <th scope="col">Cargo</th>
+                <th scope="col">Sangre</th>
                 <th scope="col">Carnet</th>
             </tr>
         </thead>
@@ -17,9 +17,9 @@
             <tr>
                 <td>{{dataValues.cedula}}</td>
                 <td>{{capitalize dataValues.first_name}} {{capitalize dataValues.last_name}}</td>
-                <td>{{staff.dataValues.blood_type}}</td>
                 <td>{{capitalize department.dataValues.description}}</td>
                 <td>{{capitalize position.dataValues.description}}</td>
+                <td>{{staff.dataValues.blood_type}}</td>
                 <td>{{haveCarnet staff.dataValues.carnet.dataValues.cedula}}</td>
                 {{!-- <td>
                     <form action="/users/delete/{{id}}?_method=DELETE" method="POST">

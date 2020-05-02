@@ -57,7 +57,7 @@ app.engine('.hbs', exphbs({
 
         // hace referencia a que un empleado posee o no carnet
         haveCarnet: function (variable) {
-            if (variable) return 'Yes';
+            if (variable) return 'Listo';
 
             if (!variable) return 'No';
         },
