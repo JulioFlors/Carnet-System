@@ -12,7 +12,7 @@ const data__blood = document.querySelector('#carnet .data__blood');
 const carnet = document.querySelector('#carnet');
 
 // Rotacion del carnet
-carnet.addEventListener('click', () => {
+if (carnet) carnet.addEventListener('click', () => {
     carnet.classList.toggle('active');
 });
 
@@ -102,13 +102,19 @@ if (form) {
 
     // Evento disparado cuando se cambie la fecha
     form.form__expiration.addEventListener('change', function () {
-        if (formModal) formModal.modal__expiration.value = form.form__expiration.value;
         data__expiration.textContent = vence.concat(space, form.form__expiration.value);
     });
 
     // Evento disparado cuando se cambie el tipo desangre
     form.form__blood.addEventListener('change', function () {
         data__blood.textContent = blood_type.concat(space, form.form__blood.value);
+    });
+
+    // Actualizo el Label con el nombre del archivo que se selecciono
+    form.form__photo.addEventListener('change', function () {
+        let filename = form.form__photo.value.replace(/\\/g, '/').replace(/.*\//, '');
+        document.querySelector('#file__label').textContent = filename;
+        if (!form.form__photo.value) document.querySelector('#file__label').textContent = 'Seleccionar Archivo';
     });
 }
 
@@ -117,17 +123,14 @@ if (formModal) {
     // get the current values of the inputs 
     formModal.printYes.addEventListener('click', (e) => {
         formModal.modal__cedula.value = form.form__cedula.value;
-        formModal.modal__expiration.value = form.form__expiration.value;
+        formModal.modal__firstname.value = form.form__firstname.value.toUpperCase();
+        formModal.modal__lastname.value = form.form__lastname.value.toUpperCase();
         formModal.modal__department.value = form.form__department.value.toUpperCase();
         formModal.modal__position.value = form.form__position.value.toUpperCase();
+        formModal.modal__expiration.value = form.form__expiration.value;
+        formModal.modal__blood.value = form.form__blood.value;
     });
 }
-
-// show name of loaded file
-$(document).on('change', '.custom-file-input', function () {
-    let fileName = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
-    $(this).parent('.custom-file').find('.custom-file-label').text(fileName);
-});
 
 // show the print window 
 function imprimir() {

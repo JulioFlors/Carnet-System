@@ -18,12 +18,10 @@ import {
 
 // Signup 
 router.post('/signup', isAuthenticated, signUp);
-
-router.get('/signup', isAuthenticated, renderSignUpForm);
+router.get('/users/add', isAuthenticated, renderSignUpForm);
 
 // Signin 
 router.post('/signin', signIn);
-
 router.get('/signin', renderSignInForm);
 
 // logout 

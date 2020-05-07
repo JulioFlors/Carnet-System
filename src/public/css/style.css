@@ -41,6 +41,87 @@ body::-webkit-scrollbar-thumb {
 	background: #6649b8;
 }
 
+.noSelect {
+	-webkit-touch-callout: none;
+	/* iOS Safari */
+	-webkit-user-select: none;
+	/* Safari */
+	-khtml-user-select: none;
+	/* Konqueror HTML */
+	-moz-user-select: none;
+	/* Old versions of Firefox */
+	-ms-user-select: none;
+	/* Internet Explorer/Edge */
+	user-select: none;
+	/* Non-prefixed version, currently
+									supported by Chrome, Opera and Firefox */
+}
+
+/* ################################################ Container ################################################ */
+.container {
+	width: 100%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+@media (min-width: 576px) {
+
+	/* 36 */
+	.container {
+		max-width: 540px;
+		/* 228 */
+	}
+}
+
+@media (min-width: 768px) {
+
+	/* 48 */
+	.container {
+		max-width: 720px;
+		/* 272 */
+	}
+}
+
+@media (min-width: 992px) {
+
+	/* 32 */
+	.container {
+		max-width: 960px;
+		/* 240 */
+	}
+}
+
+@media (min-width: 1200px) {
+
+	/* 60 */
+	.container {
+		max-width: 1140px;
+		/* 260 */
+	}
+}
+
+@media (min-width: 1400px) {
+
+	/* 60 */
+	.container {
+		max-width: 1340px;
+		/* 200 */
+	}
+}
+
+@media (min-width: 1650px) {
+
+	/* 32 */
+	.container {
+		max-width: 1600px;
+		/* 60 */
+	}
+}
+
+/* ################################################ Container ################################################ */
+
 /* ################################################ Navbar ################################################ */
 
 .navbar,
@@ -82,7 +163,7 @@ body::-webkit-scrollbar-thumb {
 
 /* ################################################ Navbar ################################################ */
 
-/* ################################################ /Staff ################################################ */
+/* ################################################ /data ################################################ */
 /* ------------ Table ------------ */
 .table,
 .table .thead-dark th {
@@ -103,7 +184,7 @@ body::-webkit-scrollbar-thumb {
 	border-left-color: rgba(78, 78, 78, 1);
 }
 
-/* ################################################ /Staff ################################################ */
+/* ################################################ /data ################################################ */
 
 /* ################################################ print window ################################################ */
 * {
@@ -146,10 +227,7 @@ body::-webkit-scrollbar-thumb {
 		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 	}
 
-	.carnet .front {
-		transform: rotateY(180deg) !important;
-	}
-
+	.carnet .front,
 	.carnet .back {
 		position: relative !important;
 		transform: rotateY(180deg) !important;
@@ -249,6 +327,24 @@ body::-webkit-scrollbar-thumb {
 	padding: 17rem 1rem .7rem 1rem;
 }
 
+/* ------------ div Logo ------------ */
+.logo-carnet {
+	min-width: 13rem;
+	max-width: 13rem;
+	position: absolute;
+	left: 2.6em;
+	top: 0;
+	pointer-events: none;
+	z-index: 2;
+}
+
+/* ------------ Logo img------------ */
+.logo-carnet img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
 /* ------------ div Photo ------------ */
 .photo {
 	min-width: 8rem;
@@ -268,24 +364,6 @@ body::-webkit-scrollbar-thumb {
 .photo img {
 	width: 8rem;
 	height: 9rem;
-	object-fit: cover;
-}
-
-/* ------------ div Logo ------------ */
-.logo-carnet {
-	min-width: 13rem;
-	max-width: 13rem;
-	position: absolute;
-	left: 2.6em;
-	top: 0;
-	pointer-events: none;
-	z-index: 2;
-}
-
-/* ------------ Logo img------------ */
-.logo-carnet img {
-	width: 100%;
-	height: 100%;
 	object-fit: cover;
 }
 
@@ -400,6 +478,7 @@ body::-webkit-scrollbar-thumb {
 	background-color: rgba(255, 255, 255, 0.7);
 	z-index: -1;
 	cursor: pointer;
+	pointer-events: none;
 }
 
 /* ------------ div Sello ------------ */
@@ -482,7 +561,7 @@ body::-webkit-scrollbar-thumb {
 	width: 100%;
 	min-height: 1rem;
 
-	font-size: .7rem;
+	font-size: .9rem;
 	font-weight: 500;
 	line-height: 1rem;
 
@@ -699,13 +778,32 @@ body::-webkit-scrollbar-thumb {
 
 
 /* ################################################ /SignIn/SignUp ################################################ */
-.container-signin .card {
-	min-width: 18rem;
+.row-signin {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* background: IndianRed; */
+}
+
+.col-signin {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* background: MediumPurple; */
+}
+
+.row-signin .card {
+	min-width: 23rem;
+	max-width: 23rem;
 	border: 0;
 	box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2);
 }
 
-.container-signin .card-header {
+.row-signin .card-header {
 	line-height: inherit;
 	white-space: nowrap;
 	background: white;
@@ -715,21 +813,21 @@ body::-webkit-scrollbar-thumb {
 	padding-top: 1.3rem;
 }
 
-.container-signin .icon {
+.row-signin .icon {
 	max-width: 3rem;
 	padding-bottom: 1.3rem;
 }
 
-.container-signin .tittle {
+.row-signin .tittle {
 	font-weight: 300;
 	display: inline-block;
 }
 
-.container-signin .card-body {
+.row-signin .card-body {
 	padding-top: 0rem;
 }
 
-.container-signin .subtittle {
+.row-signin .subtittle {
 	font-style: normal;
 	font-weight: 400;
 	font-size: 14px;
@@ -742,8 +840,49 @@ body::-webkit-scrollbar-thumb {
 	color: rgba(0, 0, 0, 0.6);
 }
 
-.container-signin .card-body .button {
+.row-signin .card-body .button {
 	padding-top: 1.3rem;
 }
 
 /* ################################################ /signin ################################################ */
+
+/* ################################################ Render Users ################################################ */
+.row-users {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.col-users {
+	min-width: 15rem;
+	max-width: 15rem;
+	margin-left: 1rem;
+	margin-bottom: 1rem;
+	padding: 0;
+}
+
+.card-users {
+	min-width: 15rem;
+	max-width: 15rem;
+	border: 0;
+	box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card-users .card-title {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.card-users .fa-edit {
+	max-width: 1.3rem;
+	color: linear-gradient(to right, #2B32B2, #1488CC);
+}
+
+.card-users .fa-edit:hover {
+	color: linear-gradient(to right, #1488CC, #2B32B2);
+}
+
+/* ################################################ Render Users ################################################ */

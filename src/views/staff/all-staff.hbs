@@ -21,17 +21,25 @@
                 <td>{{capitalize position.dataValues.description}}</td>
                 <td>{{staff.dataValues.blood_type}}</td>
                 <td>{{haveCarnet staff.dataValues.carnet.dataValues.cedula}}</td>
-                {{!-- <td>
-                    <form action="/users/delete/{{id}}?_method=DELETE" method="POST">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn btn-danger btn-block btn-sm">Delete</button>
-                    </form>
-                </td> --}}
             </tr>
 
             {{else}}
             <tr>
-                <td>usted no cuenta con personal.</td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <p class="lead">Todavía no hay datos de los Funcionarios.</p>
+                </td>
+                </td>
+                <td>
+                </td>
+                <td>
             </tr>
             {{/each}}
         </tbody>

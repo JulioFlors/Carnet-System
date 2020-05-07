@@ -2,8 +2,6 @@ import express, {
     json
 } from 'express'
 
-import morgan from 'morgan'
-
 import exphbs from 'express-handlebars'
 
 import flash from 'connect-flash'
@@ -24,13 +22,11 @@ import {
 // Environment Variables
 require('dotenv').config();
 
-// Importing Routes
-import apiRoutes from './routes/api.routes'
+// Importing Routes 
+import userRoutes from './routes/user.routes'
 import staffRoutes from './routes/staff.routes'
-import indexRoutes from './routes/index.routes'
 import carnetRoutes from './routes/carnet.routes'
 import sessionRoutes from './routes/session.routes'
-
 
 // Initializations
 const app = express();
@@ -65,6 +61,11 @@ app.engine('.hbs', exphbs({
         isAdmin: function (user) {
             if (user === 'Admin') return true;
             return false;
+        },
+
+        notRead: function (user) {
+            if (user != 'Read') return true;
+            return false;
         }
     }
 }));
@@ -78,7 +79,6 @@ app.use(express.urlencoded({
     extended: false
 }));
 app.use(methodOverride('_method'));
-// app.use(morgan('dev'));
 app.use(json());
 app.use(flash());
 
@@ -123,16 +123,12 @@ app.use((req, res, next) => {
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
     res.locals.user = req.user || null;
-    res.locals.filename = req.filename || null;
     next();
 });
 
-// Routes -> API Rest -> EndPoint : /api/users -> EndPoint : /api/staff -> EndPoint : /api/form 
-app.use('/', apiRoutes);
-
-// Routes -> Frontend -> EndPoint : /api/users -> EndPoint : /api/staff -> EndPoint : /api/form 
+// Routes 
+app.use('/', userRoutes);
 app.use('/', staffRoutes);
-app.use('/', indexRoutes);
 app.use('/', carnetRoutes);
 app.use('/', sessionRoutes);
 

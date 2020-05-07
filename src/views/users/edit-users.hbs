@@ -1,0 +1,45 @@
+<div class="col-md-4 mx-auto">
+    <div class="card">
+        <div class="card-header">
+            <h3>Editar Usuario</h3>
+        </div>
+        <div class="card-body">
+            <form action="/users/update/{{data.dataValues.id}}?_method=PUT" method="POST">
+                <input type="hidden" name="_method" value="PUT">
+
+                <div class="form-group">
+                    <input required autofocus type="text" class="form-control" name="usuario" placeholder="Usuario"
+                        maxlength="16" autocomplete="off" {{#if data.dataValues.username}}
+                        value="{{capitalize data.dataValues.username}}" {{else}} value="{{capitalize usuario}}"
+                        {{/if}} />
+                </div>
+
+                <div class="form-group">
+                    <select class="custom-select" name="permission">
+                        {{#if data.dataValues.permission}}
+                        <option disabled>Permiso seleccionado</option>
+                        <option selected value="{{data.dataValues.permission}}">{{data.dataValues.permission}}</option>
+                        <option disabled>Permisos del usuario</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Edit">Edit (Puede Editar e Imprimir) </option>
+                        <option value="Read">Read (Solo puede Imprimir)</option>
+                        {{else}}
+                        <option disabled>Permiso seleccionado</option>
+                        <option selected value="{{permission}}">{{permission}}</option>
+                        <option disabled>Permisos del usuario</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Edit">Edit (Puede Editar e Imprimir) </option>
+                        <option value="Read">Read (Solo puede Imprimir)</option>
+                        {{/if}}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-success btn-block" type="submit">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

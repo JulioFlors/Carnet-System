@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "connectionTimeout": 0,
+            "database": "CarnetDB",
+            "dialect": "PostgreSQL",
+            "name": "Carnet-System",
+            "password": "admin",
+            "port": 5432,
+            "server": "localhost",
+            "username": "postgres"
+        }
+    ]
+}
