@@ -2,7 +2,7 @@
 
     <div class="row justify-content-around row-carnet">
 
-        <div
+        <div id="col-form"
             class="col-xl-4 col-lg-5 col-md-6 col-sm-8 px-0 justify-content-center align-self-center hide-print col-form">
             <div class="card">
 
@@ -18,52 +18,44 @@
                     <form action="/carnet/staff/uploadPhoto" method="POST" id="form" enctype="multipart/form-data">
 
                         <div class="form-group">
-                            <input required {{#if data.dataValues.cedula}} value="{{data.dataValues.cedula}}" {{/if}}
-                                {{#if cedula}} value="{{cedula}}" {{/if}} type="text" class="form-control" name="cedula"
-                                id="form__cedula" maxlength="8" autocomplete="off" placeholder="Cedula">
+                            <input required {{#if cedula}} value="{{cedula}}" {{/if}} type="text" class="form-control"
+                                name="cedula" id="form__cedula" maxlength="8" autocomplete="off" placeholder="Cedula">
                         </div>
 
                         <div class="form-group">
-                            <input required {{#if data.dataValues.first_name}}
-                                value="{{capitalize data.dataValues.first_name}}" {{/if}} {{#if firstname}}
-                                value="{{capitalize firstname}}" {{/if}} type="text" class="form-control"
-                                name="firstname" id="form__firstname" maxlength="25" autocomplete="off"
-                                placeholder="Nombres">
+                            <input required {{#if firstname}} value="{{capitalize firstname}}" {{/if}} type="text"
+                                class="form-control" name="firstname" id="form__firstname" maxlength="25"
+                                autocomplete="off" placeholder="Nombres">
                         </div>
 
                         <div class="form-group">
-                            <input required {{#if data.dataValues.last_name}}
-                                value="{{capitalize data.dataValues.last_name}}" {{/if}} {{#if lastname}}
-                                value="{{capitalize lastname}}" {{/if}} type="text" class="form-control" name="lastname"
-                                id="form__lastname" maxlength="25" autocomplete="off" placeholder="Apellidos">
+                            <input required {{#if lastname}} value="{{capitalize lastname}}" {{/if}} type="text"
+                                class="form-control" name="lastname" id="form__lastname" maxlength="25"
+                                autocomplete="off" placeholder="Apellidos">
                         </div>
 
                         <div class="form-group">
-                            <input required {{#if data.department.dataValues.description}}
-                                value="{{capitalize data.department.dataValues.description}}" {{/if}} {{#if department}}
-                                value="{{capitalize department}}" {{/if}} type="text" class="form-control"
-                                name="department" id="form__department" maxlength="50" autocomplete="off"
-                                placeholder="Departamento">
+                            <input required {{#if department}} value="{{capitalize department}}" {{/if}} type="text"
+                                class="form-control" name="department" id="form__department" maxlength="50"
+                                autocomplete="off" placeholder="Departamento">
                         </div>
 
                         <div class="form-group">
-                            <input required {{#if data.position.dataValues.description}}
-                                value="{{capitalize data.position.dataValues.description}}" {{/if}} {{#if position}}
-                                value="{{capitalize position}}" {{/if}} type="text" class="form-control" name="position"
-                                id="form__position" maxlength="50" autocomplete="off" placeholder="Cargo">
+                            <input required {{#if position}} value="{{capitalize position}}" {{/if}} type="text"
+                                class="form-control" name="position" id="form__position" maxlength="50"
+                                autocomplete="off" placeholder="Cargo">
                         </div>
 
                         <div class="form-group">
                             <label for="form__expiration">Fecha de vencimiento</label>
-                            <input required {{#if data.staff.dataValues.carnet.dataValues.date_of_expiration}}
-                                value="{{data.staff.dataValues.carnet.dataValues.date_of_expiration}}" {{/if}}
-                                {{#if expiration}} value="{{expiration}}" {{/if}} type="month" class="form-control"
-                                name="expiration" id="form__expiration" maxlength="10" autocomplete="off">
+                            <input required {{#if expiration}} value="{{expiration}}" {{/if}} type="month"
+                                class="form-control" name="expiration" id="form__expiration" maxlength="10"
+                                autocomplete="off">
                         </div>
 
                         <div class="form-group">
                             <div class="custom-file">
-                                <input required type="file" class="custom-file-input" name="photo" id="form__photo">
+                                <input type="file" class="custom-file-input" name="photo" id="form__photo">
                                 <label class="custom-file-label" id="file__label" for="form__photo">Seleccionar
                                     Archivo</label>
                             </div>
@@ -71,21 +63,6 @@
 
                         <div class="form-group">
                             <select class="custom-select" name="blood" id="form__blood">
-                                {{#if data.staff.dataValues.blood_type}}
-                                <option disabled>Grupo Sanguíneo Actual</option>
-                                <option selected value="{{data.staff.dataValues.blood_type}}">
-                                    {{data.staff.dataValues.blood_type}}</option>
-                                <option disabled>Cambiar Grupo Sanguíneo</option>
-                                <option value="O+">O+</option>
-                                <option value="O-">O-</option>
-                                <option value="A+">A+</option>
-                                <option value="A-">A-</option>
-                                <option value="B+">B+</option>
-                                <option value="B-">B-</option>
-                                <option value="AB+">AB+</option>
-                                <option value="AB-">AB-</option>
-                                {{else}}
-
                                 {{#if blood}}
                                 <option disabled>Grupo Sanguíneo Actual</option>
                                 <option selected value="{{blood}}"> {{blood}}</option>
@@ -109,19 +86,19 @@
                                 <option value="AB+">AB+</option>
                                 <option value="AB-">AB-</option>
                                 {{/if}}
-
-                                {{/if}}
                             </select>
                         </div>
 
-                        <button class="btn btn-success btn-block">
-                            {{#if photo}}
-                            Cargar foto
-                            {{else}}
-                            Previsualizar carnet
-                            {{/if}}
+                        <button id="btn-form" class="btn btn-success btn-block">
+                            Visualizar Carnet
                         </button>
+
                     </form> <!-- /.form -->
+
+                    <button id="btn-modal" class="btn btn-success btn-block" data-toggle="modal"
+                        data-target="#confirmPrint" onclick="imprimir()"><i class="fas fa-print mr-2"></i> Imprimir
+                    </button>
+
                 </div> <!-- /.card-body -->
 
             </div> <!-- /.card -->
@@ -130,7 +107,6 @@
 
         {{#if photo}}
         <div class="col-xl-3 col-lg-4 col-md-5 col-sm-7 py-4 px-0 justify-content-center align-self-center col-carnet">
-
             <!-- Carnet -->
             <div class="carnet" id="carnet">
 
@@ -201,51 +177,43 @@
 
             </div> <!-- /.Carnet -->
 
-            <!-- Container Print-Button -->
-            <div class="btn-print">
-                <button type="button" class="btn btn-secondary hide-print" data-toggle="modal"
-                    data-target="#confirmPrint" onclick="imprimir()"><i class="fas fa-print"></i>
-                </button>
-            </div>
-            <!-- /.Container Print-Button -->
-
-            <!-- Modal -->
-            <div class="modal fade" id="confirmPrint" data-backdrop="static" tabindex="-1" role="dialog"
-                aria-labelledby="confirmPrintLabel" aria-hidden="true">
-
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h6 class="modal-title" id="confirmPrintLabel">Confirm Print</h6>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            Was the credential printing successful?
-                        </div>
-                        <div class="modal-footer">
-                            <!-- Carnet Request -->
-                            <form action="/carnet/staff/createCarnet" method="Post" id="formModal">
-                                <input type="hidden" name="cedula" id="modal__cedula">
-                                <input type="hidden" name="firstname" id="modal__firstname">
-                                <input type="hidden" name="lastname" id="modal__lastname">
-                                <input type="hidden" name="department" id="modal__department">
-                                <input type="hidden" name="position" id="modal__position">
-                                <input type="hidden" name="expiration" id="modal__expiration">
-                                <input type="hidden" name="blood" id="modal__blood">
-
-                                <button type="submit" class="btn btn-success btn-sm" id="printYes">Yes</button>
-                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- /.modal -->
-
         </div> <!-- /.col-md-4 -->
         {{/if}}
 
     </div> <!-- /.row -->
 
 </div> <!-- /.container -->
+
+<!-- Modal -->
+<div class="modal fade" id="confirmPrint" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="confirmPrintLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="confirmPrintLabel">Confirmar Impresión</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿ El carnet se imprimio correctamente ?
+            </div>
+            <div class="modal-footer">
+                <!-- Carnet Request -->
+                <form action="/carnet/staff/createCarnet" method="Post" id="formModal">
+                    <input type="hidden" name="cedula" id="modal__cedula">
+                    <input type="hidden" name="firstname" id="modal__firstname">
+                    <input type="hidden" name="lastname" id="modal__lastname">
+                    <input type="hidden" name="department" id="modal__department">
+                    <input type="hidden" name="position" id="modal__position">
+                    <input type="hidden" name="expiration" id="modal__expiration">
+                    <input type="hidden" name="blood" id="modal__blood">
+
+                    <button type="submit" class="btn btn-success btn-sm" id="printYes">Si</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> <!-- /.modal -->

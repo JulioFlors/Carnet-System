@@ -1,0 +1,129 @@
+<div class="container">
+
+    <div class="row justify-content-center row-carnet">
+
+        {{#if photo}}
+        <div class="col-xl-3 col-lg-4 col-md-5 col-sm-7 py-4 px-0 justify-content-center align-self-center col-carnet">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <!-- Carnet -->
+                    <div class="carnet" id="carnet">
+
+                        <div class="front" id="front">
+
+                            <div class="logo-carnet">
+                                <img src="/img/logos/logo.png">
+                            </div> <!-- /.logo-carnet -->
+
+                            <div class="photo">
+                                <img src="{{photo}}">
+                            </div> <!-- /.Photo -->
+
+                            <div class="data">
+                                <div class="data__group">
+                                    <p class="data__fullname" id="data__fullname"></p>
+                                </div>
+                                <div class="data__group">
+                                    <p class="data__cedula" id="data__cedula"></p>
+                                </div>
+                                <div class="data__group">
+                                    <p class="data__department" id="data__department"></p>
+                                </div>
+                                <div class="data__group">
+                                    <p class="data__position" id="data__position"></p>
+                                </div>
+                            </div> <!-- /.Data -->
+
+                        </div> <!-- /.Front -->
+
+                        <div class="back" id="back">
+
+                            <div class="overlay"></div>
+
+                            <div class="sello-carnet noSelect">
+                                <img src="/img/logos/sello.png">
+                            </div> <!-- /.sello-carnet -->
+
+                            <div class="government-logo noSelect">
+                                <img src="/img/logos/government.png">
+                            </div> <!-- /.government-logo -->
+
+                            <div class="ciudadGuayana-logo noSelect">
+                                <img src="/img/logos/ciudadGuayana.png">
+                            </div> <!-- /.ciudadGuayana-logo -->
+
+                            <div class="alcalde-logo noSelect">
+                                <img src="/img/logos/alcalde.png">
+                            </div> <!-- /.alcalde-logo -->
+
+                            <div class="back-data">
+                                <div class="back-data__group">
+                                    <p class="data__legend" id="data__legend">
+                                        Se le agradece a las autoridades civiles, mercantiles y militares prestar la
+                                        mayor
+                                        colaboración posible al portador de este carnet, dentro del marco de las leyes y
+                                        la
+                                        constitución para el desempeño de sus funciones.
+                                    </p>
+                                </div>
+                                <div class="back-data__group">
+                                    <p class="data__expiration" id="data__expiration"></p>
+                                </div>
+                                <div class="back-data__group">
+                                    <p class="data__blood" id="data__blood"></p>
+                                </div>
+                            </div> <!-- /.Data -->
+
+                        </div> <!-- /.Back -->
+
+                    </div> <!-- /.Carnet -->
+
+                    <!-- Container Print-Button -->
+                    <div class="btn-print">
+                        <button type="button" class="btn btn-secondary hide-print" data-toggle="modal"
+                            data-target="#confirmPrint" onclick="imprimir()"><i class="fas fa-print"></i>
+                        </button>
+                    </div>
+                    <!-- /.Container Print-Button -->
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="confirmPrint" data-backdrop="static" tabindex="-1" role="dialog"
+                        aria-labelledby="confirmPrintLabel" aria-hidden="true">
+
+                        <div class="modal-dialog modal-sm" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h6 class="modal-title" id="confirmPrintLabel">Confirmar Impresión</h6>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    ¿ El carnet se imprimio correctamente ?
+                                </div>
+                                <div class="modal-footer">
+                                    <!-- Carnet Request -->
+                                    <form action="/carnet/staff/createCarnet" method="Post" id="formModal">
+                                        <input type="hidden" name="cedula" id="modal__cedula">
+                                        <input type="hidden" name="expiration" id="modal__expiration">
+
+                                        <button type="submit" class="btn btn-success btn-sm" id="printYes">Yes</button>
+                                        <button type="button" class="btn btn-secondary btn-sm"
+                                            data-dismiss="modal">No</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- /.modal -->
+
+                </div> <!-- /.col-md-4 -->
+
+
+            </div> <!-- /.card-body -->
+        </div> <!-- /.card -->
+        {{/if}}
+    </div> <!-- /.row -->
+
+</div> <!-- /.container -->

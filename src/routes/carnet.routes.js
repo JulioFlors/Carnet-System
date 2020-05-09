@@ -10,6 +10,7 @@ import {
 
 import {
     getData,
+    // printCarnet,
     uploadPhoto,
     createCarnet,
     renderFormCarnet
@@ -26,5 +27,8 @@ router.post("/carnet/staff/uploadPhoto", isAuthenticated, uploadPhoto);
 
 // crea o actualiza el carnet
 router.post("/carnet/staff/createCarnet", isAuthenticated, createCarnet);
+
+// Vista para imprimir el carnet
+// router.post("/carnet/staff/print", isAuthenticated, printCarnet);
 
 export default router

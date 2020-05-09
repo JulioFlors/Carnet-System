@@ -13,6 +13,10 @@ export function renderFormCarnet(req, res) {
     res.render('carnet/carnet-staff')
 };
 
+// export function printCarnet(req, res) {
+//     res.render('carnet/carnet-print')
+// };
+
 export async function getData(req, res) {
     try {
         const {
@@ -56,12 +60,24 @@ export async function getData(req, res) {
             });
 
             if (photo) return res.render('carnet/carnet-staff', {
-                data,
+                cedula: data.cedula,
+                firstname: data.first_name,
+                lastname: data.last_name,
+                department: data.department.description,
+                position: data.position.description,
+                expiration: data.staff.carnet.date_of_expiration,
+                blood: data.staff.blood_type,
                 photo: photo.path
             })
             else {
                 return res.render('carnet/carnet-staff', {
-                    data
+                    cedula: data.cedula,
+                    firstname: data.first_name,
+                    lastname: data.last_name,
+                    department: data.department.description,
+                    position: data.position.description,
+                    expiration: data.staff.carnet.date_of_expiration,
+                    blood: data.staff.blood_type,
                 });
             }
         } else {
@@ -89,76 +105,259 @@ export async function uploadPhoto(req, res) {
         blood
     } = req.body;
 
-    const {
-        filename,
-        originalname,
-        mimetype,
-        size
-    } = req.file;
+    if (req.file) { // Vas a cargar la foto
+        const {
+            filename,
+            originalname,
+            mimetype,
+            size
+        } = req.file;
 
-    const path = '/img/uploads/' + filename;
-    const user_permission = req.user.dataValues.permission;
-    const errors = [];
+        const path = '/img/uploads/' + filename;
+        const user_permission = req.user.dataValues.permission;
+        const errors = [];
 
-    try {
-        if (!path) {
-            errors.push({
-                text: 'No se pudo obtener el path de la Foto'
-            });
-        }
-
-        // Search matches by cedula
-        const staff = await Staff.findOne({
-            where: {
-                cedula
-            }
-        });
-
-        if (!staff) {
-            errors.push({
-                text: 'Cedula invalida'
-            });
-        }
-
-        if (user_permission === 'Read') {
-            // Search matches by Department
-            const Dpto = await Department.findOne({
-                where: {
-                    description: department
-                }
-            });
-
-            if (!Dpto) {
+        try {
+            if (!path) {
                 errors.push({
-                    text: 'Departamento invalido'
+                    text: 'No se pudo obtener el path de la Foto'
                 });
             }
 
-            // Search matches by Position
-            const Cargo = await Position.findOne({
+            // Search matches by cedula
+            const staff = await Staff.findOne({
                 where: {
-                    description: position
+                    cedula
                 }
             });
 
-            if (!Cargo) {
+            if (!staff) {
                 errors.push({
-                    text: 'Cargo invalido'
+                    text: 'Cedula invalida'
                 });
             }
-        }
 
-        if (errors.length > 0) {
+            if (user_permission === 'Read') {
+                // Search matches by Department
+                const Dpto = await Department.findOne({
+                    where: {
+                        description: department
+                    }
+                });
+
+                if (!Dpto) {
+                    errors.push({
+                        text: 'Departamento invalido'
+                    });
+                }
+
+                // Search matches by Position
+                const Cargo = await Position.findOne({
+                    where: {
+                        description: position
+                    }
+                });
+
+                if (!Cargo) {
+                    errors.push({
+                        text: 'Cargo invalido'
+                    });
+                }
+            }
+
+            if (errors.length > 0) {
+                try {
+
+                    // we delete from system
+                    await unlink(Path.resolve('./src/public/' + path));
+
+                    req.flash('success_msg', 'Se elimino la foto del sistema correctamente');
+                    res.locals.success_msg = req.flash('success_msg');
+
+                    return res.render('carnet/carnet-staff', {
+                        errors,
+                        cedula,
+                        firstname,
+                        lastname,
+                        department,
+                        position,
+                        expiration,
+                        blood
+                    });
+                } catch (error) {
+                    req.flash('error_msg', 'Error: No se pudo eliminar la Foto del Sistema, por favor eliminar manualmente!');
+                    res.locals.error_msg = req.flash('error_msg');
+                    return res.render('carnet/carnet-staff', {
+                        cedula,
+                        firstname,
+                        lastname,
+                        department,
+                        position,
+                        expiration,
+                        blood
+                    })
+                }
+            } else {
+
+                // current photo in the database
+                const oldPhoto = await Photo.findOne({
+                    where: {
+                        cedula
+                    }
+                });
+
+                if (oldPhoto) { // if the person already has a photo
+
+                    // we update photo from data base 
+                    const updatedPhoto = await Photo.update({
+                        filename,
+                        path,
+                        originalname,
+                        mimetype,
+                        size
+                    }, {
+                        where: {
+                            cedula
+                        }
+                    });
+
+                    if (updatedPhoto) { // if the photo was updated
+                        try {
+                            req.flash('success_msg', 'Foto actualizada con éxito');
+                            res.locals.success_msg = req.flash('success_msg');
+
+                            // we delete from system
+                            await unlink(Path.resolve('./src/public/' + oldPhoto.path));
+
+                            return res.render('carnet/carnet-staff', {
+                                photo: path,
+                                cedula,
+                                firstname,
+                                lastname,
+                                department,
+                                position,
+                                expiration,
+                                blood
+                            })
+                        } catch (error) {
+                            req.flash('error_msg', 'Error: No se pudo eliminar la Foto Anterior del Sistema. Revisar si se debe a que no Existia o si se debe eliminar manualmente!');
+                            res.locals.error_msg = req.flash('error_msg');
+                            return res.render('carnet/carnet-staff', {
+                                photo: path,
+                                cedula,
+                                firstname,
+                                lastname,
+                                department,
+                                position,
+                                expiration,
+                                blood
+                            })
+                        }
+                    } else {
+                        try {
+                            req.flash('error_msg', 'No se pudo actualizar la foto');
+                            res.locals.error_msg = req.flash('error_msg');
+
+                            // we delete from system
+                            await unlink(Path.resolve('./src/public/' + path));
+
+                            return res.render('carnet/carnet-staff', {
+                                photo: oldPhoto.path,
+                                cedula,
+                                firstname,
+                                lastname,
+                                department,
+                                position,
+                                expiration,
+                                blood
+                            })
+                        } catch (error) {
+                            req.flash('error_msg', 'Error: La nueva foto se subio al sistema, por favor eliminar manualmente!');
+                            res.locals.error_msg = req.flash('error_msg');
+                            return res.render('carnet/carnet-staff', {
+                                photo: oldPhoto.path,
+                                cedula,
+                                firstname,
+                                lastname,
+                                department,
+                                position,
+                                expiration,
+                                blood
+                            })
+                        }
+                    }
+                } else { //if the person does not have a photo
+
+                    const createdPhoto = await Photo.create({
+                        cedula,
+                        filename,
+                        path,
+                        originalname,
+                        mimetype,
+                        size
+                    }, {
+                        fields: ['cedula', 'filename', 'path', 'originalname', 'mimetype', 'size']
+                    });
+
+                    if (createdPhoto) { // if the photo was created
+                        req.flash('success_msg', 'Foto guardada con éxito');
+                        res.locals.success_msg = req.flash('success_msg');
+                        console.log(createdPhoto);
+                        return res.render('carnet/carnet-staff', {
+                            photo: path,
+                            cedula,
+                            firstname,
+                            lastname,
+                            department,
+                            position,
+                            expiration,
+                            blood
+                        })
+                    } else {
+                        try {
+                            req.flash('error_msg', 'La foto no se pudo guardar en la base de datos');
+                            res.locals.error_msg = req.flash('error_msg');
+
+                            // we delete from system
+                            await unlink(Path.resolve('./src/public/' + path));
+
+                            return res.render('carnet/carnet-staff', {
+                                photo: oldPhoto.path,
+                                cedula,
+                                firstname,
+                                lastname,
+                                department,
+                                position,
+                                expiration,
+                                blood
+                            })
+                        } catch (error) {
+                            req.flash('error_msg', 'Error: La nueva foto se subio al sistema, por favor eliminar manualmente!');
+                            res.locals.error_msg = req.flash('error_msg');
+                            return res.render('carnet/carnet-staff', {
+                                photo: oldPhoto.path,
+                                cedula,
+                                firstname,
+                                lastname,
+                                department,
+                                position,
+                                expiration,
+                                blood
+                            })
+                        }
+                    }
+                }
+            }
+        } catch (error) {
             try {
+                console.log(error)
+                req.flash('error_msg', 'Error: no se pudo guardar la foto');
+                res.locals.error_msg = req.flash('error_msg');
 
                 // we delete from system
                 await unlink(Path.resolve('./src/public/' + path));
 
-                req.flash('success_msg', 'Se elimino la foto del sistema correctamente');
-                res.locals.success_msg = req.flash('success_msg');
-
                 return res.render('carnet/carnet-staff', {
-                    errors,
                     cedula,
                     firstname,
                     lastname,
@@ -166,9 +365,10 @@ export async function uploadPhoto(req, res) {
                     position,
                     expiration,
                     blood
-                });
+                })
+
             } catch (error) {
-                req.flash('error_msg', 'Error: No se pudo eliminar la Foto del Sistema, por favor eliminar manualmente!');
+                req.flash('error_msg', 'Error: La nueva foto se subio al sistema, por favor eliminar manualmente!');
                 res.locals.error_msg = req.flash('error_msg');
                 return res.render('carnet/carnet-staff', {
                     cedula,
@@ -180,189 +380,20 @@ export async function uploadPhoto(req, res) {
                     blood
                 })
             }
-        } else {
-
-            // current photo in the database
-            const oldPhoto = await Photo.findOne({
-                where: {
-                    cedula
-                }
-            });
-
-            if (oldPhoto) { // if the person already has a photo
-
-                // we update photo from data base 
-                const updatedPhoto = await Photo.update({
-                    filename,
-                    path,
-                    originalname,
-                    mimetype,
-                    size
-                }, {
-                    where: {
-                        cedula
-                    }
-                });
-
-                if (updatedPhoto) { // if the photo was updated
-                    try {
-                        req.flash('success_msg', 'Foto actualizada con éxito');
-                        res.locals.success_msg = req.flash('success_msg');
-
-                        // we delete from system
-                        await unlink(Path.resolve('./src/public/' + oldPhoto.path));
-
-                        return res.render('carnet/carnet-staff', {
-                            photo: path,
-                            cedula,
-                            firstname,
-                            lastname,
-                            department,
-                            position,
-                            expiration,
-                            blood
-                        })
-                    } catch (error) {
-                        req.flash('error_msg', 'Error: No se pudo eliminar la Foto Anterior del Sistema. Revisar si se debe a que no Existia o si se debe eliminar manualmente!');
-                        res.locals.error_msg = req.flash('error_msg');
-                        return res.render('carnet/carnet-staff', {
-                            photo: path,
-                            cedula,
-                            firstname,
-                            lastname,
-                            department,
-                            position,
-                            expiration,
-                            blood
-                        })
-                    }
-                } else {
-                    try {
-                        req.flash('error_msg', 'No se pudo actualizar la foto');
-                        res.locals.error_msg = req.flash('error_msg');
-
-                        // we delete from system
-                        await unlink(Path.resolve('./src/public/' + path));
-
-                        return res.render('carnet/carnet-staff', {
-                            photo: oldPhoto.path,
-                            cedula,
-                            firstname,
-                            lastname,
-                            department,
-                            position,
-                            expiration,
-                            blood
-                        })
-                    } catch (error) {
-                        req.flash('error_msg', 'Error: La nueva foto se subio al sistema, por favor eliminar manualmente!');
-                        res.locals.error_msg = req.flash('error_msg');
-                        return res.render('carnet/carnet-staff', {
-                            photo: oldPhoto.path,
-                            cedula,
-                            firstname,
-                            lastname,
-                            department,
-                            position,
-                            expiration,
-                            blood
-                        })
-                    }
-                }
-            } else { //if the person does not have a photo
-
-                const createdPhoto = await Photo.create({
-                    cedula,
-                    filename,
-                    path,
-                    originalname,
-                    mimetype,
-                    size
-                }, {
-                    fields: ['cedula', 'filename', 'path', 'originalname', 'mimetype', 'size']
-                });
-
-                if (createdPhoto) { // if the photo was created
-                    req.flash('success_msg', 'Foto guardada con éxito');
-                    res.locals.success_msg = req.flash('success_msg');
-                    console.log(createdPhoto);
-                    return res.render('carnet/carnet-staff', {
-                        photo: path,
-                        cedula,
-                        firstname,
-                        lastname,
-                        department,
-                        position,
-                        expiration,
-                        blood
-                    })
-                } else {
-                    try {
-                        req.flash('error_msg', 'La foto no se pudo guardar en la base de datos');
-                        res.locals.error_msg = req.flash('error_msg');
-
-                        // we delete from system
-                        await unlink(Path.resolve('./src/public/' + path));
-
-                        return res.render('carnet/carnet-staff', {
-                            photo: oldPhoto.path,
-                            cedula,
-                            firstname,
-                            lastname,
-                            department,
-                            position,
-                            expiration,
-                            blood
-                        })
-                    } catch (error) {
-                        req.flash('error_msg', 'Error: La nueva foto se subio al sistema, por favor eliminar manualmente!');
-                        res.locals.error_msg = req.flash('error_msg');
-                        return res.render('carnet/carnet-staff', {
-                            photo: oldPhoto.path,
-                            cedula,
-                            firstname,
-                            lastname,
-                            department,
-                            position,
-                            expiration,
-                            blood
-                        })
-                    }
-                }
-            }
         }
-    } catch (error) {
-        try {
-            console.log(error)
-            req.flash('error_msg', 'Error: no se pudo guardar la foto');
-            res.locals.error_msg = req.flash('error_msg');
+    } else { // Vas a pedir que cargue una foto
+        req.flash('error_msg', 'Adjunte foto para continuar');
+        res.locals.error_msg = req.flash('error_msg');
 
-            // we delete from system
-            await unlink(Path.resolve('./src/public/' + path));
-
-            return res.render('carnet/carnet-staff', {
-                cedula,
-                firstname,
-                lastname,
-                department,
-                position,
-                expiration,
-                blood
-            })
-
-        } catch (error) {
-            req.flash('error_msg', 'Error: La nueva foto se subio al sistema, por favor eliminar manualmente!');
-            res.locals.error_msg = req.flash('error_msg');
-            return res.render('carnet/carnet-staff', {
-                cedula,
-                firstname,
-                lastname,
-                department,
-                position,
-                expiration,
-                blood
-            })
-        }
+        return res.render('carnet/carnet-staff', {
+            cedula,
+            firstname,
+            lastname,
+            department,
+            position,
+            expiration,
+            blood
+        });
     }
 };
 

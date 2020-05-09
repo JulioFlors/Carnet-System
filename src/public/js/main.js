@@ -1,15 +1,15 @@
-const formSearch = document.querySelector('#formSearch');
-const formModal = document.querySelector('#formModal');
-const form = document.querySelector('#form');
+const formSearch = document.getElementById('formSearch');
+const formModal = document.getElementById('formModal');
+const form = document.getElementById('form');
 
-const data__fullname = document.querySelector('#carnet .data__fullname');
-const data__cedula = document.querySelector('#carnet .data__cedula');
-const data__department = document.querySelector('#carnet .data__department');
-const data__position = document.querySelector('#carnet .data__position');
-const data__expiration = document.querySelector('#carnet .data__expiration');
-const data__blood = document.querySelector('#carnet .data__blood');
+const data__fullname = document.getElementById('data__fullname');
+const data__cedula = document.getElementById('data__cedula');
+const data__department = document.getElementById('data__department');
+const data__position = document.getElementById('data__position');
+const data__expiration = document.getElementById('data__expiration');
+const data__blood = document.getElementById('data__blood');
 
-const carnet = document.querySelector('#carnet');
+const carnet = document.getElementById('carnet');
 
 // Rotacion del carnet
 if (carnet) carnet.addEventListener('click', () => {
@@ -113,9 +113,50 @@ if (form) {
     // Actualizo el Label con el nombre del archivo que se selecciono
     form.form__photo.addEventListener('change', function () {
         let filename = form.form__photo.value.replace(/\\/g, '/').replace(/.*\//, '');
-        document.querySelector('#file__label').textContent = filename;
-        if (!form.form__photo.value) document.querySelector('#file__label').textContent = 'Seleccionar Archivo';
+        document.getElementById('file__label').textContent = filename;
+
+        if (form.form__photo.value) {
+            if (carnet) {
+                document.getElementById('btn-form').textContent = 'Actualizar Foto';
+                document.getElementById('btn-form').style.display = "block";
+
+                document.getElementById("btn-modal").style.display = "none";
+            } else {
+                document.getElementById('btn-form').textContent = 'Visualizar Carnet';
+                document.getElementById('btn-form').style.display = "block";
+
+                document.getElementById("btn-modal").style.display = "none";
+            }
+        } else {
+            document.getElementById('file__label').textContent = 'Seleccionar Archivo';
+
+            if (carnet) {
+                document.getElementById('btn-form').textContent = 'Imprimir';
+                document.getElementById('btn-form').style.display = "none";
+
+                document.getElementById("btn-modal").style.display = "block";
+            } else {
+                document.getElementById('btn-form').textContent = 'Visualizar Carnet';
+                document.getElementById('btn-form').style.display = "block";
+
+                document.getElementById("btn-modal").style.display = "none";
+            }
+        }
     });
+
+    if (!form.form__photo.value) {
+        if (carnet) {
+            document.getElementById('btn-form').textContent = 'Imprimir';
+            document.getElementById('btn-form').style.display = "none";
+
+            document.getElementById("btn-modal").style.display = "block";
+        } else {
+            document.getElementById('btn-form').textContent = 'Visualizar Carnet';
+            document.getElementById('btn-form').style.display = "block";
+
+            document.getElementById("btn-modal").style.display = "none";
+        }
+    }
 }
 
 // validations to create the card
@@ -136,10 +177,12 @@ if (formModal) {
 function imprimir() {
 
     //la impresion solo sale bien si la clase active esta activada,
-    //por eso estas validaciones
-    if (carnet.classList.contains("active")) window.print();
+    //por eso estas validaciones, y siempre imprimirla correctamente,
+    //y para dejar el carnet en la misma posicion en la que el usuario le dio al boton
 
-    else {
+    if (carnet.classList.contains("active")) {
+        window.print();
+    } else {
         carnet.classList.add("active");
         window.print();
         carnet.classList.remove("active");
