@@ -15,7 +15,7 @@
                 </div><!-- /.card-header -->
 
                 <div class="card-body">
-                    <form action="/carnet/staff/uploadPhoto" method="POST" id="form" enctype="multipart/form-data">
+                    <form action="/carnet/uploadPhoto" method="POST" id="form" enctype="multipart/form-data">
 
                         <div class="form-group">
                             <input required {{#if cedula}} value="{{cedula}}" {{/if}} type="text" class="form-control"
@@ -54,15 +54,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="photo" id="form__photo">
-                                <label class="custom-file-label" id="file__label" for="form__photo">Seleccionar
-                                    Archivo</label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <select class="custom-select" name="blood" id="form__blood">
+                            <select required class="custom-select" name="blood" id="form__blood">
                                 {{#if blood}}
                                 <option disabled>Grupo Sanguíneo Actual</option>
                                 <option selected value="{{blood}}"> {{blood}}</option>
@@ -87,6 +79,42 @@
                                 <option value="AB-">AB-</option>
                                 {{/if}}
                             </select>
+                        </div>
+
+                        <div class="form-group">
+                            <select required class="custom-select" name="template_front" id="form__front">
+                                {{#if templates_front}}
+                                <option disabled selected>Frente del Carnet</option>
+                                {{#each templates_front}}
+                                <option value="{{dataValues.path}}">{{dataValues.title}}</option>
+                                {{/each}}
+                                {{else}}
+                                <option disabled selected>Frente del Carnet</option>
+                                <option disabled>No Disponible</option>
+                                {{/if}}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <select required class="custom-select" name="template_back" id="form__back">
+                                {{#if templates_back}}
+                                <option disabled selected>Dorso del Carnet</option>
+                                {{#each templates_back}}
+                                <option value="{{dataValues.path}}">{{dataValues.title}}</option>
+                                {{/each}}
+                                {{else}}
+                                <option disabled selected>Dorso del Carnet</option>
+                                <option disabled>No Disponible</option>
+                                {{/if}}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input required type="file" class="custom-file-input" name="photo" id="form__photo">
+                                <label class="custom-file-label" id="file__label" for="form__photo">Seleccionar
+                                    Archivo</label>
+                            </div>
                         </div>
 
                         <button id="btn-form" class="btn btn-success btn-block">
@@ -201,7 +229,7 @@
             </div>
             <div class="modal-footer">
                 <!-- Carnet Request -->
-                <form action="/carnet/staff/createCarnet" method="Post" id="formModal">
+                <form action="/carnet/createCarnet" method="Post" id="formModal">
                     <input type="hidden" name="cedula" id="modal__cedula">
                     <input type="hidden" name="firstname" id="modal__firstname">
                     <input type="hidden" name="lastname" id="modal__lastname">

@@ -1,3 +1,4 @@
+const formTemplate = document.getElementById('formTemplate');
 const formSearch = document.getElementById('formSearch');
 const formModal = document.getElementById('formModal');
 const form = document.getElementById('form');
@@ -33,7 +34,6 @@ if (formSearch) {
 }
 
 if (form) {
-
     const cedula = document.getElementById("form__cedula").value;
     const firstname = document.getElementById("form__firstname").value;
     const lastname = document.getElementById("form__lastname").value;
@@ -157,6 +157,20 @@ if (form) {
             document.getElementById("btn-modal").style.display = "none";
         }
     }
+
+    // Actualizo el backgroundImage del front
+    form.form__front.addEventListener('change', function () {
+        const front = form.form__front.value;
+        document.getElementById("front").style.backgroundImage = `url('..${front}')`;
+        console.log(`url('..${front}')`);
+    });
+
+    // Actualizo el backgroundImage del back
+    form.form__back.addEventListener('change', function () {
+        const back = form.form__back.value;
+        document.getElementById("back").style.backgroundImage = `url('..${back}')`;
+        console.log(`${back}`);
+    });
 }
 
 // validations to create the card
@@ -170,6 +184,17 @@ if (formModal) {
         formModal.modal__position.value = form.form__position.value.toUpperCase();
         formModal.modal__expiration.value = form.form__expiration.value;
         formModal.modal__blood.value = form.form__blood.value;
+    });
+}
+
+if (formTemplate) {
+    // Actualizo el Label con el nombre del archivo que se selecciono
+    formTemplate.formTemplate__photo.addEventListener('change', function () {
+        let filename = formTemplate.formTemplate__photo.value.replace(/\\/g, '/').replace(/.*\//, '');
+        document.getElementById('file__label').textContent = filename;
+
+        if (!formTemplate.formTemplate__photo.value)
+            document.getElementById('file__label').textContent = 'Seleccionar Archivo';
     });
 }
 

@@ -88,3 +88,20 @@ CREATE TABLE IF NOT EXISTS foreign_photos (
   mimetype varchar (100) NOT NULL CHECK (mimetype <> ''),
   size integer NOT NULL
 );
+--------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS templates (
+  id serial NOT NULL PRIMARY KEY UNIQUE,
+  title varchar (100) NOT NULL UNIQUE CHECK (filename <> ''),
+  description varchar (100) NOT NULL CHECK (filename <> ''),
+  orientation varchar(5) NOT NULL CHECK (orientation <> ''),
+  CONSTRAINT Checks_orientation CHECK (
+    orientation = 'Front'
+    or orientation = 'Back'
+  ),
+  filename varchar (100) NOT NULL CHECK (filename <> ''),
+  path varchar (100) NOT NULL CHECK (path <> ''),
+  originalname varchar (100) NOT NULL CHECK (originalname <> ''),
+  mimetype varchar (100) NOT NULL CHECK (mimetype <> ''),
+  size integer NOT NULL
+);
+--------------------------------------------------------------

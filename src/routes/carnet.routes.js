@@ -10,7 +10,6 @@ import {
 
 import {
     getData,
-    // printCarnet,
     uploadPhoto,
     createCarnet,
     renderFormCarnet
@@ -23,12 +22,9 @@ router.post('/carnet/staff', isAuthenticated, getData);
 router.get("/carnet/staff", isAuthenticated, renderFormCarnet);
 
 // guardar foto
-router.post("/carnet/staff/uploadPhoto", isAuthenticated, uploadPhoto);
+router.post("/carnet/uploadPhoto", isAuthenticated, uploadPhoto);
 
 // crea o actualiza el carnet
-router.post("/carnet/staff/createCarnet", isAuthenticated, createCarnet);
-
-// Vista para imprimir el carnet
-// router.post("/carnet/staff/print", isAuthenticated, printCarnet);
+router.post("/carnet/createCarnet", isAuthenticated, createCarnet);
 
 export default router

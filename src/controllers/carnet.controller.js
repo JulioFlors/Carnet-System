@@ -7,21 +7,230 @@ import Staff from '../models/Staff'
 import Photo from '../models/Photos'
 import Carnet from '../models/Carnets'
 import Position from '../models/Positions'
+import Template from '../models/Templates'
 import Department from '../models/Departments'
 
-export function renderFormCarnet(req, res) {
-    res.render('carnet/carnet-staff')
+export async function renderFormCarnet(req, res) {
+
+    try {
+        const templates_front = await Template.findAll({
+            where: {
+                orientation: 'Front'
+            }
+        });
+
+        const templates_back = await Template.findAll({
+            where: {
+                orientation: 'Back'
+            }
+        });
+
+        if (templates_front && templates_back) {
+            return res.render('carnet/carnet-staff', {
+                templates_front,
+                templates_back
+            });
+        } else {
+            req.flash('error_msg', 'no se pudo obtener las plantillas');
+            res.locals.error_msg = req.flash('error_msg');
+            return res.render('carnet/carnet-staff');
+        }
+    } catch (error) {
+        console.log(error);
+        req.flash('error_msg', 'Error al intentar obtener las plantillas');
+        res.locals.error_msg = req.flash('error_msg');
+        return res.render('carnet/carnet-staff');
+    }
 };
 
-// export function printCarnet(req, res) {
-//     res.render('carnet/carnet-print')
-// };
+export async function renderSimpleData(req, res, cedula, firstname, lastname, department, position, expiration, blood) {
+    try {
+        const templates_front = await Template.findAll({
+            where: {
+                orientation: 'Front'
+            }
+        });
+
+        const templates_back = await Template.findAll({
+            where: {
+                orientation: 'Back'
+            }
+        });
+
+        if (templates_front && templates_back) {
+            return res.render('carnet/carnet-staff', {
+                templates_front,
+                templates_back,
+                cedula,
+                firstname,
+                lastname,
+                department,
+                position,
+                expiration,
+                blood
+            });
+        } else {
+            req.flash('error_msg', 'no se pudo obtener las plantillas');
+            res.locals.error_msg = req.flash('error_msg');
+            return res.render('carnet/carnet-staff', {
+                cedula,
+                firstname,
+                lastname,
+                department,
+                position,
+                expiration,
+                blood
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        req.flash('error_msg', 'Error al intentar obtener las plantillas');
+        res.locals.error_msg = req.flash('error_msg');
+        return res.render('carnet/carnet-staff', {
+            cedula,
+            firstname,
+            lastname,
+            department,
+            position,
+            expiration,
+            blood
+        });
+    }
+};
+
+export async function renderPhotoData(req, res, photo, cedula, firstname, lastname, department, position, expiration, blood) {
+    try {
+        const templates_front = await Template.findAll({
+            where: {
+                orientation: 'Front'
+            }
+        });
+
+        const templates_back = await Template.findAll({
+            where: {
+                orientation: 'Back'
+            }
+        });
+
+        if (templates_front && templates_back) {
+            return res.render('carnet/carnet-staff', {
+                templates_front,
+                templates_back,
+                photo,
+                cedula,
+                firstname,
+                lastname,
+                department,
+                position,
+                expiration,
+                blood
+            });
+        } else {
+            req.flash('error_msg', 'no se pudo obtener las plantillas');
+            res.locals.error_msg = req.flash('error_msg');
+            return res.render('carnet/carnet-staff', {
+                photo,
+                cedula,
+                firstname,
+                lastname,
+                department,
+                position,
+                expiration,
+                blood
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        req.flash('error_msg', 'Error al intentar obtener las plantillas');
+        res.locals.error_msg = req.flash('error_msg');
+        return res.render('carnet/carnet-staff', {
+            photo,
+            cedula,
+            firstname,
+            lastname,
+            department,
+            position,
+            expiration,
+            blood
+        });
+    }
+};
+
+export async function renderErrorsData(req, res, errors, cedula, firstname, lastname, department, position, expiration, blood) {
+    try {
+        const templates_front = await Template.findAll({
+            where: {
+                orientation: 'Front'
+            }
+        });
+
+        const templates_back = await Template.findAll({
+            where: {
+                orientation: 'Back'
+            }
+        });
+
+        if (templates_front && templates_back) {
+            return res.render('carnet/carnet-staff', {
+                templates_front,
+                templates_back,
+                errors,
+                cedula,
+                firstname,
+                lastname,
+                department,
+                position,
+                expiration,
+                blood
+            });
+        } else {
+            req.flash('error_msg', 'no se pudo obtener las plantillas');
+            res.locals.error_msg = req.flash('error_msg');
+            return res.render('carnet/carnet-staff', {
+                errors,
+                cedula,
+                firstname,
+                lastname,
+                department,
+                position,
+                expiration,
+                blood
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        req.flash('error_msg', 'Error al intentar obtener las plantillas');
+        res.locals.error_msg = req.flash('error_msg');
+        return res.render('carnet/carnet-staff', {
+            errors,
+            cedula,
+            firstname,
+            lastname,
+            department,
+            position,
+            expiration,
+            blood
+        });
+    }
+};
 
 export async function getData(req, res) {
     try {
         const {
             cedula
         } = req.body;
+
+        const templates_front = await Template.findAll({
+            where: {
+                orientation: 'Front'
+            }
+        });
+
+        const templates_back = await Template.findAll({
+            where: {
+                orientation: 'Back'
+            }
+        });
 
         // Search matches by cedula
         const staff = await Staff.findOne({
@@ -30,7 +239,7 @@ export async function getData(req, res) {
             }
         });
 
-        if (staff) {
+        if (staff && templates_front && templates_back) {
 
             const data = await Rac.findOne({
                 include: [{
@@ -59,18 +268,10 @@ export async function getData(req, res) {
                 }
             });
 
-            if (photo) return res.render('carnet/carnet-staff', {
-                cedula: data.cedula,
-                firstname: data.first_name,
-                lastname: data.last_name,
-                department: data.department.description,
-                position: data.position.description,
-                expiration: data.staff.carnet.date_of_expiration,
-                blood: data.staff.blood_type,
-                photo: photo.path
-            })
-            else {
-                return res.render('carnet/carnet-staff', {
+            if (data.staff.carnet) {
+                if (photo) return res.render('carnet/carnet-staff', {
+                    templates_front,
+                    templates_back,
                     cedula: data.cedula,
                     firstname: data.first_name,
                     lastname: data.last_name,
@@ -78,7 +279,41 @@ export async function getData(req, res) {
                     position: data.position.description,
                     expiration: data.staff.carnet.date_of_expiration,
                     blood: data.staff.blood_type,
-                });
+                    photo: photo.path
+                })
+                else return res.render('carnet/carnet-staff', {
+                    templates_front,
+                    templates_back,
+                    cedula: data.cedula,
+                    firstname: data.first_name,
+                    lastname: data.last_name,
+                    department: data.department.description,
+                    position: data.position.description,
+                    expiration: data.staff.carnet.date_of_expiration,
+                    blood: data.staff.blood_type,
+                })
+            } else {
+                if (photo) return res.render('carnet/carnet-staff', {
+                    templates_front,
+                    templates_back,
+                    cedula: data.cedula,
+                    firstname: data.first_name,
+                    lastname: data.last_name,
+                    department: data.department.description,
+                    position: data.position.description,
+                    blood: data.staff.blood_type,
+                    photo: photo.path
+                })
+                else return res.render('carnet/carnet-staff', {
+                    templates_front,
+                    templates_back,
+                    cedula: data.cedula,
+                    firstname: data.first_name,
+                    lastname: data.last_name,
+                    department: data.department.description,
+                    position: data.position.description,
+                    blood: data.staff.blood_type,
+                })
             }
         } else {
             req.flash('error_msg', 'La persona no ha sido encontrada');
@@ -121,6 +356,30 @@ export async function uploadPhoto(req, res) {
             if (!path) {
                 errors.push({
                     text: 'No se pudo obtener el path de la Foto'
+                });
+            }
+
+            const templates_front = await Template.findAll({
+                where: {
+                    orientation: 'Front'
+                }
+            });
+
+            if (!templates_front || templates_front.length === 0) {
+                errors.push({
+                    text: 'No se encontraron plantillas para el Frente del Carnet'
+                });
+            }
+
+            const templates_back = await Template.findAll({
+                where: {
+                    orientation: 'Back'
+                }
+            });
+
+            if (!templates_back || templates_back.length === 0) {
+                errors.push({
+                    text: 'No se encontraron plantillas para el Dorso del Carnet'
                 });
             }
 
@@ -167,35 +426,14 @@ export async function uploadPhoto(req, res) {
 
             if (errors.length > 0) {
                 try {
-
                     // we delete from system
                     await unlink(Path.resolve('./src/public/' + path));
 
-                    req.flash('success_msg', 'Se elimino la foto del sistema correctamente');
-                    res.locals.success_msg = req.flash('success_msg');
-
-                    return res.render('carnet/carnet-staff', {
-                        errors,
-                        cedula,
-                        firstname,
-                        lastname,
-                        department,
-                        position,
-                        expiration,
-                        blood
-                    });
+                    return renderErrorsData(req, res, errors, cedula, firstname, lastname, department, position, expiration, blood);
                 } catch (error) {
                     req.flash('error_msg', 'Error: No se pudo eliminar la Foto del Sistema, por favor eliminar manualmente!');
                     res.locals.error_msg = req.flash('error_msg');
-                    return res.render('carnet/carnet-staff', {
-                        cedula,
-                        firstname,
-                        lastname,
-                        department,
-                        position,
-                        expiration,
-                        blood
-                    })
+                    return renderErrorsData(req, res, errors, cedula, firstname, lastname, department, position, expiration, blood);
                 }
             } else {
 
@@ -229,29 +467,11 @@ export async function uploadPhoto(req, res) {
                             // we delete from system
                             await unlink(Path.resolve('./src/public/' + oldPhoto.path));
 
-                            return res.render('carnet/carnet-staff', {
-                                photo: path,
-                                cedula,
-                                firstname,
-                                lastname,
-                                department,
-                                position,
-                                expiration,
-                                blood
-                            })
+                            return renderPhotoData(req, res, path, cedula, firstname, lastname, department, position, expiration, blood);
                         } catch (error) {
                             req.flash('error_msg', 'Error: No se pudo eliminar la Foto Anterior del Sistema. Revisar si se debe a que no Existia o si se debe eliminar manualmente!');
                             res.locals.error_msg = req.flash('error_msg');
-                            return res.render('carnet/carnet-staff', {
-                                photo: path,
-                                cedula,
-                                firstname,
-                                lastname,
-                                department,
-                                position,
-                                expiration,
-                                blood
-                            })
+                            return renderPhotoData(req, res, path, cedula, firstname, lastname, department, position, expiration, blood);
                         }
                     } else {
                         try {
@@ -261,29 +481,11 @@ export async function uploadPhoto(req, res) {
                             // we delete from system
                             await unlink(Path.resolve('./src/public/' + path));
 
-                            return res.render('carnet/carnet-staff', {
-                                photo: oldPhoto.path,
-                                cedula,
-                                firstname,
-                                lastname,
-                                department,
-                                position,
-                                expiration,
-                                blood
-                            })
+                            return renderPhotoData(req, res, oldPhoto.path, cedula, firstname, lastname, department, position, expiration, blood);
                         } catch (error) {
                             req.flash('error_msg', 'Error: La nueva foto se subio al sistema, por favor eliminar manualmente!');
                             res.locals.error_msg = req.flash('error_msg');
-                            return res.render('carnet/carnet-staff', {
-                                photo: oldPhoto.path,
-                                cedula,
-                                firstname,
-                                lastname,
-                                department,
-                                position,
-                                expiration,
-                                blood
-                            })
+                            return renderPhotoData(req, res, oldPhoto.path, cedula, firstname, lastname, department, position, expiration, blood);
                         }
                     }
                 } else { //if the person does not have a photo
@@ -302,17 +504,7 @@ export async function uploadPhoto(req, res) {
                     if (createdPhoto) { // if the photo was created
                         req.flash('success_msg', 'Foto guardada con éxito');
                         res.locals.success_msg = req.flash('success_msg');
-                        console.log(createdPhoto);
-                        return res.render('carnet/carnet-staff', {
-                            photo: path,
-                            cedula,
-                            firstname,
-                            lastname,
-                            department,
-                            position,
-                            expiration,
-                            blood
-                        })
+                        return renderPhotoData(req, res, path, cedula, firstname, lastname, department, position, expiration, blood);
                     } else {
                         try {
                             req.flash('error_msg', 'La foto no se pudo guardar en la base de datos');
@@ -321,29 +513,11 @@ export async function uploadPhoto(req, res) {
                             // we delete from system
                             await unlink(Path.resolve('./src/public/' + path));
 
-                            return res.render('carnet/carnet-staff', {
-                                photo: oldPhoto.path,
-                                cedula,
-                                firstname,
-                                lastname,
-                                department,
-                                position,
-                                expiration,
-                                blood
-                            })
+                            return renderPhotoData(req, res, oldPhoto.path, cedula, firstname, lastname, department, position, expiration, blood);
                         } catch (error) {
                             req.flash('error_msg', 'Error: La nueva foto se subio al sistema, por favor eliminar manualmente!');
                             res.locals.error_msg = req.flash('error_msg');
-                            return res.render('carnet/carnet-staff', {
-                                photo: oldPhoto.path,
-                                cedula,
-                                firstname,
-                                lastname,
-                                department,
-                                position,
-                                expiration,
-                                blood
-                            })
+                            return renderPhotoData(req, res, oldPhoto.path, cedula, firstname, lastname, department, position, expiration, blood);
                         }
                     }
                 }
@@ -357,43 +531,19 @@ export async function uploadPhoto(req, res) {
                 // we delete from system
                 await unlink(Path.resolve('./src/public/' + path));
 
-                return res.render('carnet/carnet-staff', {
-                    cedula,
-                    firstname,
-                    lastname,
-                    department,
-                    position,
-                    expiration,
-                    blood
-                })
+                return renderSimpleData(req, res, cedula, firstname, lastname, department, position, expiration, blood);
 
             } catch (error) {
                 req.flash('error_msg', 'Error: La nueva foto se subio al sistema, por favor eliminar manualmente!');
                 res.locals.error_msg = req.flash('error_msg');
-                return res.render('carnet/carnet-staff', {
-                    cedula,
-                    firstname,
-                    lastname,
-                    department,
-                    position,
-                    expiration,
-                    blood
-                })
+                return renderSimpleData(req, res, cedula, firstname, lastname, department, position, expiration, blood);
             }
         }
     } else { // Vas a pedir que cargue una foto
         req.flash('error_msg', 'Adjunte foto para continuar');
         res.locals.error_msg = req.flash('error_msg');
 
-        return res.render('carnet/carnet-staff', {
-            cedula,
-            firstname,
-            lastname,
-            department,
-            position,
-            expiration,
-            blood
-        });
+        return renderSimpleData(req, res, cedula, firstname, lastname, department, position, expiration, blood);
     }
 };
 
@@ -469,8 +619,10 @@ export async function createCarnet(req, res) {
         }
 
         if (errors.length > 0) {
-            if (photo) {
+            if (photo && templates_front && templates_back) {
                 return res.render('carnet/carnet-staff', {
+                    templates_front,
+                    templates_back,
                     errors,
                     photo: photo.path,
                     cedula,
@@ -482,16 +634,21 @@ export async function createCarnet(req, res) {
                     blood
                 })
             } else {
-                return res.render('carnet/carnet-staff', {
-                    errors,
-                    cedula,
-                    firstname,
-                    lastname,
-                    department,
-                    position,
-                    expiration,
-                    blood
-                })
+                if (photo && !templates_front && !templates_back) {
+                    return res.render('carnet/carnet-staff', {
+                        errors,
+                        photo: photo.path,
+                        cedula,
+                        firstname,
+                        lastname,
+                        department,
+                        position,
+                        expiration,
+                        blood
+                    })
+                } else {
+                    return renderErrorsData(req, res, errors, cedula, firstname, lastname, department, position, expiration, blood);
+                }
             }
         } else {
 
@@ -523,29 +680,11 @@ export async function createCarnet(req, res) {
                 if (updatedCarnet) {
                     req.flash('success_msg', 'El carnet se actualizó exitosamente');
                     res.locals.success_msg = req.flash('success_msg');
-                    return res.render('carnet/carnet-staff', {
-                        photo: photo.path,
-                        cedula,
-                        firstname,
-                        lastname,
-                        department,
-                        position,
-                        expiration,
-                        blood
-                    })
+                    return renderPhotoData(req, res, photo.path, cedula, firstname, lastname, department, position, expiration, blood);
                 } else {
                     req.flash('error_msg', 'No se pudo actualizar el carnet');
                     res.locals.error_msg = req.flash('error_msg');
-                    return res.render('carnet/carnet-staff', {
-                        photo: photo.path,
-                        cedula,
-                        firstname,
-                        lastname,
-                        department,
-                        position,
-                        expiration,
-                        blood
-                    })
+                    return renderPhotoData(req, res, photo.path, cedula, firstname, lastname, department, position, expiration, blood);
                 }
             } else { // if the person does not have a Carnet
                 const createdCarnet = await Carnet.create({
@@ -559,29 +698,11 @@ export async function createCarnet(req, res) {
                 if (createdCarnet) {
                     req.flash('success_msg', 'El carnet se creo exitosamente');
                     res.locals.success_msg = req.flash('success_msg');
-                    return res.render('carnet/carnet-staff', {
-                        photo: photo.path,
-                        cedula,
-                        firstname,
-                        lastname,
-                        department,
-                        position,
-                        expiration,
-                        blood
-                    })
+                    return renderPhotoData(req, res, photo.path, cedula, firstname, lastname, department, position, expiration, blood);
                 } else {
                     req.flash('error_msg', 'No se pudo crear el carnet');
                     res.locals.error_msg = req.flash('error_msg');
-                    return res.render('carnet/carnet-staff', {
-                        photo: photo.path,
-                        cedula,
-                        firstname,
-                        lastname,
-                        department,
-                        position,
-                        expiration,
-                        blood
-                    })
+                    return renderPhotoData(req, res, photo.path, cedula, firstname, lastname, department, position, expiration, blood);
                 }
             }
         }
@@ -589,14 +710,6 @@ export async function createCarnet(req, res) {
         console.log(error);
         req.flash('error_msg', 'Error: Se produjo un error inesperado');
         res.locals.error_msg = req.flash('error_msg');
-        return res.render('carnet/carnet-staff', {
-            cedula,
-            firstname,
-            lastname,
-            department,
-            position,
-            expiration,
-            blood
-        })
+        return renderSimpleData(req, res, cedula, firstname, lastname, department, position, expiration, blood);
     }
 }

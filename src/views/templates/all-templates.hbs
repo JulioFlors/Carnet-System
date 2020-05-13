@@ -1,0 +1,38 @@
+<div class="row row-template">
+    {{#each data}}
+    <div class="col-md-3 col-template">
+        <div class="card card-template animate__animated animate__fadeInUp">
+
+            <img src="{{dataValues.path}}" alt="card-img-top" class="img-template">
+            <div class="card-body">
+
+                <h5 class="card-title">
+                    {{capitalize dataValues.title}}
+                </h5>
+
+                <p class="card-text">{{dataValues.orientation}}</p>
+                <p class="card-text">{{dataValues.description}}</p>
+
+                <!-- DELETE REQUEST -->
+                <form action="/templates/delete/{{dataValues.id}}?_method=DELETE" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger btn-block btn-sm">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    {{#if data}}
+    {{else}}
+    {{#if (isAdmin user.dataValues.permission)}}
+    <div class="card mx-auto" style="	border: 0;
+	box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2);">
+        <div class="card-body">
+            <h3>Hola {{user.dataValues.username}}</h3>
+            <p clsss="lead">Todavía no hay plantillas</p>
+            <a href="/templates/add" class="btn btn-success btn-block">Crea Una!</a>
+        </div>
+    </div>
+    {{/if}}
+    {{/if}}
+</div>

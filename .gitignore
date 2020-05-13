@@ -9,6 +9,3 @@ dist
 
 # environment variables
 .env
-
-# config
-.vscode

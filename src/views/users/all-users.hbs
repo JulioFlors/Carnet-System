@@ -1,7 +1,7 @@
 <div class="row row-users">
     {{#each data}}
     <div class="col-md-2 col-users">
-        <div class="card card-users">
+        <div class="card card-users animate__animated animate__fadeInUp">
             <div class="card-body">
 
                 <h5 class="card-title">
@@ -11,7 +11,7 @@
                     </a>
                 </h5>
 
-                <p> Permisos de {{dataValues.permission}} </p>
+                <p class="card-text"> Permisos de {{dataValues.permission}} </p>
 
                 <!-- DELETE REQUEST -->
                 <form action="/users/delete/{{dataValues.id}}?_method=DELETE" method="POST">

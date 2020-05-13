@@ -42,7 +42,9 @@ export async function renderEdit(req, res) {
 
         if (data) {
             return res.render('users/edit-users', {
-                data
+                id: data.id,
+                usuario: data.username,
+                permission: data.permission
             });
         } else {
             req.flash('error_msg', 'No se pudo obtener los datos del usuario');

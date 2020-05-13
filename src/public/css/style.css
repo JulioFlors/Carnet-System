@@ -163,7 +163,7 @@ body::-webkit-scrollbar-thumb {
 
 /* ################################################ Navbar ################################################ */
 
-/* ################################################ /data ################################################ */
+/* ################################################ /data Staff ################################################ */
 /* ------------ Table ------------ */
 .table,
 .table .thead-dark th {
@@ -184,7 +184,7 @@ body::-webkit-scrollbar-thumb {
 	border-left-color: rgba(78, 78, 78, 1);
 }
 
-/* ################################################ /data ################################################ */
+/* ################################################ /data Staff ################################################ */
 
 /* ################################################ print window ################################################ */
 * {
@@ -324,7 +324,7 @@ body::-webkit-scrollbar-thumb {
 /* Center and scale the image nicely */
 .carnet .front {
 	width: 100%;
-	background-image: url(../img/templates/Red.png) !important;
+	background-color: white;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -461,12 +461,10 @@ body::-webkit-scrollbar-thumb {
 	transform: rotateY(180deg);
 	backface-visibility: hidden;
 
-	background-image: url(../img/templates/back.png) !important;
+	background-color: white;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-
-	/* background-color: white; */
 }
 
 .overlay {
@@ -828,7 +826,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .row-signin .card-body {
-	padding-top: 0rem;
+	padding-top: 1.3rem;
 }
 
 .row-signin .subtittle {
@@ -836,7 +834,6 @@ body::-webkit-scrollbar-thumb {
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 16px;
-	padding-bottom: 2rem;
 	margin: 0;
 	text-align: center;
 	letter-spacing: 0.75px;
@@ -873,7 +870,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .card-users .card-title {
-	margin: 0;
+	margin-bottom: 0.5rem;
 	padding: 0;
 	display: flex;
 	align-items: center;
@@ -890,3 +887,37 @@ body::-webkit-scrollbar-thumb {
 }
 
 /* ################################################ Render Users ################################################ */
+
+
+/* ################################################ Render TEMPLATES ################################################ */
+.row-template {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.img-template {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 2px 2px 0 0;
+}
+
+.col-template {
+	min-width: 16rem;
+	max-width: 16rem;
+	margin-left: 1rem;
+	margin-bottom: 1rem;
+	padding: 0;
+}
+
+/* .card-template {
+ 
+} */
+
+.card-template .card-title {
+	display: flex;
+	justify-content: space-between;
+}
+
+/* ################################################ Render TEMPLATES ################################################ */

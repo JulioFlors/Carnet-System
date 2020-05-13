@@ -1,0 +1,64 @@
+<div class="container container-signin">
+    <div class="row row-signin">
+        <div class="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-signin">
+
+            <div class="card">
+
+                <div class="card-header text-center">
+                    <img class="icon" src="/img/logos/icon.png" alt="Logo">
+                    <h3 class="tittle">Agregar Plantilla</h3>
+                </div>
+
+                <div class="card-body">
+                    <form action="/templates/add" method="POST" id="formTemplate" enctype="multipart/form-data">
+
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input required autofocus type="file" class="custom-file-input" name="photo"
+                                    id="formTemplate__photo">
+                                <label class="custom-file-label" id="file__label" for="formTemplate__photo">Seleccionar
+                                    Archivo</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input required {{#if title}} value="{{capitalize title}}" {{/if}} type="text"
+                                class="form-control" name="title" id="formTemplate__title" maxlength="25"
+                                autocomplete="off" placeholder="Titulo">
+                        </div>
+
+                        <div class="form-group">
+                            <input required {{#if description}} value="{{description}}" {{/if}} type="text"
+                                class="form-control" name="description" id="formTemplate__description" maxlength="50"
+                                autocomplete="off" placeholder="Descripción">
+                        </div>
+
+                        <div class="form-group">
+                            <select class="custom-select" name="orientation">
+                                {{#if orientation}}
+                                <option disabled>Uso seleccionado</option>
+                                <option selected value="{{orientation}}">{{orientation}}</option>
+                                <option disabled>Usos en el carnet</option>
+                                <option value="Front">Frente del carnet</option>
+                                <option value="Back">Dorso del carnet</option>
+                                {{else}}
+                                <option disabled selected>Usos en el carnet</option>
+                                <option value="Front">Frente</option>
+                                <option value="Back">Dorso</option>
+                                {{/if}}
+                            </select>
+                        </div>
+
+                        <div class="button">
+                            <button class="btn btn-success btn-block">
+                                Guardar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

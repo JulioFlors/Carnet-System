@@ -27,6 +27,7 @@ import userRoutes from './routes/user.routes'
 import staffRoutes from './routes/staff.routes'
 import carnetRoutes from './routes/carnet.routes'
 import sessionRoutes from './routes/session.routes'
+import templateRoutes from './routes/template.routes'
 
 // Initializations
 const app = express();
@@ -123,7 +124,6 @@ app.use((req, res, next) => {
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
     res.locals.user = req.user || null;
-    // res.locals.file = req.file || null;
     next();
 });
 
@@ -132,6 +132,7 @@ app.use('/', userRoutes);
 app.use('/', staffRoutes);
 app.use('/', carnetRoutes);
 app.use('/', sessionRoutes);
+app.use('/', templateRoutes);
 
 // Static Files
 app.use(express.static(path.join(__dirname, '/public')));
