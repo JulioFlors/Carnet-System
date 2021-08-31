@@ -232,6 +232,11 @@ body::-webkit-scrollbar-thumb {
 		position: relative !important;
 		transform: rotateY(180deg) !important;
 	}
+
+	.btn-form,
+	.btn-modal {
+		display: none;
+	}
 }
 
 /* ################################################ print window ################################################ */

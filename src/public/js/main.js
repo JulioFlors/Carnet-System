@@ -34,20 +34,21 @@ if (formSearch) {
 }
 
 if (form) {
-    const cedula = document.getElementById("form__cedula").value;
-    const firstname = document.getElementById("form__firstname").value;
-    const lastname = document.getElementById("form__lastname").value;
-    const department = document.getElementById("form__department").value;
-    const position = document.getElementById("form__position").value;
-    const expiration = document.getElementById("form__expiration").value;
-    const blood = document.getElementById("form__blood").value;
 
-    let space = ' ';
-    let ci = 'CI.';
-    let vence = 'Vence:';
-    let blood_type = 'Grupo sanguíneo:';
+    if (carnet) {
+        const cedula = document.getElementById("form__cedula").value;
+        const firstname = document.getElementById("form__firstname").value;
+        const lastname = document.getElementById("form__lastname").value;
+        const department = document.getElementById("form__department").value;
+        const position = document.getElementById("form__position").value;
+        const expiration = document.getElementById("form__expiration").value;
+        const blood = document.getElementById("form__blood").value;
 
-    if (cedula) {
+        let space = ' ';
+        let ci = 'CI.';
+        let vence = 'Vence:';
+        let blood_type = 'Grupo sanguíneo:';
+
         data__cedula.textContent = ci.concat(space, cedula);
         data__fullname.textContent = firstname.concat(space, lastname);
         data__department.textContent = department;

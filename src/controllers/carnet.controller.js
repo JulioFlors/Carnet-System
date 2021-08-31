@@ -1,4 +1,5 @@
 import Path from 'path'
+import fs from 'fs'
 import {
     unlink
 } from 'fs-extra'
@@ -426,13 +427,21 @@ export async function uploadPhoto(req, res) {
 
             if (errors.length > 0) {
                 try {
+
+                    console.log(Path.resolve('./src/public' + path));
+
                     // we delete from system
-                    await unlink(Path.resolve('./src/public/' + path));
+                    fs.unlinkSync(Path.resolve('./src/public' + path));
+
+                    req.flash('success_msg', 'Se elimino la foto del sistema correctamente');
+                    res.locals.success_msg = req.flash('success_msg');
+                    console.log('Se elimino la foto del sistema correctamente');
 
                     return renderErrorsData(req, res, errors, cedula, firstname, lastname, department, position, expiration, blood);
                 } catch (error) {
                     req.flash('error_msg', 'Error: No se pudo eliminar la Foto del Sistema, por favor eliminar manualmente!');
                     res.locals.error_msg = req.flash('error_msg');
+                    console.log('Error: No se pudo eliminar la Foto del Sistema, por favor eliminar manualmente!');
                     return renderErrorsData(req, res, errors, cedula, firstname, lastname, department, position, expiration, blood);
                 }
             } else {

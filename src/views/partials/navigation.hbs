@@ -15,7 +15,11 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/carnet/staff">Alcaldia</a>
+                    <a class="nav-link" href="/">Personal</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/carnet/staff">Carnet</a>
                 </li>
 
                 {{!-- {{#if (notRead user.dataValues.permission)}}
@@ -23,6 +27,8 @@
                     <a class="nav-link" href="/carnet/foreign">Foraneos</a>
                 </li>
                 {{/if}} --}}
+            </ul>
+            <ul class="navbar-nav ml-auto">
 
                 {{#if (isAdmin user.dataValues.permission)}}
                 <li class="nav-item dropdown">
@@ -39,8 +45,6 @@
                 </li>
                 {{/if}}
 
-            </ul>
-            <ul class="navbar-nav ml-auto">
                 {{#if (isAdmin user.dataValues.permission)}}
 
                 <li class="nav-item dropdown">

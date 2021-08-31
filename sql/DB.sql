@@ -61,34 +61,6 @@ CREATE TABLE IF NOT EXISTS racs (
   code_dep integer NOT NULL REFERENCES departments(code_dep) on update cascade on delete restrict
 );
 --------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS foreign_persons (
-  id serial NOT NULL PRIMARY KEY UNIQUE,
-  cedula integer NOT NULL UNIQUE,
-  first_name varchar(50) NOT NULL CHECK (first_name <> ''),
-  last_name varchar(50) NOT NULL CHECK (last_name <> ''),
-  blood_type varchar(10) NOT NULL,
-  Department varchar(255) NOT NULL,
-  job_title varchar(255) NOT NULL
-);
---------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS foreign_carnets (
-  id serial NOT NULL PRIMARY KEY UNIQUE,
-  cedula integer NOT NULL UNIQUE REFERENCES foreign_persons(cedula) on update cascade on delete cascade,
-  date_of_issue date NOT NULL,
-  date_of_expiration varchar (20) NOT NULL,
-  id_user integer NOT NULL REFERENCES users(id) on update cascade on delete restrict
-);
---------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS foreign_photos (
-  id serial NOT NULL PRIMARY KEY UNIQUE,
-  cedula integer NOT NULL UNIQUE REFERENCES foreign_persons(cedula) on update cascade on delete cascade,
-  filename varchar (100) NOT NULL CHECK (filename <> ''),
-  path varchar (100) NOT NULL CHECK (path <> ''),
-  originalname varchar (100) NOT NULL CHECK (originalname <> ''),
-  mimetype varchar (100) NOT NULL CHECK (mimetype <> ''),
-  size integer NOT NULL
-);
---------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS templates (
   id serial NOT NULL PRIMARY KEY UNIQUE,
   title varchar (100) NOT NULL UNIQUE CHECK (filename <> ''),
